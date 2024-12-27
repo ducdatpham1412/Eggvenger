@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.gindemit.rlottie": {
+      "version": "https://github.com/gindemit/unity-rlottie.git?path=/unity/RLottieUnity/Assets/LottiePlugin/#0.2.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "82e20a0008295f5fd1cc819c398a0e7a5bcfe731"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

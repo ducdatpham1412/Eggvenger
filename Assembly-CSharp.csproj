@@ -67,7 +67,12 @@
   <ItemGroup>
     <Compile Include="Assets/Scripts/Classes/Singleton.cs" />
     <Compile Include="Assets/Scripts/Utils/InputSecurity.cs" />
+    <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
+    <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/LocalizationManager.cs" />
+    <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
+    <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/Scripts/Utils/LocalizedText.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/GameManager.cs" />
@@ -580,6 +585,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library/PackageCache/com.unity.nuget.newtonsoft-json/Runtime/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>Library/PackageCache/com.gindemit.rlottie/ExternalDlls/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
@@ -1150,6 +1159,10 @@
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="LottiePlugin.Runtime">
+      <HintPath>Library/ScriptAssemblies/LottiePlugin.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Multiplayer.Center.Common">
       <HintPath>Library/ScriptAssemblies/Unity.Multiplayer.Center.Common.dll</HintPath>
       <Private>False</Private>
@@ -1168,6 +1181,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LottiePlugin.Editor">
+      <HintPath>Library/ScriptAssemblies/LottiePlugin.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
