@@ -23,6 +23,7 @@ public class WelcomeLogic : MonoBehaviour {
     private List<string> histories = new List<string>();
     // private CanvasName currentCanvas;
     public GameObject CreateAccountError;
+    private bool shouldAddNewCanvas = true;
 
 
     void Start() {
@@ -31,7 +32,12 @@ public class WelcomeLogic : MonoBehaviour {
 
 
     public void ShowCanvas(string canvasName) {
-        histories.Add(canvasName);
+        if (shouldAddNewCanvas) {
+            histories.Add(canvasName);
+        }
+        else {
+            shouldAddNewCanvas = true;
+        }
         foreach (CanvasEntry cv in canvases) {
             if (cv.name.ToString() == canvasName) {
                 cv.gameObject.SetActive(true);
@@ -46,6 +52,7 @@ public class WelcomeLogic : MonoBehaviour {
 
     public void GoBack() {
         if (histories.Count >= 2) {
+            shouldAddNewCanvas = false;
             histories.RemoveAt(histories.Count - 1);
             ShowCanvas(histories[histories.Count - 1]);
         }

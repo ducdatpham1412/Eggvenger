@@ -1,14 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum AudioClick {
+    KnockWood,
+    None,
+}
+
 public class ButtonManager : MonoBehaviour {
     public GameObject Title;
     public GameObject Loading;
     private Button button;
+    public AudioClick audioClick = AudioClick.KnockWood;
 
 
-    void Start() {
+    void Awake() {
         button = gameObject.GetComponent<Button>();
+
+        if (audioClick != AudioClick.None) {
+            button.onClick.AddListener(PlaySound);
+        }
+    }
+
+    private void PlaySound() {
+        if (audioClick == AudioClick.KnockWood) {
+            SoundManager.Instance.PlayKnowWood();
+        }
     }
 
     public void Disable() {

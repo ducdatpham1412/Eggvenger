@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8f6f0b8b847e04618b7f08f2c8a90668
+guid: 84a3ca7d79e8f478e82708b3d9f0769f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1137808488340228725
-    second: input_frame_0
+      213: 6195674290893004964
+    second: button-13_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,16 +96,29 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: input_frame_0
+      name: button-13_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 443
+        width: 351
         height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57a81f1bace4acf00800000000000000
-      internalID: 1137808488340228725
+      spriteID: 4a0a2b401f47bf550800000000000000
+      internalID: 6195674290893004964
       vertices: []
       indices: 
       edges: []
@@ -134,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      button-13_0: 6195674290893004964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
