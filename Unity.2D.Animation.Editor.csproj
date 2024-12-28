@@ -19,7 +19,7 @@
     <RootNamespace></RootNamespace>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Unity.2D.Animation.Editor</AssemblyName>
     <TargetFramework>netstandard2.1</TargetFramework>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -28,11 +28,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp/bin/Debug/</OutputPath>
-    <DefineConstants>UNITY_6000_0_29;UNITY_6000_0;UNITY_6000;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_2023_1_OR_NEWER;UNITY_2023_2_OR_NEWER;UNITY_2023_3_OR_NEWER;UNITY_6000_0_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_MARSHALLING_TESTS;ENABLE_VIDEO;ENABLE_NAVIGATION_OFFMESHLINK_TO_NAVMESHLINK;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;TEXTCORE_1_0_OR_NEWER;EDITOR_ONLY_NAVMESH_BUILDER_DEPRECATED;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;PLATFORM_HAS_CUSTOM_MUTEX;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER;UNITY_EDITOR_ONLY_COMPILATION</DefineConstants>
+    <DefineConstants>UNITY_6000_0_29;UNITY_6000_0;UNITY_6000;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_2023_1_OR_NEWER;UNITY_2023_2_OR_NEWER;UNITY_2023_3_OR_NEWER;UNITY_6000_0_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_MARSHALLING_TESTS;ENABLE_VIDEO;ENABLE_NAVIGATION_OFFMESHLINK_TO_NAVMESHLINK;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;TEXTCORE_1_0_OR_NEWER;EDITOR_ONLY_NAVMESH_BUILDER_DEPRECATED;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;PLATFORM_HAS_CUSTOM_MUTEX;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER;COLLECTIONS_2_0_OR_ABOVE;USE_NEW_EDITOR_ANALYTICS;ENABLE_UXML_SERIALIZED_DATA;ENABLE_RUNTIME_DATA_BINDINGS;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER;UNITY_EDITOR_ONLY_COMPILATION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,7 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoStandardLibraries>true</NoStandardLibraries>
@@ -65,114 +65,253 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/RigToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/BoneDrawingUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/SkeletonSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/SpriteResolverSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/ShortcutUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/UnselectTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/ICacheUndo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/CharacterPartCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SpriteCacheExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/VisibilityToolResizer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MeshTool/MeshTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/SpriteSwapVisualElement.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/AssociateBonesScope.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MeshPreviewTool/MeshPreviewBehaviour.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibrarySourceAssetFactory.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/MeshToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/ColorExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/WindowController.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Triangulation/Triangulator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/CategoryContainer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/WeightEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/SmoothingUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/IUndo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningModuleView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/BoneVisibilityToolInterface.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibrarySourceAsset/SpriteLibrarySourceAssetPropertyString.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningModule.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/ResourceLoader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Triangulation/ITriangulator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/Analytics.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/UndoScope.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SpriteCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/RectSelectionTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/IndexedSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/WeightInspector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/UI/AssetUpgraderWindow.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryUtilitiesEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteBoneInfluence/BoneSpriteInfluenceTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteSkin/TransformExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/GenerateWeightsPanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCopyUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/LayoutOverlay/LayoutOverlay.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/Utilities/UpgradeLogWriter.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/DragAndDropManipulator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/DisabledUndo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningSerializer/SkinningSerializerXML.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningSerializer/SkinningSerializerJSON.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibrarySourceAsset/SpriteLibrarySourceAssetImporterInspector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/ClipperLib/clipper.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/IRectSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/WindowEvents.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/TransformCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/AssetUpgrader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/MeshCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SelectionTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSelectionWidget.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/WeightsGenerator/BoundedBiharmonicWeightsGenerator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteSkin/BoneGizmo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryDataProvider.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MeshPreviewTool/MeshPreviewTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkinningCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/ModuleToolGroup.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/TextContent.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/ISkeletonView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/CharacterCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/SpriteSwapOverlay.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/DragAndDropData.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/SerializableSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/WeightPainterTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/SpriteMeshDataController.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/TransformCacheExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/CategoriesTab.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkeletonCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/ICircleSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/WeightInspectorIMGUIPanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteBoneInfluence/InfluenceWindow.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Cache/BaseObject.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkeletonTool/SkeletonStyles.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/GenerateGeometryTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/Utilities/UtilityStructures.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/BoneReparentTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/VisibilityTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkeletonTool/SkeletonTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/LayoutOverlay/LayoutOverlayUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/LayoutOverlay/DropdownMenu.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/CharacterModeTool/SwitchModeTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/WeightsGenerator/IWeightsGenerator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/DrawingUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/VisibilityToolColumnHeader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UserSettings.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/GUIWrapper.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteResolverInspector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/DefaultPoseScope.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/ISelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibrarySourceAsset/SpriteLibrarySourceAssetImporter.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryAssetDragAndDrop.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/SpriteMeshView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MeshTool/MeshToolWrapper.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/GenerateWeightsTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryInspector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/CustomElements/GridView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/Brush.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/Toolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/BoneTreeViewModel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/ModuleUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/OverlayToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SerializableDictionary.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/ITransformSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Cache/CacheObject.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/SpriteMeshData.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkinningEnums.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/EditorWindowElements.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/RectBoneSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/ISpriteMeshView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkeletonTool/SkeletonToolWrapper.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/AssemblyInfo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkinningCachePersistentState.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/GenericVertexSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/CustomElements/RenamableCollections.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/BoneInspectorPanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/BaseTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Cache/Cache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MathUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/RectVertexSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteSkin/BoneGizmoToggle.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/MeshPreviewTool/IMeshPreviewBehaviour.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/MeshVisibilityTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Triangulation/TriangulationUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/Utilities/ButtonStripField.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/OutlineGenerator/OutlineGenerator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/LabelsTab.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/BoneToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkeletonCacheExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/BatchedDrawing.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/LayoutOverlay/Manipulators/Draggable.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/EditableBoneWeightUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/DisableUndoScope.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteBoneInfluence/SpriteBoneInfluenceTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryAssetInspector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/Slider2D.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteOutlineRenderer/SpriteOutlineRenderer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/PoseToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/BaseUpgrader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/RectSlider.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/ICharacterDataProvider.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/ISelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/SpriteMeshController.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/BoneTreeViewController.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/OutlineGenerator/IOutlineGenerator.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/EditableBoneWeight.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/EditorIconUtility.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/SkeletonController.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpritePostProcess.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningSerializer/ISkinningSerializer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteSkin/SpriteSkinEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/BoneSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/PastePanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/PivotTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/SpriteLibraryEditorModel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/Unselector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SpriteMeshData/BoneWeightExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/WeightPainterToolWrapper.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/HorizontalToggleTools.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selection/IBoneSelection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/WeightToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/SpriteLibraryAssetPostprocessor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteSwapOverlay/LabelContainer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/CharacterPartCacheExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/LayoutOverlay/ScrollableToolbar.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/GenerateGeometryPanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/BoneVisibilityTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/SpriteLibraryEditorWindow.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/SpriteLibUpgrader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Selectors/CircleVertexSelector.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Undo/UnityEngineUndo.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/UpgradeTools/AnimClipUpgrader.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkeletonTool/SkeletonToolView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/MeshPreviewCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryPropertyString.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteSkin/BoneEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/IMGUI/SkeletonView.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/VisibilityToolBase.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/SkinningEvents.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/EditorUtilities.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/CopyTool.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/BoneCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/UI/WeightPainterPanel.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/SkinningCache/BoneCacheExtensions.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SpriteLib/SpriteLibraryEditor/UI/CustomElements/Dragger.cs" />
+    <Compile Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/VisibilityTool/SpriteVisibilityTool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/common.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/unityplastic.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Unity.Plastic.Antlr3.Runtime.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Unity.Plastic.Newtonsoft.Json.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/log4netPlastic.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/lz4x64Plastic.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/binmergetool.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/FileSystemWatcherLicense.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/basecommands.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/mergetool.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/i3.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/images.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/common.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/guihelp.es.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/clientcommon.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/semantic.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/configurehelper.ko.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/workspaceserver.en.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm-help.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/zlib64Plastic.dll" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/commontypes.ja.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/xdiff.zh-Hant.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/cm.zh-Hans.txt" />
-    <None Include="Library/PackageCache/com.unity.collab-proxy/Lib/Editor/Localization/differences.en.txt" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/CategoriesTab.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/LabelsTab.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/AssetUpgrader/AssetUpgrader.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/MeshToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightInspectorIMGUIPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneReparentWindow.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/SpriteBitmask.shader" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/InfluenceWindowStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/LabelsTab.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/EditorBottomToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/MeshToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PastePanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/CategoriesTab.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneInspectorPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PoseToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/LayoutOverlay/ScrollableToolbar.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/GenerateWeightsPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/ToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/SpriteLibraryEditorWindow.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/EditorTabHeader.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/EditorMainWindow.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/RigToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/AssetUpgrader/AssetUpgrader.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/LayoutOverlay/LayoutOverlay.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Lib/ARM64/BoundedBiharmonicWeightsModule.dll" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneToolbarStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/GenerateGeometryPanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/EditorTopToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/GenerateWeightsPanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/RigToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/SpriteLibraryEditorWindow.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/SkinningModule/Lib/x64/BoundedBiharmonicWeightsModule.dll" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PoseToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightPainterPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/SpriteOutline.shader" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/GenerateGeometryPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PivotInspectorPanelStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneInspectorPanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PastePanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/BoneReparentStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/VisibilityToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/VisibilityTool.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/LayoutOverlay/LayoutOverlayStyle.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/SpriteEdgeOutline.shader" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/VisibilityToolWindow.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightToolbar.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/PivotInspectorPanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/InfluenceWindow.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteSwap/SpriteSwapOverlay.uss" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightPainterPanel.uxml" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Unity.2D.Animation.Editor.asmdef" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SkinningModule/SkinningModule-GUITextureClip.shader" />
+    <None Include="Library/PackageCache/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/GridView.uss" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1227,183 +1366,30 @@
       <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/Facades/netstandard.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.2D.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.2D.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor.Shared">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.Shared.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Multiplayer.Center.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Rendering.LightTransport.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.Rendering.LightTransport.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Config.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LottiePlugin.Runtime">
-      <HintPath>Library/ScriptAssemblies/LottiePlugin.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Multiplayer.Center.Common">
-      <HintPath>Library/ScriptAssemblies/Unity.Multiplayer.Center.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LottiePlugin.Editor">
-      <HintPath>Library/ScriptAssemblies/LottiePlugin.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Rendering.LightTransport.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.Rendering.LightTransport.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj" />
+    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj" />
+    <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj" />
+    <ProjectReference Include="Unity.2D.Common.Editor.csproj" />
+    <ProjectReference Include="Unity.2D.Common.Runtime.csproj" />
+    <ProjectReference Include="Unity.2D.Animation.Runtime.csproj" />
+    <ProjectReference Include="Unity.Mathematics.csproj" />
+    <ProjectReference Include="Unity.Burst.csproj" />
+    <ProjectReference Include="Unity.Collections.csproj" />
     <ProjectReference Include="UnityEngine.TestRunner.csproj" />
     <ProjectReference Include="UnityEditor.TestRunner.csproj" />
-    <ProjectReference Include="Unity.InputSystem.ForUI.csproj" />
-    <ProjectReference Include="Unity.Addressables.Editor.csproj" />
-    <ProjectReference Include="Unity.Searcher.Editor.csproj" />
-    <ProjectReference Include="Unity.Rider.Editor.csproj" />
-    <ProjectReference Include="PsdPlugin.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.csproj" />
-    <ProjectReference Include="Unity.2D.Common.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Common.Path.Editor.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEditorBridge.003.csproj" />
-    <ProjectReference Include="Unity.2D.IK.Editor.csproj" />
-    <ProjectReference Include="Unity.ResourceManager.csproj" />
-    <ProjectReference Include="Unity.2D.IK.Runtime.csproj" />
-    <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj" />
-    <ProjectReference Include="Unity.Notifications.Unified.csproj" />
-    <ProjectReference Include="Unity.Timeline.Editor.csproj" />
-    <ProjectReference Include="Unity.Timeline.csproj" />
-    <ProjectReference Include="Unity.Notifications.Android.csproj" />
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Aseprite.Editor.csproj" />
-    <ProjectReference Include="Unity.ScriptableBuildPipeline.Editor.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Extension.csproj" />
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.Profiler.Editor.csproj" />
-    <ProjectReference Include="Unity.Mobile.AndroidLogcat.Editor.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Animation.Editor.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj" />
-    <ProjectReference Include="Unity.ScriptableBuildPipeline.csproj" />
-    <ProjectReference Include="Unity.VectorGraphics.Editor.csproj" />
-    <ProjectReference Include="Unity.Collections.csproj" />
-    <ProjectReference Include="Unity.Addressables.csproj" />
-    <ProjectReference Include="Unity.2D.PixelPerfect.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Core.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj" />
-    <ProjectReference Include="Unity.2D.Aseprite.Common.csproj" />
-    <ProjectReference Include="Unity.2D.Animation.Runtime.csproj" />
-    <ProjectReference Include="Unity.Collections.Editor.csproj" />
-    <ProjectReference Include="Unity.Profiling.Core.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj" />
-    <ProjectReference Include="Unity.Notifications.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj" />
-    <ProjectReference Include="Unity.2D.Common.Runtime.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj" />
-    <ProjectReference Include="Unity.Mathematics.csproj" />
-    <ProjectReference Include="Unity.AdaptivePerformance.UI.Editor.csproj" />
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.003.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.State.csproj" />
-    <ProjectReference Include="Unity.Localization.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.SpriteShape.Editor.csproj" />
-    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj" />
-    <ProjectReference Include="Unity.Burst.Editor.csproj" />
-    <ProjectReference Include="Unity.VectorGraphics.csproj" />
-    <ProjectReference Include="Unity.2D.PixelPerfect.csproj" />
-    <ProjectReference Include="Unity.Burst.csproj" />
-    <ProjectReference Include="Unity.VisualStudio.Editor.csproj" />
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj" />
-    <ProjectReference Include="Unity.Localization.csproj" />
-    <ProjectReference Include="Unity.Notifications.iOS.csproj" />
-    <ProjectReference Include="Unity.InputSystem.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
