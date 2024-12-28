@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Localization.Settings;
 
 
 public class GameManager : Singleton<GameManager> {
@@ -8,7 +6,6 @@ public class GameManager : Singleton<GameManager> {
 
     public Sprite[] listBackgrounds;
     private SpriteRenderer spriteRenderer;
-    private bool active = false;
 
 
     private void FitTheScreen() {
@@ -38,19 +35,5 @@ public class GameManager : Singleton<GameManager> {
             spriteRenderer.sprite = listBackgrounds[indexBg];
             FitTheScreen();
         }
-    }
-
-
-    public void SetLocale(int localeID) {
-        if (active) {
-            return;
-        }
-        IEnumerator _SetLocale(int localeID) {
-            active = true;
-            yield return LocalizationSettings.InitializationOperation;
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
-            active = false;
-        }
-        StartCoroutine(_SetLocale(localeID));
     }
 }
