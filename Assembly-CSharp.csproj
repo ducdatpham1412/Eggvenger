@@ -72,6 +72,7 @@
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />

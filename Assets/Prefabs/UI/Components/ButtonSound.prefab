@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 8180576287413241301}
   - component: {fileID: 5397595410572086687}
   - component: {fileID: 7553810041993644116}
+  - component: {fileID: 7425639522412715004}
   m_Layer: 0
   m_Name: ButtonSound
   m_TagString: Untagged
@@ -202,3 +203,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7425639522412715004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622327342941941321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be2f5486b15c4a7182b95a806998153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconSound: {fileID: 2800000, guid: 6ebb53c8b7e254ca0b9143d7c272de4e, type: 3}
+  IconSoundMute: {fileID: 2800000, guid: 9c9835668209347eb8fd0024eb96425e, type: 3}
