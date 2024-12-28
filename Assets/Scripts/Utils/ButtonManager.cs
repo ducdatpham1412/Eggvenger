@@ -1,3 +1,4 @@
+using LottiePlugin.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +13,17 @@ public class ButtonManager : MonoBehaviour {
     public GameObject Loading;
     private Button button;
     public AudioClick audioClick = AudioClick.KnockWood;
+    private AnimatedImage animatedImage;
 
 
     void Awake() {
         button = gameObject.GetComponent<Button>();
-
         if (audioClick != AudioClick.None) {
             button.onClick.AddListener(PlaySound);
+        }
+
+        if (Loading != null) {
+            animatedImage = Loading.GetComponent<AnimatedImage>();
         }
     }
 
@@ -45,6 +50,7 @@ public class ButtonManager : MonoBehaviour {
         if (Loading != null && Title != null) {
             Title.SetActive(false);
             Loading.SetActive(true);
+            animatedImage.Play();
         }
     }
     public void StopLoading() {
@@ -52,6 +58,7 @@ public class ButtonManager : MonoBehaviour {
         if (Loading != null && Title != null) {
             Title.SetActive(true);
             Loading.SetActive(false);
+            animatedImage.Stop();
         }
     }
 }
