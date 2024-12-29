@@ -9,7 +9,7 @@ public class ButtonSound : MonoBehaviour {
     private bool playing = true;
 
 
-    void Awake() {
+    void Start() {
         Transform iconSound = transform.Find("IconSound");
         if (iconSound != null) {
             iconSoundImg = iconSound.GetComponent<RawImage>();

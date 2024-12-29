@@ -65,20 +65,22 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/Common/GameManager.cs" />
+    <Compile Include="Assets/Scripts/Utils/ImageLoader.cs" />
     <Compile Include="Assets/Scripts/Classes/Singleton.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonSound.cs" />
     <Compile Include="Assets/Scripts/Utils/InputSecurity.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
-    <Compile Include="Assets/Scripts/LocalizationManager.cs" />
+    <Compile Include="Assets/Scripts/Common/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
+    <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
+    <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
-    <Compile Include="Assets/Scripts/SoundManager.cs" />
     <Compile Include="Assets/Scripts/Classes/MonoBehaviorSingleton.cs" />
-    <Compile Include="Assets/Scripts/GameManager.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
   </ItemGroup>
   <ItemGroup>

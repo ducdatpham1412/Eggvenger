@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 308e08695304541b7a0e30d57c231b3c
+guid: 53c2711f3a94a41278bc6e788387c2cf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2553025282947092482
-    second: ic_eye_0
+      213: -5638851957554891294
+    second: ic_gold_medal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ic_eye_0
+      name: ic_gold_medal_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 7
-        width: 46
-        height: 34
+        x: 0
+        y: 0
+        width: 66
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: effe85b1805d19cd0800000000000000
-      internalID: -2553025282947092482
+      spriteID: 2e5bce04506ceb1b0800000000000000
+      internalID: -5638851957554891294
       vertices: []
       indices: 
       edges: []
