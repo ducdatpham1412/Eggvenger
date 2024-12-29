@@ -13,7 +13,7 @@ public class AmountEggs : MonoBehaviour {
 
     void Start() {
         text = GetComponent<Text>();
-        text.text = GameManager.Instance.ProfileState.eggs.ToString();
+        text.text = GameManager.Instance.profileState.eggs.ToString();
         GameManager.Instance.ListenProfileChanged(UpdateProfile);
     }
 

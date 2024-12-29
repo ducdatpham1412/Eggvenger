@@ -13,6 +13,11 @@ public class ImageLoader : MonoBehaviour {
         }
     }
 
+    public void SetImageUrl(string url) {
+        ImageUrl = url;
+        StartCoroutine(DownloadImage(ImageUrl));
+    }
+
     private IEnumerator DownloadImage(string url) {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();

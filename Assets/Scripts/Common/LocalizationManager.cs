@@ -1,9 +1,16 @@
 using System.Collections;
+using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
+
 
 
 public class LocalizationManager : Singleton<LocalizationManager> {
     protected LocalizationManager() { }
+
+    public enum Table {
+        Home,
+        Welcome,
+    }
 
     private bool active = false;
 
