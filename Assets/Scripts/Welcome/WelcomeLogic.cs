@@ -57,4 +57,9 @@ public class WelcomeLogic : MonoBehaviour {
             ShowCanvas(histories[histories.Count - 1]);
         }
     }
+
+
+    public void PauseUnPauseMusicBackground() {
+        SoundManager.Instance.PauseUnPauseMusicBackground();
+    }
 }

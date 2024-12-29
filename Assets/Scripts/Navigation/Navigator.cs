@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Navigator : Singleton<Navigator> {
@@ -9,11 +8,22 @@ public class Navigator : Singleton<Navigator> {
         GameOverview,
         ThrowEgg,
     }
-    private List<string> history = new List<string>();
+    private List<string> histories = new List<string>();
 
     public void NavigateTo(Scene scene) {
         string temp = scene.ToString();
-        history.Add(temp);
+        histories.Add(temp);
         SceneManager.LoadScene(temp);
+    }
+
+    public void GoBack() {
+        if (CanGoBack()) {
+            histories.RemoveAt(histories.Count - 1);
+            SceneManager.LoadScene(histories[histories.Count - 1]);
+        }
+    }
+
+    public bool CanGoBack() {
+        return histories.Count >= 2;
     }
 }
