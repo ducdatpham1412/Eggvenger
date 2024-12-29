@@ -11,7 +11,7 @@ public class CreateAccountLogic : MonoBehaviour {
 
     public void onChangeUsername(string value) {
         username = value;
-        if (CreateAccountError.activeInHierarchy) {
+        if (CreateAccountError != null && CreateAccountError.activeInHierarchy) {
             CreateAccountError.SetActive(false);
         }
     }
@@ -20,20 +20,37 @@ public class CreateAccountLogic : MonoBehaviour {
         password = value;
     }
 
+    public void onChangePlayerName(string value) {
+        username = value;
+    }
+
     private IEnumerator PerformCreateAccount() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         buttonManager.StopLoading();
         welcomeLogic.ShowCanvas(CanvasName.EnterName.ToString());
     }
 
+    private IEnumerator PerformChangePlayerName() {
+        yield return new WaitForSeconds(3f);
+        buttonManager.StopLoading();
+        Navigator.Instance.NavigateTo(Navigator.Scene.Home);
+    }
 
     public void CreateAccount() {
         Debug.Log($"Create account\nUsername: {username}\nPassword: {password}");
         if (username.Length < 8) {
-            CreateAccountError.SetActive(true);
+            if (CreateAccountError != null) {
+                CreateAccountError.SetActive(true);
+            }
             return;
         }
         buttonManager.StartLoading();
         StartCoroutine(PerformCreateAccount());
+    }
+
+    public void ChangePlayerName() {
+        Debug.Log($"Change player's name: {username}");
+        buttonManager.StartLoading();
+        StartCoroutine(PerformChangePlayerName());
     }
 }

@@ -17,6 +17,7 @@ public class LoginLogic : MonoBehaviour {
     private IEnumerator PerformLogin() {
         yield return new WaitForSeconds(2f);
         buttonManager.StopLoading();
+        Navigator.Instance.NavigateTo(Navigator.Scene.Home);
     }
 
     public void Login() {

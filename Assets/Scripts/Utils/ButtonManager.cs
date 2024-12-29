@@ -1,3 +1,4 @@
+using System.Collections;
 using LottiePlugin.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,10 +39,16 @@ public class ButtonManager : MonoBehaviour {
             button.interactable = false;
         }
     }
+
     public void Enable() {
         if (button != null) {
             button.interactable = true;
         }
+    }
+
+    private IEnumerator WaitAndPlay() {
+        yield return new WaitUntil(() => animatedImage.isActiveAndEnabled);
+        animatedImage.Play();
     }
 
 
@@ -50,7 +57,7 @@ public class ButtonManager : MonoBehaviour {
         if (Loading != null && Title != null) {
             Title.SetActive(false);
             Loading.SetActive(true);
-            animatedImage.Play();
+            StartCoroutine(WaitAndPlay());
         }
     }
     public void StopLoading() {
