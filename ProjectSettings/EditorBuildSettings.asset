@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Home.unity
     guid: d41552605088944ccbc7eb794d282671
+  - enabled: 1
+    path: Assets/Scenes/TeamFormation.unity
+    guid: 569941dba91d94e9ba69d015a4ea9cc3
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 818fd7c61ee344de49b1ed1066b19cfd, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 5a2f77de8d9a143a98023c0e418016da, type: 2}

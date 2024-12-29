@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: "Ch\u01A1i ngay"
     m_Metadata:
       m_Items: []
+  - m_Id: 806958461345792
+    m_Localized: "T\xECm tr\u1EADn"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

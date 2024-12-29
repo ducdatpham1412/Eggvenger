@@ -5,8 +5,10 @@ public class Navigator : Singleton<Navigator> {
     public enum Scene {
         Welcome,
         Home,
+        TeamFormation,
         GameOverview,
         ThrowEgg,
+        Profile,
     }
     private List<string> histories = new List<string>();
 
