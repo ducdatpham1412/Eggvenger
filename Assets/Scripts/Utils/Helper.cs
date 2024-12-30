@@ -12,4 +12,10 @@ public static class Helper {
         }
         return null;
     }
+
+
+    public static void SetImageUrl(Transform gameObject, string url) {
+        ImageLoader imageLoader = gameObject.GetComponent<ImageLoader>();
+        imageLoader.SetImageUrl(url);
+    }
 }
