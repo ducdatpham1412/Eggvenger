@@ -80,8 +80,12 @@
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
+    <Compile Include="Assets/Scripts/TeamFormation/TeamFormationLogic.cs" />
+    <Compile Include="Assets/Scripts/Classes/Serializable/Profile.cs" />
     <Compile Include="Assets/Scripts/Classes/MonoBehaviorSingleton.cs" />
+    <Compile Include="Assets/Scripts/Utils/Helper.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

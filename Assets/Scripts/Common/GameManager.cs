@@ -1,22 +1,28 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
-
-[Serializable]
-public class Profile {
-    public string name;
-    public int eggs;
-}
 
 
 public class GameManager : Singleton<GameManager> {
     protected GameManager() { }
 
+    // Background
     public Sprite[] listBackgrounds;
     private SpriteRenderer spriteRenderer;
-    public Profile ProfileState = new Profile { name = "Duc Dat", eggs = 99 };
 
+    // State profile
+    public Profile profileState = new Profile {
+        name = "Duc Dat",
+        avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
+        eggs = 99
+    };
     private event Action<Profile> OnProfileChanged;
+
+
+    // GameState
+    public GameState gameState;
+    private event Action<GameState> OnGameStateChanged;
 
 
     private void FitTheScreen() {
@@ -48,15 +54,53 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
+
     public void UpdateProfile(Profile newState) {
-        ProfileState = newState;
-        OnProfileChanged?.Invoke(ProfileState);
+        profileState = newState;
+        OnProfileChanged?.Invoke(profileState);
     }
     public void ListenProfileChanged(Action<Profile> listener) {
         OnProfileChanged += listener;
     }
     public void RemoveListenProfileChanged(Action<Profile> listener) {
         OnProfileChanged -= listener;
+    }
+
+
+    private IEnumerator CountUpCoroutine() {
+        UpdateGameState(new GameState {
+            status = GameState.Status.findingMatch,
+            data = new FindingMatchState {
+                secondsElapsed = 0,
+            }
+        });
+
+        FindingMatchState data = (FindingMatchState)gameState.data;
+
+        while (gameState.status == GameState.Status.findingMatch) {
+            yield return new WaitForSeconds(1f);
+            data.secondsElapsed++;
+            UpdateGameState(gameState);
+        }
+    }
+    public void UpdateGameState(GameState state) {
+        gameState = state;
+        OnGameStateChanged?.Invoke(gameState);
+    }
+    public void ListenGameStateChanged(Action<GameState> listener) {
+        OnGameStateChanged += listener;
+    }
+    public void RemoveListenGameStateChanged(Action<GameState> listener) {
+        OnGameStateChanged -= listener;
+    }
+    public void StartCountUp() {
+        StartCoroutine(CountUpCoroutine());
+    }
+    public void StopCountUp() {
+        gameState = new GameState {
+            status = GameState.Status.none,
+            data = new object(),
+        };
     }
 }
 

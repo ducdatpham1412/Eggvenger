@@ -12,11 +12,13 @@ public class SoundManager : Singleton<SoundManager> {
 
 
     public void PauseUnPauseMusicBackground() {
-        if (musicBackground.isPlaying) {
-            musicBackground.Pause();
-        }
-        else {
-            musicBackground.UnPause();
+        if (musicBackground != null) {
+            if (musicBackground.isPlaying) {
+                musicBackground.Pause();
+            }
+            else {
+                musicBackground.UnPause();
+            }
         }
     }
 
