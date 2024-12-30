@@ -7,7 +7,7 @@ public class Navigator : Singleton<Navigator> {
         Home,
         TeamFormation,
         GameOverview,
-        ThrowEgg,
+        GameThrowEgg,
         Profile,
     }
     private List<string> histories = new List<string>();

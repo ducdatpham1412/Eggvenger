@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Vietnamese (vi)
   m_GUID: 02c4096d07e1a475897bff4c25fcb9e5
   m_SerializeEntries:
+  - m_GUID: 9548067e430884ec0abb445e0cf27718
+    m_Address: Game_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3d1061344322429ea725ca54e1f0bf5
     m_Address: Home_vi
     m_ReadOnly: 1
