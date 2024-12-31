@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-
-
 public class GameManager : Singleton<GameManager> {
     protected GameManager() { }
 
@@ -11,13 +9,29 @@ public class GameManager : Singleton<GameManager> {
     public Sprite[] listBackgrounds;
     private SpriteRenderer spriteRenderer;
 
-    // State profile
-    public Profile profileState = new Profile {
-        name = "Duc Dat",
-        avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
-        eggs = 99
+    // AppState
+    public AppState appState = new AppState {
+        profile = new Profile {
+            name = "Duc Dat",
+            avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
+            eggs = 99
+        },
+        resource = new Resource {
+            backgrounds = new string[] {
+                "https://www.seekpng.com/png/small/115-1150622_avatar-demo2x-man-avatar-icon-png.png",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG7ZHHUdN_3p6I5EAb0khNR1ESNmRw_z-vLgs-qma5nH4xSxAGC38uSZ9rldLMUTmGkfw&usqp=CAU",
+                "https://user-images.githubusercontent.com/5709133/50445980-88299a80-0912-11e9-962a-6fd92fd18027.png",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aZnsestsA7FsrvvOF-dFwvfNJx1VphgRRISfSQDYV1lzclKTTCu5wnFuUKXDpLq6FUM&usqp=CAU"
+            },
+        },
+        account = new Account {
+            username = "Test username",
+            password = "Test password",
+            token = "",
+            refresh_token = ""
+        }
     };
-    private event Action<Profile> OnProfileChanged;
+    private event Action<AppState> OnAppStateChanged;
 
 
     // GameState
@@ -55,15 +69,15 @@ public class GameManager : Singleton<GameManager> {
     }
 
 
-    public void UpdateProfile(Profile newState) {
-        profileState = newState;
-        OnProfileChanged?.Invoke(profileState);
+    public void UpdateAppState(AppState newState) {
+        appState = newState;
+        OnAppStateChanged?.Invoke(appState);
     }
-    public void ListenProfileChanged(Action<Profile> listener) {
-        OnProfileChanged += listener;
+    public void ListenAppStateChanged(Action<AppState> listener) {
+        OnAppStateChanged += listener;
     }
-    public void RemoveListenProfileChanged(Action<Profile> listener) {
-        OnProfileChanged -= listener;
+    public void RemoveListenAppStateChanged(Action<AppState> listener) {
+        OnAppStateChanged -= listener;
     }
 
 

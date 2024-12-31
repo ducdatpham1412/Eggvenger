@@ -14,7 +14,7 @@ public class TeamFormationLogic : MonoBehaviour {
 
 
     void Start() {
-        Profile profile = GameManager.Instance.profileState;
+        Profile profile = GameManager.Instance.appState.profile;
         if (ItemPlayerFormation != null && profile != null) {
             Text name = ItemPlayerFormation.transform.Find("Name").GetComponent<Text>();
             Transform avatar = Helper.FindChildRecursive(ItemPlayerFormation.transform, "Avatar");

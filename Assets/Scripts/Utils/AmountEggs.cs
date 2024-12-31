@@ -5,20 +5,20 @@ public class AmountEggs : MonoBehaviour {
     private Text text;
 
 
-    private void UpdateProfile(Profile newState) {
+    private void UpdateProfile(AppState newState) {
         if (text != null) {
-            text.text = newState.eggs.ToString();
+            text.text = newState.profile.eggs.ToString();
         }
     }
 
     void Start() {
         text = GetComponent<Text>();
-        text.text = GameManager.Instance.profileState.eggs.ToString();
-        GameManager.Instance.ListenProfileChanged(UpdateProfile);
+        text.text = GameManager.Instance.appState.profile.eggs.ToString();
+        GameManager.Instance.ListenAppStateChanged(UpdateProfile);
     }
 
 
     void OnDestroy() {
-        GameManager.Instance.RemoveListenProfileChanged(UpdateProfile);
+        GameManager.Instance.RemoveListenAppStateChanged(UpdateProfile);
     }
 }
