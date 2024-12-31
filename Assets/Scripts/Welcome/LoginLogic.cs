@@ -15,6 +15,7 @@ public class LoginLogic : MonoBehaviour {
     }
 
     private IEnumerator PerformLogin() {
+        Debug.Log($"Start login\nUsername: {username}\nPassword: {password}");
         yield return new WaitForSeconds(2f);
         buttonManager.StopLoading();
         Navigator.Instance.NavigateTo(Navigator.Scene.Home);
@@ -23,6 +24,5 @@ public class LoginLogic : MonoBehaviour {
     public void Login() {
         buttonManager.StartLoading();
         StartCoroutine(PerformLogin());
-        Debug.Log($"Start login\nUsername: {username}\nPassword: {password}");
     }
 }

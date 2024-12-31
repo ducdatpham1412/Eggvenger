@@ -67,6 +67,10 @@ MonoBehaviour:
     m_Key: yourRank
     m_Metadata:
       m_Items: []
+  - m_Id: 343723807334400
+    m_Key: indexName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

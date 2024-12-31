@@ -1,5 +1,3 @@
-using System.Collections;
-using LottiePlugin.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,20 +9,15 @@ public enum AudioClick {
 
 public class ButtonManager : MonoBehaviour {
     public GameObject Title;
-    public GameObject Loading;
     private Button button;
     public AudioClick audioClick = AudioClick.KnockWood;
-    private AnimatedImage animatedImage;
+    public LoadingManager loadingManager;
 
 
-    void Awake() {
+    void Start() {
         button = gameObject.GetComponent<Button>();
         if (audioClick != AudioClick.None) {
             button.onClick.AddListener(PlaySound);
-        }
-
-        if (Loading != null) {
-            animatedImage = Loading.GetComponent<AnimatedImage>();
         }
     }
 
@@ -46,26 +39,18 @@ public class ButtonManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator WaitAndPlay() {
-        yield return new WaitUntil(() => animatedImage.isActiveAndEnabled);
-        animatedImage.Play();
-    }
-
-
     public void StartLoading() {
         Disable();
-        if (Loading != null && Title != null) {
+        if (loadingManager != null) {
             Title.SetActive(false);
-            Loading.SetActive(true);
-            StartCoroutine(WaitAndPlay());
+            loadingManager.StartLoading();
         }
     }
     public void StopLoading() {
         Enable();
-        if (Loading != null && Title != null) {
+        if (loadingManager != null && Title != null) {
             Title.SetActive(true);
-            Loading.SetActive(false);
-            animatedImage.Stop();
+            loadingManager.StopLoading();
         }
     }
 }

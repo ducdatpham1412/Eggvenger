@@ -15,5 +15,7 @@ public class Profile {
     public string name;
     public string avatar;
     public int eggs;
+    public int ranking;
+    public int localeID;
 }
 

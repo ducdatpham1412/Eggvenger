@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/Common/GameManager.cs" />
+    <Compile Include="Assets/Scripts/Utils/Configs.cs" />
     <Compile Include="Assets/Scripts/Utils/ImageLoader.cs" />
     <Compile Include="Assets/Scripts/Classes/Singleton.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonSound.cs" />
@@ -86,9 +87,11 @@
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
     <Compile Include="Assets/Scripts/TeamFormation/TeamFormationLogic.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/Profile.cs" />
+    <Compile Include="Assets/Scripts/Profile/LeaderBoardLogic.cs" />
     <Compile Include="Assets/Scripts/Profile/AccountInfoLogic.cs" />
     <Compile Include="Assets/Scripts/Classes/MonoBehaviorSingleton.cs" />
     <Compile Include="Assets/Scripts/Utils/Helper.cs" />
+    <Compile Include="Assets/Scripts/Utils/LoadingManager.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
   </ItemGroup>

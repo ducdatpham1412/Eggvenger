@@ -5,6 +5,10 @@ public class ProfileLogic : MonoBehaviour {
     public GameObject SettingDialog;
     public Transform Avatar;
     public Text Name;
+    public Image EnglishButton;
+    public Image VietnameseButton;
+
+    private Color yellow;
 
 
     void Start() {
@@ -15,6 +19,10 @@ public class ProfileLogic : MonoBehaviour {
         if (Name != null) {
             Name.text = profile.name;
         }
+        yellow = Helper.ColorFromHex(Configs.Color.yellow);
+
+        EnglishButton.color = profile.localeID == Configs.LocaleID.En ? yellow : Color.white;
+        VietnameseButton.color = profile.localeID == Configs.LocaleID.Vi ? yellow : Color.white;
     }
 
     public void GoBack() {
@@ -43,5 +51,15 @@ public class ProfileLogic : MonoBehaviour {
 
     public void LogOut() {
         Navigator.Instance.NavigateTo(Navigator.Scene.Welcome);
+    }
+
+    public void SetLocale(int localeID) {
+        LocalizationManager.Instance.SetLocale(localeID);
+        AppState appState = GameManager.Instance.appState;
+        appState.profile.localeID = localeID;
+        GameManager.Instance.UpdateAppState(appState);
+
+        EnglishButton.color = appState.profile.localeID == Configs.LocaleID.En ? yellow : Color.white;
+        VietnameseButton.color = appState.profile.localeID == Configs.LocaleID.Vi ? yellow : Color.white;
     }
 }
