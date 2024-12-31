@@ -74,6 +74,7 @@
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/Common/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Profile/ProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
