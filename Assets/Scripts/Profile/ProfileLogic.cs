@@ -8,7 +8,7 @@ public class ProfileLogic : MonoBehaviour {
 
 
     void Start() {
-        Profile profile = GameManager.Instance.profileState;
+        Profile profile = GameManager.Instance.appState.profile;
         if (Avatar != null) {
             Helper.SetImageUrl(Avatar, profile.avatar);
         }
