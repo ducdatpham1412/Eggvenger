@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7735982008190041335}
   - component: {fileID: 8024360466698665709}
   - component: {fileID: 7636681280791422373}
+  - component: {fileID: 8537372537451535009}
+  - component: {fileID: 108545159036003181}
   m_Layer: 5
   m_Name: LottieLoading
   m_TagString: Untagged
@@ -86,9 +88,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationJson: {fileID: 4900000, guid: cb2e9c5fbd4d849ec8348d20caa23e17, type: 3}
-  _rawImage: {fileID: 0}
+  _rawImage: {fileID: 8024360466698665709}
   _animationSpeed: 1
   _textureWidth: 128
   _textureHeight: 128
-  _playOnAwake: 1
+  _playOnAwake: 0
   _loop: 1
+--- !u!114 &8537372537451535009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472152934227057513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cee72cc67ceb4f6b812088da067e7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &108545159036003181
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472152934227057513}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

@@ -14,7 +14,9 @@ public class GameManager : Singleton<GameManager> {
         profile = new Profile {
             name = "Duc Dat",
             avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
-            eggs = 99
+            eggs = 99,
+            ranking = 9,
+            localeID = 0,
         },
         resource = new Resource {
             backgrounds = new string[] {

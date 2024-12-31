@@ -66,12 +66,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2032193757184
-    m_Localized: Leader board
+    m_Localized: Leaderboard
     m_Metadata:
       m_Items:
       - rid: 1220104545343373487
   - m_Id: 2180995080192
     m_Localized: 'Your rank: #{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343723807334400
+    m_Localized: '{0}. {1}'
     m_Metadata:
       m_Items: []
   references:

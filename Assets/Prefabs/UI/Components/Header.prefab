@@ -167,7 +167,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 69.9466, y: -30}
-  m_SizeDelta: {x: 37.7923, y: 30}
+  m_SizeDelta: {x: 39, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4669270662420067049
 CanvasRenderer:
@@ -367,7 +367,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1155018112528119223}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -423,7 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158341091815873316}
   - component: {fileID: 6738662167546743558}
-  - component: {fileID: 6912219783547123431}
+  - component: {fileID: 7788825052980286843}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -458,7 +458,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4889944246846261638}
   m_CullTransparentMesh: 1
---- !u!114 &6912219783547123431
+--- !u!114 &7788825052980286843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4889944246846261638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: ef8b96895a0ec4ba685178a052544251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -478,13 +478,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 53c2711f3a94a41278bc6e788387c2cf, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 3286163911610860551, guid: 3b5d7d04d9c844b05b165cefc782acf8, type: 3}
+  m_PreserveAspect: 1
 --- !u!1 &6647617997136505229
 GameObject:
   m_ObjectHideFlags: 0

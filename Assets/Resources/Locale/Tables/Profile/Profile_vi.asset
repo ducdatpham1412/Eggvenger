@@ -74,6 +74,10 @@ MonoBehaviour:
     m_Localized: "X\u1EBFp h\u1EA1ng c\u1EE7a b\u1EA1n: #{0}"
     m_Metadata:
       m_Items: []
+  - m_Id: 343723807334400
+    m_Localized: '{0}. {1}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
