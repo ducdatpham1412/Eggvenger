@@ -9,8 +9,9 @@ public class FindingMatchState {
 
 
 [Serializable]
-public class InGameState {
-    public int secondsElapsed;
+public class MatchState {
+    public string id;
+
 }
 
 
@@ -23,5 +24,12 @@ public class GameState {
         inGame,
     }
     public Status status;
-    public object data; // typeof data = FindingMatchState | InGameState
+    public object data; // typeof data = FindingMatchState | MatchState
+}
+
+
+[Serializable]
+public class World {
+    public float maxX;
+    public float maxY;
 }
