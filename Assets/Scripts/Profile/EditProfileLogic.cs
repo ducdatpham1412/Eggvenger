@@ -20,14 +20,13 @@ public class EditProfileLogic : MonoBehaviour {
     public ButtonManager buttonManager;
 
     private State state;
-    private AppState appState;
     private List<GameObject> avatars = new List<GameObject>();
 
 
     void Start() {
         LayoutRebuilder.ForceRebuildLayoutImmediate(Content);
 
-        appState = GameManager.Instance.appState;
+        AppState appState = GameManager.Instance.appState;
 
         input.text = appState.profile.name;
 
@@ -78,25 +77,17 @@ public class EditProfileLogic : MonoBehaviour {
 
     public async void Save() {
         buttonManager.StartLoading();
-        appState.profile.avatar = state.avatar;
-        appState.profile.name = state.name;
-        GameManager.Instance.UpdateAppState(appState);
+        AppState appState = GameManager.Instance.UpdateAppState(at => {
+            at.profile.avatar = state.avatar;
+            at.profile.name = state.name;
+            return at;
+        });
         await Task.Delay(3000);
         buttonManager.StopLoading();
         GoBack();
     }
 
     public void GoBack() {
-        if (Navigator.Instance.CanGoBack()) {
-            Navigator.Instance.GoBack();
-        }
-        else {
-            Navigator.Instance.NavigateTo(Navigator.Scene.Profile);
-        }
-    }
-
-
-    public void Test() {
-        Debug.Log("Test hello");
+        Navigator.Instance.NavigateTo(Navigator.Scene.Profile);
     }
 }

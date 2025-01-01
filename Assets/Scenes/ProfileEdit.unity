@@ -1307,13 +1307,33 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:b3ef0f9ef9351463bb12d3271e5b1549
       objectReference: {fileID: 0}
+    - target: {fileID: 2550306972204180592, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550306972204180592, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550306972204180592, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550306972204180592, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -111
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550306972204180592, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 2740683399419426347, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4407901848787312427, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4914528333983446138, guid: 41f6660279cf44288b4973b9d4b674da, type: 3}
       propertyPath: m_Text

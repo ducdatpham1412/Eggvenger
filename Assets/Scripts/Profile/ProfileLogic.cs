@@ -26,12 +26,7 @@ public class ProfileLogic : MonoBehaviour {
     }
 
     public void GoBack() {
-        if (Navigator.Instance.CanGoBack()) {
-            Navigator.Instance.GoBack();
-        }
-        else {
-            Navigator.Instance.NavigateTo(Navigator.Scene.Home);
-        }
+        Navigator.Instance.NavigateTo(Navigator.Scene.Home);
     }
 
     public void ShowHideSetting() {
@@ -42,22 +37,23 @@ public class ProfileLogic : MonoBehaviour {
 
 
     public void EditProfile() {
-        Navigator.Instance.NavigateTo(Navigator.Scene.ProfileEdit);
+        Navigator.Instance.Push(Navigator.Scene.ProfileEdit);
     }
 
     public void AccountInfo() {
-        Navigator.Instance.NavigateTo(Navigator.Scene.AccountInfo);
+        Navigator.Instance.Push(Navigator.Scene.AccountInfo);
     }
 
     public void LogOut() {
-        Navigator.Instance.NavigateTo(Navigator.Scene.Welcome);
+        Navigator.Instance.Push(Navigator.Scene.Welcome);
     }
 
     public void SetLocale(int localeID) {
         LocalizationManager.Instance.SetLocale(localeID);
-        AppState appState = GameManager.Instance.appState;
-        appState.profile.localeID = localeID;
-        GameManager.Instance.UpdateAppState(appState);
+        AppState appState = GameManager.Instance.UpdateAppState(appState => {
+            appState.profile.localeID = localeID;
+            return appState;
+        });
 
         EnglishButton.color = appState.profile.localeID == Configs.LocaleID.En ? yellow : Color.white;
         VietnameseButton.color = appState.profile.localeID == Configs.LocaleID.Vi ? yellow : Color.white;

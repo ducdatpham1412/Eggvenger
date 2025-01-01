@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class Navigator : Singleton<Navigator> {
     public enum Scene {
@@ -16,7 +18,14 @@ public class Navigator : Singleton<Navigator> {
 
     public void NavigateTo(Scene scene) {
         string temp = scene.ToString();
-        histories.Add(temp);
+        int index = histories.LastIndexOf(temp);
+        if (index >= 0) {
+            histories.RemoveAt(index);
+            histories.Add(temp);
+        }
+        else {
+            histories.Add(temp);
+        }
         SceneManager.LoadScene(temp);
     }
 
@@ -25,6 +34,12 @@ public class Navigator : Singleton<Navigator> {
             histories.RemoveAt(histories.Count - 1);
             SceneManager.LoadScene(histories[histories.Count - 1]);
         }
+    }
+
+    public void Push(Scene scene) {
+        string temp = scene.ToString();
+        histories.Add(temp);
+        SceneManager.LoadScene(temp);
     }
 
     public bool CanGoBack() {

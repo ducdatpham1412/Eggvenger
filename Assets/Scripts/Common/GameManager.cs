@@ -75,6 +75,10 @@ public class GameManager : Singleton<GameManager> {
         appState = newState;
         OnAppStateChanged?.Invoke(appState);
     }
+    public AppState UpdateAppState(Func<AppState, AppState> action) {
+        appState = action(appState);
+        return appState;
+    }
     public void ListenAppStateChanged(Action<AppState> listener) {
         OnAppStateChanged += listener;
     }
