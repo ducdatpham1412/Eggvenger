@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -374,9 +375,9 @@
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/InputSettings.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Utilities/MemoryHelpers.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/XInput/XInputSupport.cs" />
-    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/Android/AndroidKeyCode.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Commands/QueryCanRunInBackground.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Actions/IInputActionCollection.cs" />
+    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/Android/AndroidKeyCode.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Joystick.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/Steam/IStreamControllerAPI.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/PlayerInput/DefaultInputActions.cs" />
@@ -407,8 +408,8 @@
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Utilities/ArrayHelpers.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Controls/DeltaControl.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Sensor.cs" />
-    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Haptics/DualMotorRumbleCommand.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Editor/ControlPicker/InputControlPathEditor.cs" />
+    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Haptics/DualMotorRumbleCommand.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Events/TextEvent.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Editor/AssetImporter/InputActionImporter.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Editor/UITKAssetEditor/Views/ActionMapsView.cs" />
@@ -446,8 +447,8 @@
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/Android/AndroidSupport.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Devices/Commands/SetSamplingFrequencyCommand.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Editor/PropertyDrawers/InputActionAssetSearchProvider.cs" />
-    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Actions/Composites/Vector3Composite.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/Steam/SteamHandle.cs" />
+    <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Actions/Composites/Vector3Composite.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/XR/Controls/PoseControl.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Controls/InputControlPath.cs" />
     <Compile Include="Library/PackageCache/com.unity.inputsystem/InputSystem/Editor/UITKAssetEditor/Views/InputActionsEditorView.cs" />
@@ -952,6 +953,10 @@
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+      <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">

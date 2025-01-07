@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -80,8 +81,8 @@
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Meters/StopWatch.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Data/Project.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/PlayerCallbacks.cs" />
-    <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Statistics/NormalDistributionHelper.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Statistics/MeasurementsStatistics.cs" />
+    <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Statistics/NormalDistributionHelper.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Metadata.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/Statistics/ConfidenceLevelExtensions.cs" />
     <Compile Include="Library/PackageCache/com.unity.test-framework.performance/Runtime/ResourcesLoader.cs" />
