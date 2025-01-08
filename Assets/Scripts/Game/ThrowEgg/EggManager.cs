@@ -35,39 +35,39 @@ public class EggManager : EntityManager {
         }
     }
 
-    protected override void OnUpdateState(ThrowEggState state) {
-        string eggID = egg.id;
-        egg = (EggType)Helper.Get(state.data.eggs, eggID);
+    // protected override void OnUpdateState(ThrowEggState state) {
+    //     string eggID = egg.id;
+    //     egg = (EggType)Helper.Get(state.data.eggs, eggID);
 
-        if (!panable) {
-            ThrowEggState.Player me = (ThrowEggState.Player)Helper.Get(state.data.players, profile.id);
-            if (me != null) {
-                if (me.status == "ready" && egg.creator == profile.id) {
-                    panable = true;
-                }
-            }
-        }
+    //     if (!panable) {
+    //         ThrowEggState.Player me = (ThrowEggState.Player)Helper.Get(state.data.players, profile.id);
+    //         if (me != null) {
+    //             if (me.status == "ready" && egg.creator == profile.id) {
+    //                 panable = true;
+    //             }
+    //         }
+    //     }
 
-        if (rb == null) {
-            rb = GetComponent<Rigidbody2D>();
-            profile = GameManager.Instance.appState.profile;
-        }
+    //     if (rb == null) {
+    //         rb = GetComponent<Rigidbody2D>();
+    //         profile = GameManager.Instance.appState.profile;
+    //     }
 
-        // Case 1: Not found in state.eggs => Destroy egg
-        if (egg == null) {
-            throwEggLogic.RemoveEgg(eggID);
-            Destroy(gameObject);
-            return;
-        }
+    //     // Case 1: Not found in state.eggs => Destroy egg
+    //     if (egg == null) {
+    //         throwEggLogic.RemoveEgg(eggID);
+    //         Destroy(gameObject);
+    //         return;
+    //     }
 
-        // Case 2: Found egg, egg status = hit => Explode it
-        if (egg.status == "hit") {
-            Explode();
-        }
+    //     // Case 2: Found egg, egg status = hit => Explode it
+    //     if (egg.status == "hit") {
+    //         Explode();
+    //     }
 
-        // Case 3: Found egg, but egg status is still active => Do nothing
-        rb.linearVelocity = new Vector2(egg.velocity.x, egg.velocity.y);
-    }
+    //     // Case 3: Found egg, but egg status is still active => Do nothing
+    //     rb.linearVelocity = new Vector2(egg.velocity.x, egg.velocity.y);
+    // }
 
     private void Explode() {
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();

@@ -19,7 +19,6 @@ public class ThrowEggLogic : MonoBehaviour {
 
     public event Action<ThrowEggState> OnUpdateState;
 
-
     private UdpClient udpClient;
     private SynchronizationContext context;
     private Profile profile;
@@ -149,7 +148,7 @@ public class ThrowEggLogic : MonoBehaviour {
             foreach (ThrowEggState.Player player in _state.data.players.Values) {
                 GameObject PlayerGameObject = Instantiate(PlayerPrefab, new Vector2(player.last_pos.x, player.last_pos.y), Quaternion.identity); // TODO: Denormal
                 PlayerManager playerManager = PlayerGameObject.GetComponent<PlayerManager>();
-                playerManager.SetThrowEggLogic(this);
+                // playerManager.SetThrowEggLogic(this);
                 playerManager.Initialize(player, _state);
                 players[player.id] = playerManager;
                 if (playerManager.ID != _state.data.turn) {
@@ -198,7 +197,7 @@ public class ThrowEggLogic : MonoBehaviour {
             int rotationX = egg.last_pos.y > 0 ? 180 : 0;
             GameObject Egg = Instantiate(EggPrefab, new Vector2(egg.last_pos.x, egg.last_pos.y), Quaternion.Euler(rotationX, 0, 0));
             EggManager eggManager = Egg.GetComponent<EggManager>();
-            eggManager.SetThrowEggLogic(this);
+            // eggManager.SetThrowEggLogic(this);
             eggManager.Initialize(egg, panable);
         }, null);
     }
