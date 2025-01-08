@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -155,8 +156,8 @@
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Window/ViewModel/TimelineAssetViewModel_versions.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Window/TimelineWindow_PlaybackControls.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/treeview/Drawers/InfiniteTrackDrawer.cs" />
-    <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Window/ViewModel/ScriptableObjectViewPrefs.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Animation/AnimationClipCurveCache.cs" />
+    <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Window/ViewModel/ScriptableObjectViewPrefs.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Manipulators/EditModeInputHandler.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Window/TimelineWindow_StateChange.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/CustomEditors/ClipEditor.cs" />
@@ -230,8 +231,8 @@
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Animation/AnimationTrackActions.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/treeview/Drawers/Layers/ItemsLayer.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Items/ItemsUtils.cs" />
-    <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Actions/IAction.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/treeview/ItemGui/TimelineMarkerGUI.cs" />
+    <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Actions/IAction.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Animation/CurvesProxy.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/Manipulators/Cursors/TimelineCursors.cs" />
     <Compile Include="Library/PackageCache/com.unity.timeline/Editor/inspectors/BuiltInCurvePresets.cs" />
@@ -830,6 +831,10 @@
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+      <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">

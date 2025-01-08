@@ -7,11 +7,13 @@ public class GameManager : Singleton<GameManager> {
 
     // Background
     public Sprite[] listBackgrounds;
+    public Sprite background;
     private SpriteRenderer spriteRenderer;
 
     // AppState
     public AppState appState = new AppState {
         profile = new Profile {
+            id = "player_1",
             name = "Duc Dat",
             avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
             eggs = 99,
@@ -40,7 +42,6 @@ public class GameManager : Singleton<GameManager> {
     public GameState gameState;
     private event Action<GameState> OnGameStateChanged;
 
-
     private void FitTheScreen() {
         float screenHeight = Camera.main.orthographicSize * 2;
         float screenWidth = screenHeight * Screen.width / Screen.height;
@@ -65,9 +66,16 @@ public class GameManager : Singleton<GameManager> {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (listBackgrounds != null && listBackgrounds.Length > 0) {
             int indexBg = UnityEngine.Random.Range(0, listBackgrounds.Length);
-            spriteRenderer.sprite = listBackgrounds[indexBg];
+            background = listBackgrounds[indexBg];
+            spriteRenderer.sprite = background;
             FitTheScreen();
         }
+    }
+
+
+    public void ChangeBackground(Sprite sprite) {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprite;
     }
 
 

@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -362,8 +363,8 @@
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Analysis/GraphElementAnalysis.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Inspection/InspectorImplementationOrderAttribute.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/ResourceProviders/AssetBundleResourceProvider.cs" />
-    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Dependencies/ReorderableList/ElementAdderMenu/ElementAdderMeta.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Reflection/TypeOptionTree.cs" />
+    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Dependencies/ReorderableList/ElementAdderMenu/ElementAdderMeta.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Analysis/Analyser.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Inspection/Unity/AnimationCurveInspector.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Canvases/VisualScriptingCanvas.cs" />
@@ -405,8 +406,8 @@
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Interface/Licenses/License.MSPL.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqGraphs/Changelog_1_2_4.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Assignment/Assigner.cs" />
-    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Interface/Fuzzy/FuzzyWindow.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Analytics/OnPreprocessBuildAnalytics.cs" />
+    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Interface/Fuzzy/FuzzyWindow.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Plugin/Changelogs/Changelog_1_4_1.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Reflection/MemberOptionTree.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Windows/LudiqEditorWindow.cs" />
@@ -533,8 +534,8 @@
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Windows/GraphWindow.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Interface/Fonts/FontCollection.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Inspection/Primitives/FloatInspector.cs" />
-    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqCore/Changelog_1_4_3.cs" />
     <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Serialization/TypeSerializer.cs" />
+    <Compile Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqCore/Changelog_1_4_3.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library/PackageCache/com.unity.visualscripting/Editor/VisualScripting.Core/Dependencies/Assemblies/WINARM64/Unity.VisualScripting.sqlite3.dll" />
@@ -1029,6 +1030,10 @@
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+      <HintPath>/Applications/Unity/Hub/Editor/6000.0.29f1/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">

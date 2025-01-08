@@ -16,12 +16,64 @@ MonoBehaviour:
     m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 09972f08cc61d4bada0aa6d10b6794a5, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 4339586626695463054
   m_TableData:
   - m_Id: 24959246336
     m_Localized: Loading match
     m_Metadata:
       m_Items: []
+  - m_Id: 1070287343837184
+    m_Localized: 'You are this first to throw
+
+      Try to hit the opponent with
+      the egg'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1070513018363904
+    m_Localized: 'The opponent will be the first to throw
+
+      Try to avoid getting
+      hit by the egg
+
+'
+    m_Metadata:
+      m_Items:
+      - rid: 4339586626695463054
+  - m_Id: 1071031786659840
+    m_Localized: Continue ({0})
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071217858568192
+    m_Localized: '{0} is the winner'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074806404407296
+    m_Localized: Are you ready?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074924599894016
+    m_Localized: Fight!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1077867176779776
+    m_Localized: Too slow!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078089156124672
+    m_Localized: Nice shot!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1084541589512192
+    m_Localized: Hehe missed!!!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4339586626695463054
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1070513018363904

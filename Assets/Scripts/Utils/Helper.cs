@@ -43,4 +43,12 @@ public static class Helper {
         list[index1] = list[index2];
         list[index2] = temp;
     }
+
+
+    public static object Get<TKey, TValue>(Dictionary<TKey, TValue> dict, TKey key) {
+        if (dict.TryGetValue(key, out TValue value)) {
+            return value;
+        }
+        return null;
+    }
 }

@@ -12,6 +12,7 @@ public class Authorized {
 
 [Serializable]
 public class Profile {
+    public string id;
     public string name;
     public string avatar;
     public int eggs;

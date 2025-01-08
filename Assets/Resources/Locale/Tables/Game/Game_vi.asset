@@ -16,12 +16,58 @@ MonoBehaviour:
     m_Code: vi
   m_SharedData: {fileID: 11400000, guid: 09972f08cc61d4bada0aa6d10b6794a5, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 4339586626695463055
   m_TableData:
   - m_Id: 24959246336
     m_Localized: "\u0110ang t\u1EA3i tr\u1EADn"
     m_Metadata:
       m_Items: []
+  - m_Id: 1070287343837184
+    m_Localized: "B\u1EA1n l\xE0 ng\u01B0\u1EDDi n\xE9m \u0111\u1EA7u ti\xEAn\nC\u1ED1
+      g\u1EAFng n\xE9m tr\xFAng \u0111\u1ED1i ph\u01B0\u01A1ng nh\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1070513018363904
+    m_Localized: "\u0110\u1ED1i ph\u01B0\u01A1ng l\xE0 ng\u01B0\u1EDDi n\xE9m tr\u01B0\u1EDBc\nC\u1ED1
+      g\u1EAFng \u0111\u1EEBng \u0111\u1EC3 qu\u1EA3 tr\u1EE9ng n\xE9m tr\xFAng"
+    m_Metadata:
+      m_Items:
+      - rid: 4339586626695463055
+  - m_Id: 1071031786659840
+    m_Localized: "Ti\u1EBFp t\u1EE5c ({0})"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071217858568192
+    m_Localized: "{0} l\xE0 ng\u01B0\u1EDDi chi\u1EBFn th\u1EAFng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074806404407296
+    m_Localized: "S\u1EB5n s\xE0ng ch\u01B0a?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074924599894016
+    m_Localized: "Chi\u1EBFn th\xF4i!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1077867176779776
+    m_Localized: "Qu\xE1 ch\u1EADm!!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078089156124672
+    m_Localized: "\u0110\u01B0\u1EE3c \u0111\u1EA5y!!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1084541589512192
+    m_Localized: "Hehe tr\u01B0\u1EE3t r\u1ED3i!!!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4339586626695463055
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1070513018363904
