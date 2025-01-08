@@ -10,6 +10,7 @@ public class LocalizationManager : Singleton<LocalizationManager> {
     public enum Table {
         Home,
         Welcome,
+        Game,
     }
 
     private bool active = false;

@@ -19,6 +19,42 @@ MonoBehaviour:
     m_Key: loadingMatch
     m_Metadata:
       m_Items: []
+  - m_Id: 1070287343837184
+    m_Key: youAreTheFirst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1070513018363904
+    m_Key: opponentBeFirst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071031786659840
+    m_Key: continueCountdown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1071217858568192
+    m_Key: isTheWinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074806404407296
+    m_Key: areYouReady
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1074924599894016
+    m_Key: fight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1077867176779776
+    m_Key: tooSlow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078089156124672
+    m_Key: niceShot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1084541589512192
+    m_Key: heheMissed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
