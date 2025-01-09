@@ -11,7 +11,7 @@ public class HomeLogic : MonoBehaviour {
     }
 
 
-    public void GoToTeamFormation() {
+    public void GoToMatchMaking() {
         Navigator.Instance.NavigateTo(Navigator.Scene.TeamFormation);
     }
 }

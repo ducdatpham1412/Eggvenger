@@ -1,9 +1,11 @@
 using System.Collections;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
-public class TeamFormationLogic : MonoBehaviour {
+public class MatchMakingLogic : MonoBehaviour {
     public GameObject TeamView;
     public LocalizeStringEvent ButtonTitle;
     public GameObject StopFindButton;
@@ -30,11 +32,27 @@ public class TeamFormationLogic : MonoBehaviour {
             TeamView.transform.localPosition = TeamView.transform.localPosition + new Vector3(0, AnimatedUpDistance, 0);
             StopFindButton.SetActive(true);
         }
+
+        SocketManager.OnHandleData += MatchFound;
     }
 
 
     void OnDestroy() {
         GameManager.Instance.RemoveListenGameStateChanged(ListenCountUp);
+        SocketManager.OnHandleData -= MatchFound;
+    }
+
+
+    private void MatchFound(JObject evt) {
+        if (evt["type"]?.ToString() == "match_found") {
+            MatchState match = JsonConvert.DeserializeObject<MatchState>(evt["data"].ToString());
+            GameManager.Instance.UpdateAppState(state => {
+                state.client.match_ip = match.configs.ip;
+                state.client.match_port = match.configs.port;
+                return state;
+            });
+            Navigator.Instance.NavigateTo(Navigator.Scene.GameThrowEgg);
+        }
     }
 
     private IEnumerator AnimateLinearUp(Transform target, float distance, float duration, bool active) {
@@ -87,6 +105,7 @@ public class TeamFormationLogic : MonoBehaviour {
         StartCoroutine(AnimateLinearUp(TeamView.transform, AnimatedUpDistance, 0.25f, true));
         StopFindButton.SetActive(true);
         GameManager.Instance.StartCountUp();
+        SocketManager.Send(new Event.Send.FindMatch());
     }
 
 
@@ -96,5 +115,6 @@ public class TeamFormationLogic : MonoBehaviour {
         ButtonTitle.RefreshString();
         GameManager.Instance.StopCountUp();
         StartCoroutine(AnimateLinearUp(TeamView.transform, -AnimatedUpDistance, 0.25f, false));
+        SocketManager.Send(new Event.Send.StopFindMatch());
     }
 }

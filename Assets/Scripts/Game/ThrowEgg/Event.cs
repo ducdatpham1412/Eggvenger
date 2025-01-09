@@ -2,23 +2,33 @@ using System;
 
 [Serializable]
 public class Event {
-    [Serializable]
-    public class Ready {
-        public string type = "ready";
+    public interface IEvent {
+        public string type { get; set; }
     }
 
-    [Serializable]
-    public class LoadRoom {
-        public string type = "load_room";
-        public string match_id;
-        public string room_id;
+    public class Send {
+        public class Connect {
+            public string type = "connect";
+            public string player_id;
+        }
+        public class FindMatch {
+            public string type = "find_match";
+        }
+        public class StopFindMatch {
+            public string type = "stop_find_match";
+        }
     }
 
-    [Serializable]
-    public class Connect {
-        public string type = "connect";
-        public string player_id;
+    public class Receive {
+        [Serializable]
+        public class MatchFound {
+            public string type = "match_found";
+            public MatchState data;
+        }
     }
+
+
+
 
     [Serializable]
     public class TurnResult {

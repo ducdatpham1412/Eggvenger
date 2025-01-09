@@ -7,11 +7,19 @@ public class FindingMatchState {
 }
 
 
-
 [Serializable]
 public class MatchState {
+    public class Configs {
+        public float maxX;
+        public float maxY;
+        public string ip;
+        public int port;
+    }
     public string id;
-
+    public Configs configs;
+    public float created;
+    public float? ended;
+    public string status;
 }
 
 

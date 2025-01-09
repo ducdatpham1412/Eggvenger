@@ -10,10 +10,11 @@ public class GameManager : Singleton<GameManager> {
     public Sprite background;
     private SpriteRenderer spriteRenderer;
 
+
     // AppState
     public AppState appState = new AppState {
         profile = new Profile {
-            id = "player_1",
+            id = $"player_1",
             name = "Duc Dat",
             avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
             eggs = 99,
@@ -33,7 +34,8 @@ public class GameManager : Singleton<GameManager> {
             password = "Test password",
             token = "",
             refresh_token = ""
-        }
+        },
+        client = new ClientValue(),
     };
     private event Action<AppState> OnAppStateChanged;
 
@@ -61,6 +63,9 @@ public class GameManager : Singleton<GameManager> {
         transform.localScale = scale;
     }
 
+    void Awake() {
+        appState.profile.id = $"player_{UnityEngine.Random.Range(0, 20)}";
+    }
 
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();

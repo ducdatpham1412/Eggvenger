@@ -13,6 +13,7 @@ public class Navigator : Singleton<Navigator> {
         Profile,
         ProfileEdit,
         AccountInfo,
+        MatchScene,
     }
     private List<string> histories = new List<string>();
 
