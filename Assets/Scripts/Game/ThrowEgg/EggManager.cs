@@ -1,19 +1,19 @@
+using Unity.Netcode;
 using UnityEngine;
-
-using EggType = ThrowEggState.Egg;
 
 public class EggManager : EntityManager {
     public Sprite ExplodedSprite;
-    private EggType egg;
-    private Vector3 delta;
-    private Rigidbody2D rb;
-    private Profile profile;
-    private bool shouldCheckMissed = true;
+    private Rigidbody2D Rigid;
 
+    private ThrowEggLogic s_throwEggLogic;
+    private bool s_shouldCheckMissed = false;
+
+    private Vector3 c_delta;
+
+    public NetworkVariable<EggNetwork> m_Egg = new NetworkVariable<EggNetwork>();
 
     void Awake() {
-        rb = GetComponent<Rigidbody2D>();
-        profile = GameManager.Instance.appState.profile;
+        Rigid = GetComponent<Rigidbody2D>();
     }
 
     void Update() {
@@ -21,61 +21,50 @@ public class EggManager : EntityManager {
         HandleCheckMissed();
     }
 
-
-    public void Initialize(EggType _egg, bool _panable) {
-        egg = _egg;
-        panable = _panable;
-    }
-
-    void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.gameObject == throwEggLogic.Target.gameObject) {
-            rb.linearVelocity = Vector2.zero;
-            shouldCheckMissed = false;
-            throwEggLogic.SendEventTurnResult(egg.id, true);
+    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong? owner = null) {
+        NetworkObject network = GetComponent<NetworkObject>();
+        network.Spawn();
+        s_throwEggLogic = _logic;
+        m_Egg.Value = new EggNetwork {
+            id = Helper.GetID(),
+            move_speed = move_speed,
+            shot_speed = shot_speed,
+            created = Helper.TsNow(),
+            creator = creatorID,
+            status = "active",
+        };
+        if (owner != null) {
+            network.ChangeOwnership((ulong)owner);
         }
     }
 
-    // protected override void OnUpdateState(ThrowEggState state) {
-    //     string eggID = egg.id;
-    //     egg = (EggType)Helper.Get(state.data.eggs, eggID);
+    void OnTriggerEnter2D(Collider2D collider) {
+        if (s_throwEggLogic) {
+            PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
+            if (manager != null && manager.m_Player.Value.id == s_throwEggLogic.m_TargetID.Value.ToString()) {
+                Explode();
+            }
+        }
+    }
 
-    //     if (!panable) {
-    //         ThrowEggState.Player me = (ThrowEggState.Player)Helper.Get(state.data.players, profile.id);
-    //         if (me != null) {
-    //             if (me.status == "ready" && egg.creator == profile.id) {
-    //                 panable = true;
-    //             }
-    //         }
-    //     }
-
-    //     if (rb == null) {
-    //         rb = GetComponent<Rigidbody2D>();
-    //         profile = GameManager.Instance.appState.profile;
-    //     }
-
-    //     // Case 1: Not found in state.eggs => Destroy egg
-    //     if (egg == null) {
-    //         throwEggLogic.RemoveEgg(eggID);
-    //         Destroy(gameObject);
-    //         return;
-    //     }
-
-    //     // Case 2: Found egg, egg status = hit => Explode it
-    //     if (egg.status == "hit") {
-    //         Explode();
-    //     }
-
-    //     // Case 3: Found egg, but egg status is still active => Do nothing
-    //     rb.linearVelocity = new Vector2(egg.velocity.x, egg.velocity.y);
-    // }
 
     private void Explode() {
+        s_shouldCheckMissed = false;
+        Rigid.linearVelocity = Vector2.zero;
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         renderer.sprite = ExplodedSprite;
+        transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+        s_throwEggLogic.SendResult(true);
+    }
+
+    [ServerRpc]
+    private void ShotServerRpc() {
+        s_shouldCheckMissed = true;
+        Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
     }
 
     private void HandlePanning() {
-        if (!panable) {
+        if (!IsOwner) {
             return;
         }
 
@@ -86,41 +75,46 @@ public class EggManager : EntityManager {
             if (check) {
                 isPanning = true;
             }
-            delta = transform.position - GameHelper.ToWorldPoint(mousePos);
+            c_delta = transform.position - GameHelper.ToWorldPoint(mousePos);
         }
 
         if (GameHelper.TouchReleased()) {
-            isPanning = false;
-            throwEggLogic.SendEventShot(egg.id);
+            if (isPanning) {
+                isPanning = false;
+                // ShotServerRpc();
+                s_shouldCheckMissed = true;
+                Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
+            }
+            return;
         }
 
 
         if (isPanning) {
-            Vector2 mousePos = GameHelper.ToWorldPoint(Input.mousePosition) + delta;
+            Vector2 mousePos = GameHelper.ToWorldPoint(Input.mousePosition) + c_delta;
 
-            if (delta != Vector3.zero) {
-                delta = Vector3.zero;
+            if (c_delta != Vector3.zero) {
+                c_delta = Vector3.zero;
             }
 
             float distance = Vector2.Distance(mousePos, transform.position);
             if (distance <= 0.1f) {
-                throwEggLogic.SendEventEggMove(egg.id, new Coordinate { x = 0, y = 0 });
+                Rigid.linearVelocity = Vector2.zero;
                 return;
             }
 
             float directionX = (mousePos - (Vector2)transform.position).normalized.x;
-            throwEggLogic.SendEventEggMove(egg.id, new Coordinate { x = directionX * 2f, y = 0 });
+            Rigid.linearVelocity = new Vector2(directionX * m_Egg.Value.move_speed, 0f);
         }
     }
 
     private void HandleCheckMissed() {
-        if (!shouldCheckMissed) {
+        if (!s_shouldCheckMissed || !IsServer) {
             return;
         }
-        float posY = rb.position.y;
-        if (posY > GameHelper.world.maxY) {
-            throwEggLogic.SendEventTurnResult(egg.id, false);
-            shouldCheckMissed = false;
+        float posY = Rigid.position.y;
+        if (posY > GameHelper.world.maxY || posY < -GameHelper.world.maxY) {
+            s_shouldCheckMissed = false;
+            s_throwEggLogic.SendResult(false);
         }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Assets/Scripts/Classes/Singleton.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonSound.cs" />
     <Compile Include="Assets/Scripts/Utils/InputSecurity.cs" />
+    <Compile Include="Assets/Scripts/Extensions/GameObjectExtensions.cs" />
     <Compile Include="Assets/Scripts/Profile/EditProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
+    <Compile Include="Assets/Scripts/Game/GamePoints.cs" />
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/Scripts/Game/GameLoadingLogic.cs" />

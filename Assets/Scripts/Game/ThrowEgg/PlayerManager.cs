@@ -1,15 +1,21 @@
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerManager : EntityManager {
-    private SpriteRenderer Renderer;
     private Rigidbody2D Rigid;
     private Vector3 delta;
-    public string ID;
+    private GamePoints gamePoints;
+
+    public bool s_Ready = false;
+
+    public NetworkVariable<PlayerNetwork> m_Player = new NetworkVariable<PlayerNetwork>();
+    private NetworkVariable<bool> m_enable = new NetworkVariable<bool>(false);
 
     void Awake() {
-        Renderer = GetComponent<SpriteRenderer>();
+        GetComponent<SpriteRenderer>().enabled = m_enable.Value;
+        GetComponent<BoxCollider2D>().enabled = m_enable.Value;
         Rigid = GetComponent<Rigidbody2D>();
-        panable = true;
     }
 
     void Update() {
@@ -18,21 +24,69 @@ public class PlayerManager : EntityManager {
 
     public override void OnNetworkSpawn() {
         base.OnNetworkSpawn();
+        m_enable.OnValueChanged += OnEnableChanged;
+        m_Player.OnValueChanged += OnPlayerChanged;
     }
 
-    private void UpdateCG() {
-        if (Renderer == null) {
-            Renderer = GetComponent<SpriteRenderer>();
-            Renderer.enabled = false;
+    public override void OnNetworkDespawn() {
+        base.OnNetworkDespawn();
+        m_enable.OnValueChanged -= OnEnableChanged;
+        m_Player.OnValueChanged -= OnPlayerChanged;
+    }
+
+    private void OnEnableChanged(bool _, bool newValue) {
+        GetComponent<SpriteRenderer>().enabled = newValue;
+        GetComponent<BoxCollider2D>().enabled = newValue;
+    }
+
+    private void UpdateEnable(FixedString32Bytes targetID) {
+        m_enable.Value = targetID.ToString() == m_Player.Value.id;
+    }
+
+    public void Initialize(string _ID, Vector2 initPos, ThrowEggLogic _eggLogic) {
+        GetComponent<NetworkObject>().Spawn();
+        m_Player.Value = new PlayerNetwork {
+            id = _ID,
+            move_speed = 2f,
+            shot_speed = 40f,
+            point = 0,
+            init_pos = initPos,
+            clientID = -1,
+            name = $"Name_{_ID}",
+            avatar = $"Name_{_ID}",
+        };
+        _eggLogic.s_Players.Add(_ID, this);
+        UpdateEnable(_eggLogic.m_TargetID.Value);
+        _eggLogic.m_TargetID.OnValueChanged += OnTargetChanged;
+    }
+
+    public void UpdatePoint(int newPoint) {
+        m_Player.Value = new PlayerNetwork {
+            id = m_Player.Value.id,
+            move_speed = m_Player.Value.move_speed,
+            shot_speed = m_Player.Value.shot_speed,
+            point = newPoint,
+            init_pos = m_Player.Value.init_pos,
+            clientID = m_Player.Value.clientID,
+            name = m_Player.Value.name,
+            avatar = m_Player.Value.avatar,
+        };
+    }
+
+    private void OnTargetChanged(FixedString32Bytes oldValue, FixedString32Bytes newValue) {
+        UpdateEnable(newValue);
+    }
+
+    private void OnPlayerChanged(PlayerNetwork _, PlayerNetwork newValue) {
+        if (gamePoints == null) {
+            GameObject Canvas = GameObject.Find("Canvas");
+            Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
+            bool isUnder = m_Player.Value.init_pos.y < 0f;
+            gamePoints = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp").GetComponent<GamePoints>();
         }
+        gamePoints.TextValue.text = newValue.name;
+        gamePoints.UpdatePoint(newValue.point);
     }
-
-
-    public void Initialize(string _ID) {
-        ID = _ID;
-        UpdateCG();
-    }
-
 
     private void HandlePanning() {
         if (!IsOwner) {
@@ -49,8 +103,10 @@ public class PlayerManager : EntityManager {
         }
 
         if (GameHelper.TouchReleased()) {
-            isPanning = false;
-            Rigid.linearVelocity = Vector2.zero;
+            if (isPanning) {
+                isPanning = false;
+                Rigid.linearVelocity = Vector2.zero;
+            }
             return;
         }
 
@@ -69,7 +125,7 @@ public class PlayerManager : EntityManager {
             }
 
             float directionX = (mousePos - (Vector2)transform.position).normalized.x;
-            Rigid.linearVelocity = new Vector2(directionX * 2f, 0);
+            Rigid.linearVelocity = new Vector2(directionX * m_Player.Value.move_speed, 0);
         }
     }
 }

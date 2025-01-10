@@ -28,6 +28,7 @@ public class WelcomeLogic : MonoBehaviour {
 
     void Start() {
         ShowCanvas(CanvasName.SelectLanguage.ToString());
+        SoundManager.Instance.PlayMusic(SoundManager.MusicSource.background);
     }
 
 
