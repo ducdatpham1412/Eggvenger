@@ -1,8 +1,6 @@
 using UnityEngine;
-using PlayerType = ThrowEggState.Player;
 
 public class PlayerManager : EntityManager {
-    private PlayerType player;
     private SpriteRenderer Renderer;
     private Rigidbody2D Rigid;
     private Vector3 delta;
@@ -22,31 +20,22 @@ public class PlayerManager : EntityManager {
         base.OnNetworkSpawn();
     }
 
-    private void UpdateCG(ThrowEggState state) {
+    private void UpdateCG() {
         if (Renderer == null) {
             Renderer = GetComponent<SpriteRenderer>();
             Renderer.enabled = false;
         }
-
-        if (player.id == state.data.turn && Renderer.enabled) {
-            Renderer.enabled = false;
-        }
-        else if (player.id != state.data.turn && !Renderer.enabled) {
-            Renderer.enabled = true; // TODO: Set interactable if appState.myId = player_id
-        }
     }
 
 
-    public void Initialize(PlayerType _player, ThrowEggState state) {
-        player = _player;
-        ID = player.id;
-        UpdateCG(state);
-        panable = true; // TODO: Update this with condition
+    public void Initialize(string _ID) {
+        ID = _ID;
+        UpdateCG();
     }
 
 
     private void HandlePanning() {
-        if (!panable) {
+        if (!IsOwner) {
             return;
         }
 
@@ -55,8 +44,8 @@ public class PlayerManager : EntityManager {
             bool check = GameHelper.TouchHitGameObject(mousePos, gameObject);
             if (check) {
                 isPanning = true;
+                delta = transform.position - GameHelper.ToWorldPoint(mousePos);
             }
-            delta = transform.position - GameHelper.ToWorldPoint(mousePos);
         }
 
         if (GameHelper.TouchReleased()) {

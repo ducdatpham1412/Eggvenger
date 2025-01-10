@@ -15,15 +15,10 @@ public class ThrowEggState {
     [Serializable]
     public class Player {
         public string id;
-        public Coordinate init_pos;
-        public Coordinate last_pos;
 
-        public Coordinate velocity;
-        public float speed;
+        public float move_speed;
 
-        public Coordinate egg_velocity;
         public float egg_speed;
-
         public int point;
         public string reaction;
         public string status; // active, ready, hit
