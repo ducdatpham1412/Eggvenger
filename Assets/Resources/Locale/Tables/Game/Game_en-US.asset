@@ -68,6 +68,42 @@ MonoBehaviour:
     m_Localized: Hehe missed!!!
     m_Metadata:
       m_Items: []
+  - m_Id: 4647794521399296
+    m_Localized: Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4647951333842944
+    m_Localized: Final Leadeboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4651908978434048
+    m_Localized: Throw Egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4651957640749056
+    m_Localized: Solve Math
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4652151782498304
+    m_Localized: Flappy Egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4653825167187968
+    m_Localized: Begin in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4653923498450944
+    m_Localized: Ended
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4760396618522624
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5144310520471552
+    m_Localized: '{0} is the winner and earns {1} dragon eggs'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

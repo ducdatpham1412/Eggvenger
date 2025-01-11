@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,18 +12,159 @@ public class FindingMatchState {
 
 
 [Serializable]
-public class MatchState {
-    public class Configs {
+public class BaseRoom {
+    public enum Type {
+        throw_egg,
+        solve_math,
+        flappy_egg,
+    }
+    public enum Status {
+        active,
+        ended,
+    }
+
+    public string id;
+    public string type;
+    public string status;
+}
+
+
+[Serializable]
+public class MatchState : INetworkSerializable, IEquatable<MatchState> {
+    public class Configs : INetworkSerializable, IEquatable<Configs> {
         public float maxX;
         public float maxY;
         public string ip;
         public int port;
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            if (serializer.IsWriter) {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(maxX);
+                writer.WriteValueSafe(maxY);
+                writer.WriteValueSafe(ip);
+                writer.WriteValueSafe(port);
+            }
+            else {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out maxX);
+                reader.ReadValueSafe(out maxY);
+                reader.ReadValueSafe(out ip);
+                reader.ReadValueSafe(out port);
+            }
+        }
+
+        public bool Equals(Configs other) {
+            return maxX == other.maxX && maxY == other.maxY && ip == other.ip && port == other.port;
+        }
+
     }
+
+    public class Player : INetworkSerializable, IEquatable<Player> {
+        public string id;
+        public string name;
+        public string avatar;
+        public int clientID; // = -1 if client has not connected or disconnected
+        public string status;
+
+        public enum Status {
+            active,
+            ready,
+        }
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            if (serializer.IsReader) {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out id);
+                reader.ReadValueSafe(out name);
+                reader.ReadValueSafe(out avatar);
+            }
+            else {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(id);
+                writer.WriteValueSafe(name);
+                writer.WriteValueSafe(avatar);
+            }
+        }
+
+        public bool Equals(Player other) {
+            return id == other.id && name == other.name && avatar == other.avatar;
+        }
+    }
+
     public string id;
     public Configs configs;
+    public List<Player> players;
+    public List<JObject> rooms;
     public float created;
-    public float? ended;
+    public float ended;
     public string status;
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+        int playersCount = players.Count;
+        int roomsCount = rooms.Count;
+        serializer.SerializeValue(ref playersCount);
+        serializer.SerializeValue(ref roomsCount);
+
+        if (serializer.IsWriter) {
+            var writer = serializer.GetFastBufferWriter();
+            writer.WriteValueSafe(id);
+            serializer.SerializeValue(ref configs);
+
+            for (int i = 0; i < playersCount; i++) {
+                players[i].NetworkSerialize(serializer);
+            }
+
+            for (int i = 0; i < roomsCount; i++) {
+                string jsonString = rooms[i].ToString();
+                serializer.SerializeValue(ref jsonString);
+            }
+
+            writer.WriteValueSafe(created);
+            writer.WriteValueSafe(ended);
+            writer.WriteValueSafe(status);
+        }
+        else {
+            var reader = serializer.GetFastBufferReader();
+            reader.ReadValueSafe(out id);
+            serializer.SerializeValue(ref configs);
+
+            players = new List<Player>();
+            for (int i = 0; i < playersCount; i++) {
+                Player p = new Player();
+                p.NetworkSerialize(serializer);
+                players.Add(p);
+            }
+
+            rooms = new List<JObject>();
+            for (int i = 0; i < roomsCount; i++) {
+                string jsonString = string.Empty;
+                serializer.SerializeValue(ref jsonString);
+                JObject jObject = JObject.Parse(jsonString);
+                rooms.Add(jObject);
+            }
+
+            reader.ReadValueSafe(out created);
+            reader.ReadValueSafe(out ended);
+            reader.ReadValueSafe(out status);
+        }
+    }
+
+    public bool Equals(MatchState other) {
+        if (other.players.Count != players.Count) {
+            return false;
+        }
+
+        if (other.rooms.Count != rooms.Count) {
+            return false;
+        }
+
+        if (!configs.Equals(other.configs) || !players.Equals(other.players) || !rooms.Equals(other.rooms)) {
+            return false;
+        }
+
+        return id == other.id && created == other.created && ended == other.ended && status == other.status;
+    }
 }
 
 
@@ -34,7 +177,8 @@ public class GameState {
         inGame,
     }
     public Status status;
-    public object data; // typeof data = FindingMatchState | MatchState
+    public FindingMatchState data;
+    public MatchState matchState;
 }
 
 
@@ -42,56 +186,4 @@ public class GameState {
 public class World {
     public float maxX;
     public float maxY;
-}
-
-
-[Serializable]
-public class PlayerNetwork : INetworkSerializable, IEquatable<PlayerNetwork> {
-    public string id;
-    public string name;
-    public string avatar;
-    public float move_speed;
-    public float shot_speed;
-    public int point;
-    public Vector2 init_pos;
-    public long clientID; // init by -1 when it has not been Initialize
-
-    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-        if (serializer.IsReader) {
-            var reader = serializer.GetFastBufferReader();
-            reader.ReadValueSafe(out id);
-            reader.ReadValueSafe(out name);
-            reader.ReadValueSafe(out avatar);
-            reader.ReadValueSafe(out move_speed);
-            reader.ReadValueSafe(out shot_speed);
-            reader.ReadValueSafe(out point);
-            reader.ReadValueSafe(out init_pos);
-            reader.ReadValueSafe(out clientID);
-        }
-        else {
-            var writer = serializer.GetFastBufferWriter();
-            writer.WriteValueSafe(id);
-            writer.WriteValueSafe(name);
-            writer.WriteValueSafe(avatar);
-            writer.WriteValueSafe(move_speed);
-            writer.WriteValueSafe(shot_speed);
-            writer.WriteValueSafe(point);
-            writer.WriteValueSafe(init_pos);
-            writer.WriteValueSafe(clientID);
-        }
-    }
-
-
-    // public void SetName(string v) {
-    //     name = v;
-    //     OnUpdateName(name);
-    // }
-
-    // public void OnUpdateName(string v) {
-    //     // trigger when update
-    // }
-
-    public bool Equals(PlayerNetwork other) {
-        return move_speed == other.move_speed && shot_speed == other.shot_speed && point == other.point && clientID == other.clientID;
-    }
 }

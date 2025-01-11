@@ -91,9 +91,12 @@
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/Event.cs" />
+    <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
+    <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/ThrowEgg.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/Profile.cs" />
+    <Compile Include="Assets/Scripts/Classes/Serializable/Common.cs" />
     <Compile Include="Assets/Scripts/Profile/LeaderBoardLogic.cs" />
     <Compile Include="Assets/Scripts/Profile/AccountInfoLogic.cs" />
     <Compile Include="Assets/Scripts/Classes/MonoBehaviorSingleton.cs" />
@@ -101,8 +104,10 @@
     <Compile Include="Assets/Scripts/Utils/LoadingManager.cs" />
     <Compile Include="Assets/Scripts/Common/SocketManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/ThrowEggLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/RoomCardManager.cs" />
     <Compile Include="Assets/Scripts/Utils/GameHelper.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/FinalLeaderboard.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/PlayerManager.cs" />
   </ItemGroup>

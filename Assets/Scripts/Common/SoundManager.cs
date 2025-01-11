@@ -4,7 +4,7 @@ using UnityEngine;
 public class SoundManager : Singleton<SoundManager> {
     public enum MusicSource {
         background,
-        matchScene,
+        lifeWandering,
     }
     protected SoundManager() { }
     private Dictionary<MusicSource, AudioClip> Sources = new Dictionary<MusicSource, AudioClip>();
@@ -23,7 +23,7 @@ public class SoundManager : Singleton<SoundManager> {
         KnockWood.loop = false;
 
         Sources[MusicSource.background] = LoadMusic("mc_newdayagain");
-        Sources[MusicSource.matchScene] = LoadMusic("mc_life_wandering");
+        Sources[MusicSource.lifeWandering] = LoadMusic("mc_life_wandering");
 
         KnockWood.clip = LoadSF("sf_knockwood");
     }

@@ -31,8 +31,8 @@ RectTransform:
   m_GameObject: {fileID: 511859225073677045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1314528473673135172}
   m_Father: {fileID: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1298025733
+  GlobalObjectIdHash: 3470475975
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -244,7 +244,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  ID: 
+  m_Player:
+    m_InternalValue:
+      id: 
+      move_speed: 0
+      shot_speed: 0
+      point: 0
+      init_pos: {x: 0, y: 0}
 --- !u!1 &7257765729664844435
 GameObject:
   m_ObjectHideFlags: 0

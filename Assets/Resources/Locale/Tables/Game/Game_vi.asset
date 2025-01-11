@@ -62,6 +62,43 @@ MonoBehaviour:
     m_Localized: "Hehe tr\u01B0\u1EE3t r\u1ED3i!!!"
     m_Metadata:
       m_Items: []
+  - m_Id: 4647794521399296
+    m_Localized: "V\xF2ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4647951333842944
+    m_Localized: "X\u1EBFp h\u1EA1ng t\u1ED5ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4651908978434048
+    m_Localized: "N\xE9m Tr\u1EE9ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4651957640749056
+    m_Localized: "Gi\u1EA3i To\xE1n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4652151782498304
+    m_Localized: Flappy Egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4653825167187968
+    m_Localized: "B\u1EAFt \u0111\u1EA7u trong"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4653923498450944
+    m_Localized: "\u0110\xE3 k\u1EBFt th\xFAc"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4760396618522624
+    m_Localized: "B\u1EAFt \u0111\u1EA7u"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5144310520471552
+    m_Localized: "{0} l\xE0 ng\u01B0\u1EDDi chi\u1EBFn th\u1EAFng v\xE0 thu v\u1EC1
+      {1} tr\u1EE9ng r\u1ED3ng"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -18,7 +18,7 @@ public class Account {
 public class ClientValue {
     public string player_id;
     public string match_ip;
-    public int match_port;
+    public int? match_port;
     public float last_seen;
     public string status; // active, finding_match, in_game, in_game_dis
 }
