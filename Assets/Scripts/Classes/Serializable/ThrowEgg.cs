@@ -1,35 +1,28 @@
 
 using System;
 using System.Collections.Generic;
-
-
-[Serializable]
-public class Coordinate {
-    public float x;
-    public float y;
-}
+using Unity.Netcode;
+using UnityEngine;
 
 
 [Serializable]
 public class ThrowEggState {
-    [Serializable]
     public class Player {
         public string id;
-
+        public string name;
+        public string avatar;
         public float move_speed;
-
-        public float egg_speed;
+        public float shot_speed;
         public int point;
-        public string reaction;
-        public string status; // active, ready, hit
+        public Vector2 init_pos;
+        public ulong? clientID;
     }
 
     [Serializable]
     public class Egg {
         public string id;
-        public Coordinate last_pos;
-        public Coordinate velocity;
-        public float speed;
+        public float move_speed;
+        public float shot_speed;
         public float created;
         public string creator;
         public string status; // active, hit, missed
@@ -49,4 +42,42 @@ public class ThrowEggState {
     public float created;
     public float? ended;
     public string status; // active, ended
+}
+
+
+
+
+[Serializable]
+public class EggNetwork : INetworkSerializable, IEquatable<EggNetwork> {
+    public string id;
+    public float move_speed;
+    public float shot_speed;
+    public float created;
+    public string creator;
+    public string status; // active, hit, missed
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+        if (serializer.IsReader) {
+            var reader = serializer.GetFastBufferReader();
+            reader.ReadValueSafe(out id);
+            reader.ReadValueSafe(out move_speed);
+            reader.ReadValueSafe(out shot_speed);
+            reader.ReadValueSafe(out created);
+            reader.ReadValueSafe(out creator);
+            reader.ReadValueSafe(out status);
+        }
+        else {
+            var writer = serializer.GetFastBufferWriter();
+            writer.WriteValueSafe(id);
+            writer.WriteValueSafe(move_speed);
+            writer.WriteValueSafe(shot_speed);
+            writer.WriteValueSafe(created);
+            writer.WriteValueSafe(creator);
+            writer.WriteValueSafe(status);
+        }
+    }
+
+    public bool Equals(EggNetwork other) {
+        return move_speed == other.move_speed && shot_speed == other.shot_speed && status == other.status;
+    }
 }
