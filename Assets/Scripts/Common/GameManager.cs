@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager> {
     protected GameManager() { }
 
     // Background
-    public Sprite[] listBackgrounds;
+    // public Sprite[] listBackgrounds;
     public Sprite background;
     private SpriteRenderer spriteRenderer;
 
@@ -64,25 +64,21 @@ public class GameManager : Singleton<GameManager> {
     }
 
     void Awake() {
+        // TODO: Remove this, call api here
         appState.profile.id = $"player_{UnityEngine.Random.Range(0, 20)}";
     }
 
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (listBackgrounds != null && listBackgrounds.Length > 0) {
-            int indexBg = UnityEngine.Random.Range(0, listBackgrounds.Length);
-            background = listBackgrounds[indexBg];
+        Sprite[] bgSprites = Resources.LoadAll<Sprite>("Images");
+        Debug.Log("Check: " + bgSprites.Length);
+        if (bgSprites != null && bgSprites.Length > 0) {
+            int indexBg = UnityEngine.Random.Range(0, bgSprites.Length);
+            background = bgSprites[indexBg];
             spriteRenderer.sprite = background;
             FitTheScreen();
         }
     }
-
-
-    public void ChangeBackground(Sprite sprite) {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprite;
-    }
-
 
     public void UpdateAppState(AppState newState) {
         appState = newState;
