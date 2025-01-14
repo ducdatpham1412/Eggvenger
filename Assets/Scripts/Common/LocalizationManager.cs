@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 
 
@@ -11,6 +10,7 @@ public class LocalizationManager : Singleton<LocalizationManager> {
         Home,
         Welcome,
         Game,
+        Error,
     }
 
     private bool active = false;
@@ -27,5 +27,10 @@ public class LocalizationManager : Singleton<LocalizationManager> {
             active = false;
         }
         StartCoroutine(_SetLocale(localeID));
+    }
+
+    public string GetLocale() {
+        // return LocalizationSettings.SelectedLocale == 0 ? "en" : "vi";
+        return "en";
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public enum CanvasName {
 }
 
 
-[System.Serializable]
+[Serializable]
 public class CanvasEntry {
     public CanvasName name;
     public GameObject gameObject;
@@ -21,16 +22,35 @@ public class CanvasEntry {
 public class WelcomeLogic : MonoBehaviour {
     public List<CanvasEntry> canvases = new List<CanvasEntry>();
     private List<string> histories = new List<string>();
-    // private CanvasName currentCanvas;
     public GameObject CreateAccountError;
     private bool shouldAddNewCanvas = true;
 
-
     void Start() {
-        ShowCanvas(CanvasName.SelectLanguage.ToString());
         SoundManager.Instance.PlayMusic(SoundManager.MusicSource.background);
+        GameManager.Instance.Initialize();
+        InitApp();
     }
 
+    private async void InitApp() {
+        try {
+            var storageProfile = Storage.GET<Profile>(Storage.Key.account);
+
+            if (storageProfile != null) {
+                GameManager.Instance.appState.resource = await ApiManager.GET<Resource>("/common/resource");
+                var passport = await ApiManager.GET<Passport>("/common/passport");
+                GameManager.Instance.appState.profile = passport.profile;
+                Storage.SetProfile(passport.profile);
+                LocalizationManager.Instance.SetLocale(passport.profile.setting.language == "en" ? 0 : 1);
+                Navigator.Instance.NavigateTo(Navigator.Scene.Home);
+                return;
+            }
+
+            ShowCanvas("SelectLanguage");
+        }
+        catch (Exception ex) {
+            Debug.Log($"Error: {ex.Message}");
+        }
+    }
 
     public void ShowCanvas(string canvasName) {
         if (shouldAddNewCanvas) {
@@ -50,7 +70,6 @@ public class WelcomeLogic : MonoBehaviour {
         }
     }
 
-
     public void GoBack() {
         if (histories.Count >= 2) {
             shouldAddNewCanvas = false;
@@ -59,8 +78,11 @@ public class WelcomeLogic : MonoBehaviour {
         }
     }
 
-
     public void PauseUnPauseMusicBackground() {
         SoundManager.Instance.PauseUnPauseMusicBackground();
+    }
+
+    public void SetLocale(int localeID) {
+        LocalizationManager.Instance.SetLocale(localeID);
     }
 }

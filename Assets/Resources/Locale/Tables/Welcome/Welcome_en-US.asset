@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6080183656448
-    m_Localized: Enter player name
+    m_Localized: Enter name for your player
     m_Metadata:
       m_Items: []
   - m_Id: 6187499118592

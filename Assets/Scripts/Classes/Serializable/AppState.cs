@@ -2,7 +2,7 @@ using System;
 
 [Serializable]
 public class Resource {
-    public string[] backgrounds;
+    public string[] avatars;
 }
 
 

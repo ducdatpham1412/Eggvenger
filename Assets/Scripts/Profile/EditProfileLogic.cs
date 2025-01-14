@@ -30,7 +30,7 @@ public class EditProfileLogic : MonoBehaviour {
 
         input.text = appState.profile.name;
 
-        foreach (string bg in appState.resource.backgrounds) {
+        foreach (string bg in appState.resource.avatars) {
             GameObject newAvatar = Instantiate(AvatarPrefab, Vector3.zero, Quaternion.identity, AvatarsCont);
 
             ImageLoader imgLoader = Helper.FindChildRecursive(newAvatar.transform, "Avatar").GetComponent<ImageLoader>();
@@ -42,7 +42,8 @@ public class EditProfileLogic : MonoBehaviour {
             });
 
             avatars.Add(newAvatar);
-        };
+        }
+        ;
 
         state = new State {
             name = appState.profile.name,
