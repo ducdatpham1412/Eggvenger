@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Diagnostics;
+using Unity.Netcode;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
 public class Navigator : Singleton<Navigator> {
     public enum Scene {
@@ -28,6 +27,10 @@ public class Navigator : Singleton<Navigator> {
             histories.Add(temp);
         }
         SceneManager.LoadScene(temp);
+    }
+
+    public void NetworkLoad(Scene scene) {
+        NetworkManager.Singleton.SceneManager.LoadScene(scene.ToString(), LoadSceneMode.Single);
     }
 
     public void GoBack() {

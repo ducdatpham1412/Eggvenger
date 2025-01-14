@@ -10,7 +10,7 @@ public class EggManager : EntityManager {
 
     private Vector3 c_delta;
 
-    public NetworkVariable<EggNetwork> m_Egg = new NetworkVariable<EggNetwork>();
+    public NetworkVariable<RoomThrowEgg.Egg> m_Egg = new NetworkVariable<RoomThrowEgg.Egg>();
 
     void Awake() {
         Rigid = GetComponent<Rigidbody2D>();
@@ -21,11 +21,11 @@ public class EggManager : EntityManager {
         HandleCheckMissed();
     }
 
-    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong? owner = null) {
+    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong? ownerClientID = null) {
         NetworkObject network = GetComponent<NetworkObject>();
         network.Spawn();
         s_throwEggLogic = _logic;
-        m_Egg.Value = new EggNetwork {
+        m_Egg.Value = new RoomThrowEgg.Egg {
             id = Helper.GetID(),
             move_speed = move_speed,
             shot_speed = shot_speed,
@@ -33,13 +33,13 @@ public class EggManager : EntityManager {
             creator = creatorID,
             status = "active",
         };
-        if (owner != null) {
-            network.ChangeOwnership((ulong)owner);
+        if (ownerClientID != null) {
+            network.ChangeOwnership((ulong)ownerClientID);
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        if (s_throwEggLogic) {
+        if (IsServer) {
             PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
             if (manager != null && manager.m_Player.Value.id == s_throwEggLogic.m_TargetID.Value.ToString()) {
                 Explode();
@@ -82,6 +82,8 @@ public class EggManager : EntityManager {
             if (isPanning) {
                 isPanning = false;
                 // ShotServerRpc();
+
+                // TODO: Remove this when released
                 s_shouldCheckMissed = true;
                 Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
             }

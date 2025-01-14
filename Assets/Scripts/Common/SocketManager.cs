@@ -10,16 +10,16 @@ public static class SocketManager {
     private static UdpClient udpClient;
     private static object lastData;
     public static event Action<JObject> OnHandleData;
+    public static bool connected = false;
 
     static SocketManager() {
         udpClient = new UdpClient();
         udpClient.Connect("127.0.0.1", 5000);
         Task.Run(HandleState);
-        Connect();
     }
 
-    public static void Connect() {
-        Send(new Event.Send.Connect {
+    private static void Connect() {
+        __Send(new Event.Send.Connect {
             player_id = GameManager.Instance.appState.profile.id
         });
     }
@@ -36,13 +36,14 @@ public static class SocketManager {
                     Connect();
                 }
                 else if (type == "connect") {
+                    connected = true;
                     ClientValue client = JsonConvert.DeserializeObject<ClientValue>(state["data"].ToString());
                     GameManager.Instance.UpdateAppState(state => {
                         state.client = client;
                         return state;
                     });
                     if (lastData != null) {
-                        Send(lastData);
+                        __Send(lastData);
                         lastData = null;
                     }
                 }
@@ -57,10 +58,22 @@ public static class SocketManager {
         }
     }
 
-    public static void Send(object data) {
-        lastData = data;
+    private static void __Send(object data) {
         string jsonData = JsonConvert.SerializeObject(data);
         byte[] dataBytes = Encoding.UTF8.GetBytes(jsonData);
         udpClient.Send(dataBytes, dataBytes.Length);
+    }
+
+    public static void Send(object data, bool saveLastData = true) {
+        if (!connected) {
+            lastData = data;
+            Connect();
+            return;
+        }
+
+        if (saveLastData) {
+            lastData = data;
+        }
+        __Send(data);
     }
 }

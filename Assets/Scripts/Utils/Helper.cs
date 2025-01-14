@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using UnityEngine.Networking;
+using UnityEngine.Localization;
 
 
 public static class Helper {
@@ -56,5 +59,52 @@ public static class Helper {
             .Replace('/', '_')
             .TrimEnd('=');
         return base64String;
+    }
+
+    public static Dictionary<string, Texture> CacheUrlTextures = new Dictionary<string, Texture>();
+    public static Texture GetTexture(string url) {
+        Texture temp = (Texture)Get(CacheUrlTextures, url);
+        return temp;
+    }
+
+    public static string GetLocalizedValue(LocalizationManager.Table table, string key) {
+        LocalizedString localized = new LocalizedString();
+        localized.TableReference = table.ToString();
+        localized.TableEntryReference = key;
+        return localized.GetLocalizedString();
+    }
+
+    public static async Task<Sprite> ImgUrlToSprite(string url) {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        var asyncOperation = request.SendWebRequest();
+
+        while (!asyncOperation.isDone) {
+            await Task.Yield(); // Yield control back to the Unity main thread
+        }
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
+            Debug.LogError(request.error);
+            return null;
+        }
+        else {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
+    }
+
+    public static void FitSpriteToGameObject(GameObject targetObject) {
+        SpriteRenderer spriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+
+        Bounds spriteBounds = spriteRenderer.sprite.bounds;
+        Vector3 spriteSize = spriteBounds.size;
+
+        Vector3 targetScale = targetObject.transform.localScale;
+
+        float xScale = targetScale.x / spriteSize.x;
+        float yScale = targetScale.y / spriteSize.y;
+
+        float scaleFactor = Mathf.Min(xScale, yScale);
+
+        targetObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
     }
 }

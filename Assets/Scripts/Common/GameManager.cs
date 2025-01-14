@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager> {
     protected GameManager() { }
 
-    // Background
-    // public Sprite[] listBackgrounds;
     public Sprite background;
     private SpriteRenderer spriteRenderer;
 
@@ -41,7 +39,7 @@ public class GameManager : Singleton<GameManager> {
 
 
     // GameState
-    public GameState gameState;
+    public GameState gameState = new GameState();
     private event Action<GameState> OnGameStateChanged;
 
     private void FitTheScreen() {
@@ -66,18 +64,21 @@ public class GameManager : Singleton<GameManager> {
     void Awake() {
         // TODO: Remove this, call api here
         appState.profile.id = $"player_{UnityEngine.Random.Range(0, 20)}";
-    }
-
-    void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) {
+            spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        }
+
         Sprite[] bgSprites = Resources.LoadAll<Sprite>("Images");
-        Debug.Log("Check: " + bgSprites.Length);
         if (bgSprites != null && bgSprites.Length > 0) {
             int indexBg = UnityEngine.Random.Range(0, bgSprites.Length);
             background = bgSprites[indexBg];
             spriteRenderer.sprite = background;
-            FitTheScreen();
         }
+    }
+
+    void Start() {
+        FitTheScreen();
     }
 
     public void UpdateAppState(AppState newState) {
@@ -95,7 +96,6 @@ public class GameManager : Singleton<GameManager> {
         OnAppStateChanged -= listener;
     }
 
-
     private IEnumerator CountUpCoroutine() {
         UpdateGameState(new GameState {
             status = GameState.Status.findingMatch,
@@ -104,11 +104,9 @@ public class GameManager : Singleton<GameManager> {
             }
         });
 
-        FindingMatchState data = (FindingMatchState)gameState.data;
-
         while (gameState.status == GameState.Status.findingMatch) {
             yield return new WaitForSeconds(1f);
-            data.secondsElapsed++;
+            gameState.data.secondsElapsed++;
             UpdateGameState(gameState);
         }
     }
@@ -128,7 +126,7 @@ public class GameManager : Singleton<GameManager> {
     public void StopCountUp() {
         gameState = new GameState {
             status = GameState.Status.none,
-            data = new object(),
+            data = new FindingMatchState(),
         };
     }
 }

@@ -7,9 +7,9 @@ public class PlayerManager : EntityManager {
     private Vector3 delta;
     private GamePoints gamePoints;
 
-    public bool s_Ready = false;
+    private bool c_setAvatar = false;
 
-    public NetworkVariable<PlayerNetwork> m_Player = new NetworkVariable<PlayerNetwork>();
+    public NetworkVariable<RoomThrowEgg.Player> m_Player = new NetworkVariable<RoomThrowEgg.Player>();
     private NetworkVariable<bool> m_enable = new NetworkVariable<bool>(false);
 
     void Awake() {
@@ -43,33 +43,20 @@ public class PlayerManager : EntityManager {
         m_enable.Value = targetID.ToString() == m_Player.Value.id;
     }
 
-    public void Initialize(string _ID, Vector2 initPos, ThrowEggLogic _eggLogic) {
+    public void Initialize(RoomThrowEgg.Player player, ThrowEggLogic _eggLogic) {
         GetComponent<NetworkObject>().Spawn();
-        m_Player.Value = new PlayerNetwork {
-            id = _ID,
-            move_speed = 2f,
-            shot_speed = 40f,
-            point = 0,
-            init_pos = initPos,
-            clientID = -1,
-            name = $"Name_{_ID}",
-            avatar = $"Name_{_ID}",
-        };
-        _eggLogic.s_Players.Add(_ID, this);
+        m_Player.Value = player;
         UpdateEnable(_eggLogic.m_TargetID.Value);
         _eggLogic.m_TargetID.OnValueChanged += OnTargetChanged;
     }
 
     public void UpdatePoint(int newPoint) {
-        m_Player.Value = new PlayerNetwork {
+        m_Player.Value = new RoomThrowEgg.Player {
             id = m_Player.Value.id,
             move_speed = m_Player.Value.move_speed,
             shot_speed = m_Player.Value.shot_speed,
             point = newPoint,
             init_pos = m_Player.Value.init_pos,
-            clientID = m_Player.Value.clientID,
-            name = m_Player.Value.name,
-            avatar = m_Player.Value.avatar,
         };
     }
 
@@ -77,14 +64,37 @@ public class PlayerManager : EntityManager {
         UpdateEnable(newValue);
     }
 
-    private void OnPlayerChanged(PlayerNetwork _, PlayerNetwork newValue) {
+    private async void SetAvatar(string url) {
+        c_setAvatar = true;
+        try {
+            Sprite sprite = await Helper.ImgUrlToSprite(url);
+            GetComponent<SpriteRenderer>().sprite = sprite;
+            // Helper.FitSpriteToGameObject(gameObject);
+        }
+        catch (System.Exception) {
+            c_setAvatar = false;
+            Debug.LogWarning("Error set avatar");
+        }
+    }
+
+    private void OnPlayerChanged(RoomThrowEgg.Player _, RoomThrowEgg.Player newValue) {
         if (gamePoints == null) {
             GameObject Canvas = GameObject.Find("Canvas");
             Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
-            bool isUnder = m_Player.Value.init_pos.y < 0f;
-            gamePoints = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp").GetComponent<GamePoints>();
+            if (MatchScore != null) {
+                bool isUnder = m_Player.Value.init_pos.y < 0f;
+                Transform PointObject = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp");
+                gamePoints = PointObject.GetComponent<GamePoints>();
+                MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == newValue.id);
+                gamePoints.TextValue.text = fPlayer.name;
+            }
         }
-        gamePoints.TextValue.text = newValue.name;
+
+        if (!c_setAvatar) {
+            MatchState.Player player = GameManager.Instance.gameState.matchState.players.Find(p => p.id == newValue.id);
+            SetAvatar(player.avatar);
+        }
+
         gamePoints.UpdatePoint(newValue.point);
     }
 
@@ -109,7 +119,6 @@ public class PlayerManager : EntityManager {
             }
             return;
         }
-
 
         if (isPanning) {
             Vector2 mousePos = GameHelper.ToWorldPoint(Input.mousePosition) + delta;

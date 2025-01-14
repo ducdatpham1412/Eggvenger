@@ -11,7 +11,7 @@ public class GamePoints : MonoBehaviour {
         for (int i = 0; i < children.Length; i++) {
             bool isGreen = i + 1 <= point;
             Image img = children[i].GetComponent<Image>();
-            img.color = isGreen ? Helper.ColorFromHex("#52E032") : new Color(1f, 1f, 1f, 0.8f);
+            img.color = isGreen ? Helper.ColorFromHex(Configs.Color.green01) : new Color(1f, 1f, 1f, 0.8f);
         }
     }
 }

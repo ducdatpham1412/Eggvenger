@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -19,6 +20,11 @@ public class ImageLoader : MonoBehaviour {
     }
 
     private IEnumerator DownloadImage(string url) {
+        if (Helper.CacheUrlTextures.ContainsKey(url)) {
+            GetComponent<RawImage>().texture = Helper.GetTexture(url);
+            yield break;
+        }
+
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
         if (request.result != UnityWebRequest.Result.Success) {
@@ -26,8 +32,10 @@ public class ImageLoader : MonoBehaviour {
         }
         else {
             Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            if (!Helper.CacheUrlTextures.ContainsKey(url)) {
+                Helper.CacheUrlTextures.Add(url, texture);
+            }
             GetComponent<RawImage>().texture = texture;
         }
-
     }
 }
