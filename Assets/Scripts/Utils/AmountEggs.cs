@@ -14,11 +14,11 @@ public class AmountEggs : MonoBehaviour {
     void Start() {
         text = GetComponent<Text>();
         text.text = GameManager.Instance.appState.profile.eggs.ToString();
-        GameManager.Instance.ListenAppStateChanged(UpdateProfile);
+        GameManager.Instance.OnAppStateChanged += UpdateProfile;
     }
 
 
     void OnDestroy() {
-        GameManager.Instance.RemoveListenAppStateChanged(UpdateProfile);
+        GameManager.Instance.OnAppStateChanged -= UpdateProfile;
     }
 }

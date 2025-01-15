@@ -28,12 +28,12 @@ public class GameManager : Singleton<GameManager> {
         },
         client = new ClientValue(),
     };
-    private event Action<AppState> OnAppStateChanged;
+    public event Action<AppState> OnAppStateChanged;
 
 
     // GameState
     public GameState gameState = new GameState();
-    private event Action<GameState> OnGameStateChanged;
+    public event Action<GameState> OnGameStateChanged;
 
     private void FitTheScreen() {
         float screenHeight = Camera.main.orthographicSize * 2;
@@ -84,12 +84,6 @@ public class GameManager : Singleton<GameManager> {
         appState = action(appState);
         return appState;
     }
-    public void ListenAppStateChanged(Action<AppState> listener) {
-        OnAppStateChanged += listener;
-    }
-    public void RemoveListenAppStateChanged(Action<AppState> listener) {
-        OnAppStateChanged -= listener;
-    }
 
     IEnumerator CountUpCoroutine() {
         UpdateGameState(new GameState {
@@ -109,12 +103,7 @@ public class GameManager : Singleton<GameManager> {
         gameState = state;
         OnGameStateChanged?.Invoke(gameState);
     }
-    public void ListenGameStateChanged(Action<GameState> listener) {
-        OnGameStateChanged += listener;
-    }
-    public void RemoveListenGameStateChanged(Action<GameState> listener) {
-        OnGameStateChanged -= listener;
-    }
+
     public void StartCountUp() {
         StartCoroutine(CountUpCoroutine());
     }

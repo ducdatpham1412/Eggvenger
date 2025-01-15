@@ -27,8 +27,8 @@ public class MatchMakingLogic : MonoBehaviour {
         GameState gameState = GameManager.Instance.gameState;
         if (gameState != null && gameState.status == GameState.Status.findingMatch) {
             ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "finding");
-            UpdateTextCountUp(((FindingMatchState)gameState.data).secondsElapsed);
-            GameManager.Instance.ListenGameStateChanged(ListenCountUp);
+            UpdateTextCountUp(gameState.data.secondsElapsed);
+            GameManager.Instance.OnGameStateChanged += ListenCountUp;
             TeamView.transform.localPosition = TeamView.transform.localPosition + new Vector3(0, AnimatedUpDistance, 0);
             StopFindButton.SetActive(true);
         }
@@ -38,7 +38,7 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     void OnDestroy() {
-        GameManager.Instance.RemoveListenGameStateChanged(ListenCountUp);
+        GameManager.Instance.OnGameStateChanged -= ListenCountUp;
         SocketManager.OnHandleData -= MatchFound;
     }
 
@@ -100,7 +100,7 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     public void FindMatch() {
-        GameManager.Instance.ListenGameStateChanged(ListenCountUp);
+        GameManager.Instance.OnGameStateChanged += ListenCountUp;
         ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "finding");
         StartCoroutine(AnimateLinearUp(TeamView.transform, AnimatedUpDistance, 0.25f, true));
         StopFindButton.SetActive(true);
@@ -110,7 +110,7 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     public void StopFinding() {
-        GameManager.Instance.RemoveListenGameStateChanged(ListenCountUp);
+        GameManager.Instance.OnGameStateChanged -= ListenCountUp;
         ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "findMatch");
         ButtonTitle.RefreshString();
         GameManager.Instance.StopCountUp();

@@ -6,7 +6,7 @@ public class Navigator : Singleton<Navigator> {
     public enum Scene {
         Welcome,
         Home,
-        TeamFormation,
+        MatchMaking,
         GameOverview,
         GameThrowEgg,
         Profile,
