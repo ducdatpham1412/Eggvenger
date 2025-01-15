@@ -12,11 +12,22 @@ public class Authorized {
 
 [Serializable]
 public class Profile {
+    [Serializable]
+    public class Setting {
+        public string language;
+    }
+
     public string id;
     public string name;
     public string avatar;
     public int eggs;
     public int ranking;
     public int localeID;
+    public Setting setting;
 }
 
+
+[Serializable]
+public class Passport {
+    public Profile profile;
+}

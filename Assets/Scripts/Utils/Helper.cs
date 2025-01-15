@@ -8,6 +8,8 @@ using UnityEngine.Localization;
 
 
 public static class Helper {
+    public static string DeviceID = SystemInfo.deviceUniqueIdentifier;
+
     public static Transform FindChildRecursive(Transform parent, string childName) {
         foreach (Transform child in parent) {
             if (child.name == childName)
@@ -67,10 +69,13 @@ public static class Helper {
         return temp;
     }
 
-    public static string GetLocalizedValue(LocalizationManager.Table table, string key) {
+    public static string GetLocalizedValue(LocalizationManager.Table table, string key, object[] args = null) {
         LocalizedString localized = new LocalizedString();
         localized.TableReference = table.ToString();
         localized.TableEntryReference = key;
+        if (args != null) {
+            localized.Arguments = args;
+        }
         return localized.GetLocalizedString();
     }
 
@@ -106,5 +111,9 @@ public static class Helper {
         float scaleFactor = Mathf.Min(xScale, yScale);
 
         targetObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
+    }
+
+    public static string RenderErrorMsg(string error_msg) {
+        return error_msg;
     }
 }
