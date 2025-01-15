@@ -85,7 +85,7 @@ public class MatchMakingLogic : MonoBehaviour {
         ButtonTitle.RefreshString();
     }
     private void ListenCountUp(GameState newState) {
-        FindingMatchState data = (FindingMatchState)newState.data;
+        FindingMatchState data = newState.data;
         UpdateTextCountUp(data.secondsElapsed);
     }
 
@@ -100,6 +100,10 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     public void FindMatch() {
+        if (GameManager.Instance.gameState.status == GameState.Status.findingMatch) {
+            return;
+        }
+
         GameManager.Instance.OnGameStateChanged += ListenCountUp;
         ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "finding");
         StartCoroutine(AnimateLinearUp(TeamView.transform, AnimatedUpDistance, 0.25f, true));

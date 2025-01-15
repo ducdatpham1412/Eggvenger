@@ -60,7 +60,7 @@ public class CreateAccountLogic : MonoBehaviour {
                     {"type", "device_id"},
                 }
             );
-            ApiManager.SetAccount(res);
+            ApiManager.SetAccount(resLogin: res);
             GameManager.Instance.appState.resource = await ApiManager.GET<Resource>("/common/resource");
             var passport = await ApiManager.GET<Passport>("/common/passport");
             GameManager.Instance.appState.profile = passport.profile;

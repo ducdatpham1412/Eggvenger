@@ -21,8 +21,8 @@ public class ProfileLogic : MonoBehaviour {
         }
         yellow = Helper.ColorFromHex(Configs.Color.yellow);
 
-        EnglishButton.color = profile.localeID == Configs.LocaleID.En ? yellow : Color.white;
-        VietnameseButton.color = profile.localeID == Configs.LocaleID.Vi ? yellow : Color.white;
+        EnglishButton.color = profile.setting.language == Configs.LocaleID.En ? yellow : Color.white;
+        VietnameseButton.color = profile.setting.language == Configs.LocaleID.Vi ? yellow : Color.white;
     }
 
     public void GoBack() {
@@ -51,11 +51,11 @@ public class ProfileLogic : MonoBehaviour {
     public void SetLocale(int localeID) {
         LocalizationManager.Instance.SetLocale(localeID);
         AppState appState = GameManager.Instance.UpdateAppState(appState => {
-            appState.profile.localeID = localeID;
+            appState.profile.setting.language = localeID == 0 ? Configs.LocaleID.En : Configs.LocaleID.Vi;
             return appState;
         });
 
-        EnglishButton.color = appState.profile.localeID == Configs.LocaleID.En ? yellow : Color.white;
-        VietnameseButton.color = appState.profile.localeID == Configs.LocaleID.Vi ? yellow : Color.white;
+        EnglishButton.color = appState.profile.setting.language == Configs.LocaleID.En ? yellow : Color.white;
+        VietnameseButton.color = appState.profile.setting.language == Configs.LocaleID.Vi ? yellow : Color.white;
     }
 }

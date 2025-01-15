@@ -12,11 +12,15 @@ public class MatchManager : NetworkBehaviour {
     public GameObject CardPrefab;
     public GameObject Line;
     public GameObject FinalLeaderBoard;
+    public GameObject BackToLobby;
+    string READY_STATUS = MatchState.Player.Status.ready.ToString();
+    bool hasLoadedMatch = false;
+    bool ended = false;
 
-    private AppState appState;
-    private GameState gameState;
-    private SynchronizationContext context;
-    private List<RoomCardManager> roomManagers = new List<RoomCardManager>();
+    AppState appState;
+    GameState gameState;
+    SynchronizationContext context;
+    List<RoomCardManager> roomManagers = new List<RoomCardManager>();
 
     void Start() {
         appState = GameManager.Instance.appState;
@@ -25,103 +29,111 @@ public class MatchManager : NetworkBehaviour {
         InitGame();
     }
 
-    void Destroy() {
-        SocketManager.OnHandleData -= LoadMatch;
-    }
-
     public override void OnNetworkSpawn() {
         if (IsClient) {
+            // We have to check like on Start for comeback from room to match, OnNetworkSpawn will run before Start
+            if (appState == null) {
+                appState = GameManager.Instance.appState;
+                gameState = GameManager.Instance.gameState;
+                context = SynchronizationContext.Current;
+            }
             LoadMatchServerRpc(appState.profile.id);
             return;
         }
     }
 
-    private void LoadMatch(JObject evt) {
+    public override void OnNetworkDespawn() {
+        if (IsServer) {
+            SocketManager.OnHandleData -= S_LoadMatch;
+        }
+    }
+
+    void S_LoadMatch(JObject evt) {
         string eventType = evt["type"].ToString();
         if (eventType == "load_match") {
             gameState.status = GameState.Status.inGame;
             gameState.matchState = evt["data"].ToObject<MatchState>();
             context.Post(_ => {
-                S_DisplayCards();
+                DisplayCards();
             }, null);
         }
     }
 
-    private void S_DisplayCards() {
-        for (int i = 0; i < gameState.matchState.rooms.Count; i++) {
-            JObject room = gameState.matchState.rooms[i];
-            string roomType = room["type"].ToString();
-            GameObject NewCard = Instantiate(CardPrefab);
-            NewCard.transform.SetParent(Content, false);
-
-            if (roomType == BaseRoom.Type.throw_egg.ToString()) {
-                RoomCardManager manager = NewCard.GetComponent<RoomCardManager>();
-                RoomThrowEgg roomThrowEgg = room.ToObject<RoomThrowEgg>();
-                roomThrowEgg.players[0].point = Random.Range(1, 9);
-                roomThrowEgg.players[1].point = Random.Range(1, 9);
-                gameState.matchState.rooms[i] = JObject.FromObject(roomThrowEgg);
-
-                manager.Initialize(room["id"].ToString());
-                roomManagers.Add(manager);
-            }
-
-
+    void DisplayCards() {
+        if (ended) {
+            return;
         }
 
-        EndGame();
+        if (!hasLoadedMatch) {
+            hasLoadedMatch = true;
+            for (int i = 0; i < gameState.matchState.rooms.Count; i++) {
+                JObject room = gameState.matchState.rooms[i];
+                string roomType = room["type"].ToString();
+                GameObject NewCard = Instantiate(CardPrefab);
+                NewCard.transform.SetParent(Content, false);
 
-        // TODO: Remove this, we begin in function ServerRPC: LoadMatchServerRpc
-        // JObject _room = gameState.matchState.rooms.Find(r => r["status"].ToString() == "active");
-        // if (_room != null) {
-        //     int index = roomManagers.FindIndex(r => r.roomID == _room["id"].ToString());
-        //     roomManagers[index].CountDownToBegin(index == 0 ? 3 : 6);
-        // }
-        // else {
-        //     EndGame();
-        // }
+                if (roomType == BaseRoom.Type.throw_egg.ToString()) {
+                    RoomCardManager manager = NewCard.GetComponent<RoomCardManager>();
+                    manager.Initialize(room["id"].ToString());
+                    roomManagers.Add(manager);
+                }
+            }
+        }
+        if (IsClient) {
+            CheckContinueOrEndGame();
+        }
     }
 
-    private void InitServer(string match_id) {
-        SocketManager.OnHandleData += LoadMatch;
-        SocketManager.Send(new Event.Send.LoadMatch { match_id = match_id });
+    private void S_InitServer(string match_id) {
+        SocketManager.OnHandleData += S_LoadMatch;
         NetworkManager.Singleton.StartServer();
+        SocketManager.Send(new Event.Send.LoadMatch { match_id = match_id });
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void LoadMatchServerRpc(string playerID, ServerRpcParams rpcParams = default) {
         foreach (MatchState.Player player in gameState.matchState.players) {
-            player.clientID = (int)rpcParams.Receive.SenderClientId;
             if (player.id == playerID) {
-                player.status = MatchState.Player.Status.ready.ToString();
+                player.status = READY_STATUS;
+                player.clientID = (int)rpcParams.Receive.SenderClientId;
             }
         }
-
-        bool allReady = gameState.matchState.players.Find(p => p.status != MatchState.Player.Status.ready.ToString()) == null;
-
         PassMatchStateClientRpc(gameState.matchState);
-        if (allReady) {
+        CheckContinueOrEndGame();
+    }
+
+    [ClientRpc]
+    void PassMatchStateClientRpc(MatchState state) {
+        gameState.matchState = state;
+        context.Post(_ => {
+            DisplayCards();
+        }, null);
+    }
+
+    void CheckContinueOrEndGame() {
+        bool allReady = gameState.matchState.players.Find(p => p.status != READY_STATUS) == null;
+        if (
+            allReady
+            // 1 == 1 // TODO: Remove this, only for testing
+            ) {
             JObject room = gameState.matchState.rooms.Find(r => r["status"].ToString() == BaseRoom.Status.active.ToString());
+
             // Case 1: Still having active room in mathState => continue
             if (room != null) {
-                RoomCardManager roomCard = roomManagers.Find(r => r.roomID == room["id"].ToString());
+                string roomID = room["id"].ToString();
+                RoomCardManager roomCard = roomManagers.Find(r => r.roomID == roomID);
                 roomCard.CountDownToBegin();
                 return;
             }
 
-            // Case 2: All rooms end => End match and display Final Leaderboard
+
+            // Case 2: All rooms end => Endgame
+            ended = true;
             EndGame();
         }
     }
 
-    [ClientRpc]
-    private void PassMatchStateClientRpc(MatchState state) {
-        gameState.matchState = state;
-        if (state.status == "ended") {
-            EndGame();
-        }
-    }
-
-    private void InitClient() {
+    void InitClient() {
         string IP = appState.client.match_ip;
         int? PORT = appState.client.match_port;
         if (IP != "" && PORT != null) {
@@ -133,7 +145,7 @@ public class MatchManager : NetworkBehaviour {
         }
     }
 
-    private void InitGame() {
+    void InitGame() {
         if (!NetworkManager.Singleton.IsListening) {
             // string match_id = Environment.GetEnvironmentVariable("match_id");
 
@@ -148,35 +160,51 @@ public class MatchManager : NetworkBehaviour {
             TestCreate.gameObject.SetActive(true);
             return;
         }
-        else if (IsServer) {
-            S_DisplayCards();
+        else {
+            TestCreate.gameObject.SetActive(false);
+            if (IsServer) {
+                DisplayCards();
+            }
         }
     }
 
-    private void EndGame() {
-        GameObject LineObject = Instantiate(Line);
-        GameObject Final = Instantiate(FinalLeaderBoard);
-        LineObject.transform.SetParent(Content, false);
-        Final.transform.SetParent(Content, false);
-        Final.GetComponent<FinalLeaderboard>().SetData(gameState.matchState);
+    void EndGame() {
+        if (IsClient) {
+            NetworkManager.Singleton.Shutdown();
+            GameObject LineObject = Instantiate(Line);
+            GameObject Final = Instantiate(FinalLeaderBoard);
+            LineObject.transform.SetParent(Content, false);
+            Final.transform.SetParent(Content, false);
+            Final.GetComponent<FinalLeaderboard>().SetData(gameState.matchState);
+            BackToLobby.transform.SetAsLastSibling();
+            BackToLobby.SetActive(true);
+            return;
+        }
+
+        if (IsServer) {
+            // TODO: Send data to UDP server to save
+            return;
+        }
+    }
+
+    public void GoBackLobby() {
+        if (NetworkManager.Singleton.IsClient) {
+            Navigator.Instance.NavigateTo(Navigator.Scene.MatchMaking);
+        }
     }
 
     // This is only for testing
     public GameObject TestCreate;
 
-    private string player_01;
-    private string player_02;
-    public void ChangePlayer01(string value) {
-        player_01 = value;
+    private string player_client_id;
+    public void ChangePlayerClientID(string value) {
+        player_client_id = value;
     }
-    public void ChangePlayer02(string value) {
-        player_02 = value;
-    }
-    public void SubmitCreateServer() {
+    public void SubmitStartClient() {
         TestCreate.SetActive(false);
-        InitServer("123");
+        appState.profile.id = player_client_id;
+        NetworkManager.Singleton.StartClient();
     }
-
 
     private string match_id;
     public void ChangeMatchID(string value) {
@@ -184,6 +212,6 @@ public class MatchManager : NetworkBehaviour {
     }
     public void SubmitStartServer() {
         TestCreate.SetActive(false);
-        InitServer(match_id);
+        S_InitServer(match_id);
     }
 }

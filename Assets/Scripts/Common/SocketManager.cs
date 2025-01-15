@@ -24,6 +24,24 @@ public static class SocketManager {
         });
     }
 
+    static void HandleConnect(JObject state) {
+        connected = true;
+        ClientValue client = JsonConvert.DeserializeObject<ClientValue>(state["data"].ToString());
+        GameManager.Instance.UpdateAppState(state => {
+            state.client = client;
+            return state;
+        });
+        if (lastData != null) {
+            __Send(lastData);
+            lastData = null;
+        }
+    }
+
+    static void MatchFound(JObject state) {
+        MatchState newMatch = state["data"].ToObject<MatchState>();
+        Debug.Log($"Data match found: {state}");
+    }
+
     private static async void HandleState() {
         while (true) {
             try {
@@ -36,16 +54,10 @@ public static class SocketManager {
                     Connect();
                 }
                 else if (type == "connect") {
-                    connected = true;
-                    ClientValue client = JsonConvert.DeserializeObject<ClientValue>(state["data"].ToString());
-                    GameManager.Instance.UpdateAppState(state => {
-                        state.client = client;
-                        return state;
-                    });
-                    if (lastData != null) {
-                        __Send(lastData);
-                        lastData = null;
-                    }
+                    HandleConnect(state);
+                }
+                else if (type == "match_found") {
+                    MatchFound(state);
                 }
                 else {
                     lastData = null;
@@ -53,15 +65,20 @@ public static class SocketManager {
                 }
             }
             catch (Exception ex) {
-                Debug.LogError($"Error in HandleState: {ex.Message}");
+                Debug.LogWarning($"Error in HandleState: {ex.Message}");
             }
         }
     }
 
     private static void __Send(object data) {
-        string jsonData = JsonConvert.SerializeObject(data);
-        byte[] dataBytes = Encoding.UTF8.GetBytes(jsonData);
-        udpClient.Send(dataBytes, dataBytes.Length);
+        try {
+            string jsonData = JsonConvert.SerializeObject(data);
+            byte[] dataBytes = Encoding.UTF8.GetBytes(jsonData);
+            udpClient.Send(dataBytes, dataBytes.Length);
+        }
+        catch (Exception e) {
+            Debug.LogWarning($"Error in SendSocket: {e.Message}");
+        }
     }
 
     public static void Send(object data, bool saveLastData = true) {
@@ -75,5 +92,10 @@ public static class SocketManager {
             lastData = data;
         }
         __Send(data);
+    }
+
+    public static void Disconnected() {
+        Debug.Log("Send disconnected");
+        __Send(new Event.Send.Disconnected());
     }
 }

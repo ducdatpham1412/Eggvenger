@@ -1727,7 +1727,7 @@ MonoBehaviour:
   Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
+  ActiveSceneSynchronization: 1
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
@@ -1764,8 +1764,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   EggPrefab: {fileID: 6888003016753537019, guid: 45ed7a8d117ae4613bf0019b155f1d47, type: 3}
   PlayerPrefab: {fileID: 511859225073677045, guid: a6640a71bf79c4cbb8e95b04a54a54e6, type: 3}
+  MatchScore: {fileID: 268584211}
   c_TextNotice: {fileID: 1331707891}
-  c_MatchScore: {fileID: 268584211}
   c_Hover: {fileID: 2068391417}
   m_TargetID:
     m_InternalValue:
@@ -2548,10 +2548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7232022105234085091, guid: 4424e7a0a39594c618d3b7c1cf27be1b, type: 3}
       propertyPath: m_Text
-      value: 'You are this first to throw
-
-        Try to hit the opponent with the
-        egg'
+      value: You Go First
       objectReference: {fileID: 0}
     - target: {fileID: 7232022105234085091, guid: 4424e7a0a39594c618d3b7c1cf27be1b, type: 3}
       propertyPath: m_Enabled

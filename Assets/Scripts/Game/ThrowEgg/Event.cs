@@ -21,5 +21,8 @@ public class Event {
             public string type = "load_match";
             public string match_id;
         }
+        public class Disconnected {
+            public string type = "disconnected";
+        }
     }
 }

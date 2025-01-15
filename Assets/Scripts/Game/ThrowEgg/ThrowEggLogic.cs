@@ -7,31 +7,34 @@ using Unity.Netcode;
 using Unity.Collections;
 using System.Collections;
 using Newtonsoft.Json.Linq;
+using System.Threading;
+using System.Linq;
 
 
 public class ThrowEggLogic : NetworkBehaviour {
     public GameObject EggPrefab;
     public GameObject PlayerPrefab;
-    private RoomThrowEgg roomThrowEgg;
-    private MatchState matchState;
-
-    private Dictionary<string, PlayerManager> s_Players = new Dictionary<string, PlayerManager>();
-    private GameObject s_Egg;
+    public GameObject MatchScore;
+    RoomThrowEgg roomThrowEgg;
+    MatchState matchState;
+    SynchronizationContext context;
 
     public LocalizeStringEvent c_TextNotice;
-    public GameObject c_MatchScore;
     public Image c_Hover;
+
+    List<int> s_ConnectedClients = new List<int>();
+    Dictionary<string, PlayerManager> s_Players = new Dictionary<string, PlayerManager>();
+    GameObject s_Egg;
 
     public NetworkVariable<FixedString32Bytes> m_TargetID = new NetworkVariable<FixedString32Bytes>("");
 
 
-    void Awake() {
-        matchState = GameManager.Instance.gameState.matchState;
-    }
-
-
     void Start() {
-        SoundManager.Instance.PlayMusic(SoundManager.MusicSource.lifeWandering);
+        context = SynchronizationContext.Current;
+        // SoundManager.Instance.PlayMusic(SoundManager.MusicSource.lifeWandering);
+
+        matchState = GameManager.Instance.gameState.matchState;
+        roomThrowEgg = matchState.rooms.Find(r => r["status"].ToString() == "active").ToObject<RoomThrowEgg>();
     }
 
     public override void OnNetworkDespawn() {
@@ -39,24 +42,26 @@ public class ThrowEggLogic : NetworkBehaviour {
     }
 
     public override void OnNetworkSpawn() {
-        base.OnNetworkSpawn();
-        InitGame();
+        if (IsClient) {
+            ReadyServerRpc();
+        }
     }
 
+
     private void S_InitEgg(PlayerManager playerManager) {
+        int ownerClientID = matchState.players.Find(p => p.id == playerManager.m_Player.Value.id).clientID;
         bool isUnder = playerManager.m_Player.Value.init_pos.y < 0;
         s_Egg = Instantiate(EggPrefab, playerManager.m_Player.Value.init_pos, isUnder ? Quaternion.identity : Quaternion.Euler(180, 0, 0));
         EggManager manager = s_Egg.GetComponent<EggManager>();
-        int ownerClientID = matchState.players.Find(p => p.id == playerManager.m_Player.Value.id).clientID;
         manager.Initialize(
             creatorID: playerManager.m_Player.Value.id,
             move_speed: playerManager.m_Player.Value.move_speed,
             shot_speed: playerManager.m_Player.Value.shot_speed * (isUnder ? 1 : -1), _logic: this,
-            ownerClientID: ownerClientID < 0 ? null : (ulong)ownerClientID
+            ownerClientID: (ulong)(ownerClientID < 0 ? 0 : ownerClientID)
         );
     }
 
-    private void InitServer() {
+    void S_InitObjects() {
         PlayerManager InitPlayer(RoomThrowEgg.Player player) {
             GameObject newGameObject = Instantiate(PlayerPrefab, player.init_pos, Quaternion.identity);
             PlayerManager manager = newGameObject.GetComponent<PlayerManager>();
@@ -69,65 +74,41 @@ public class ThrowEggLogic : NetworkBehaviour {
         PlayerManager manager01 = InitPlayer(roomThrowEgg.players[0]);
         InitPlayer(roomThrowEgg.players[1]);
         S_InitEgg(manager01);
-
-        // TODO: Remove
-        Introduce();
-    }
-
-    private void InitGame() {
-        List<JObject> rooms = matchState.rooms;
-        roomThrowEgg = rooms.Find(r => r["status"].ToString() == "active").ToObject<RoomThrowEgg>();
-
-        if (IsServer) {
-            InitServer();
-            return;
-        }
-
-        if (IsClient) {
-            InitializeServerRpc();
-        }
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void InitializeServerRpc(ServerRpcParams rpcParams = default) {
+    void ReadyServerRpc(ServerRpcParams rpcParams = default) {
         ulong clientID = rpcParams.Receive.SenderClientId;
-        MatchState.Player fPlayer = matchState.players.Find(p => p.clientID == (int)clientID);
-        if (fPlayer != null) {
-            PlayerManager player = (PlayerManager)Helper.Get(s_Players, fPlayer.id);
-            if (player != null) {
-                NetworkObject network = player.gameObject.GetComponent<NetworkObject>();
-                network.ChangeOwnership(clientID);
-                PlayerManager manager = player.gameObject.GetComponent<PlayerManager>();
+        var allClients = matchState.players.Select(p => p.clientID).ToArray();
+        if (!allClients.Contains((int)clientID)) {
+            return;
+        }
 
-                if (s_Egg) {
-                    EggManager eggManager = s_Egg.GetComponent<EggManager>();
-                    if (eggManager) {
-                        if (eggManager.m_Egg.Value.creator == fPlayer.id) {
-                            NetworkObject eggNetwork = s_Egg.GetComponent<NetworkObject>();
-                            eggNetwork.ChangeOwnership(clientID);
-                        }
-                    }
-                }
-
-                IntroduceRoomClientRpc();
+        s_ConnectedClients.Add((int)clientID);
+        bool allReady = true;
+        foreach (MatchState.Player p in matchState.players) {
+            if (!s_ConnectedClients.Contains(p.clientID)) {
+                allReady = false;
             }
         }
 
+        if (allReady) {
+            S_InitObjects();
+            StartCoroutine(FadeOutHover());
+            IntroduceRoomClientRpc();
+        }
     }
-
 
     [ClientRpc]
     private void IntroduceRoomClientRpc() {
-        Introduce();
-    }
-
-    private async void Introduce() {
-        bool isMyTurnFirst = m_TargetID.Value.ToString() != GameManager.Instance.appState.profile.id;
-        await ShowNotice(isMyTurnFirst ? "youAreTheFirst" : "opponentBeFirst", 2000);
-        await ShowNotice("areYouReady", 1500, 30);
-        await ShowNotice("fight", 1000, 50);
-        StartCoroutine(FadeOutHover());
+        context.Post(async _ => {
+            bool isMyTurnFirst = m_TargetID.Value.ToString() != GameManager.Instance.appState.profile.id;
+            await ShowNotice(isMyTurnFirst ? "youAreTheFirst" : "opponentBeFirst", 2000);
+            await ShowNotice("areYouReady", 1500);
+            await ShowNotice("fight", 1000, 50);
+            StartCoroutine(FadeOutHover());
+        }, null);
     }
 
     private IEnumerator FadeOutHover() {
@@ -143,10 +124,10 @@ public class ThrowEggLogic : NetworkBehaviour {
         }
         c_Hover.color = new Color(color.r, color.g, color.b, 0f);
         c_Hover.gameObject.SetActive(false);
-        c_MatchScore.GetComponent<CanvasGroup>().alpha = 1;
+        MatchScore.GetComponent<CanvasGroup>().alpha = 1;
     }
 
-    private async Task ShowNotice(string key, int duration = 3000, int fontSize = 20) {
+    private async Task ShowNotice(string key, int duration = 3000, int fontSize = 30) {
         c_TextNotice.StringReference.SetReference(LocalizationManager.Table.Game.ToString(), key);
         Text text = c_TextNotice.gameObject.GetComponent<Text>();
         text.fontSize = fontSize;
@@ -191,12 +172,12 @@ public class ThrowEggLogic : NetworkBehaviour {
                 if (isHit) {
                     bool ended = S_PlusPointAndCheckEnded(Shot, Target);
                     if (ended) {
-                        EndGame(winnerID: Shot.m_Player.Value.id);
+                        S_EndGame(winnerID: Shot.m_Player.Value.id);
                         return;
                     }
                 }
                 else if (Target.m_Player.Value.point == 5) {
-                    EndGame(winnerID: Target.m_Player.Value.id);
+                    S_EndGame(winnerID: Target.m_Player.Value.id);
                     return;
                 }
                 S_InitEgg(Target);
@@ -205,12 +186,10 @@ public class ThrowEggLogic : NetworkBehaviour {
         }
     }
 
-    public void SendResult(bool isHit) {
+    public void S_SendResult(bool isHit) {
         EggManager manager = s_Egg.GetComponent<EggManager>();
         manager.m_Egg.Value.status = isHit ? "hit" : "missed";
-        if (manager != null) {
-            roomThrowEgg.eggs.Add(manager.m_Egg.Value);
-        }
+        roomThrowEgg.eggs.Add(manager.m_Egg.Value);
         S_SwitchTurn(isHit);
     }
 
@@ -221,7 +200,7 @@ public class ThrowEggLogic : NetworkBehaviour {
         // TODO: Winner UI
     }
 
-    private async void EndGame(string winnerID) {
+    private async void S_EndGame(string winnerID) {
         foreach (RoomThrowEgg.Player player in roomThrowEgg.players) {
             player.CopyProperties(s_Players[player.id].m_Player.Value);
             s_Players[player.id].gameObject.GetComponent<NetworkObject>().Despawn();

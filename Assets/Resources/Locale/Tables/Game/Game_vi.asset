@@ -24,13 +24,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1070287343837184
-    m_Localized: "B\u1EA1n l\xE0 ng\u01B0\u1EDDi n\xE9m \u0111\u1EA7u ti\xEAn\nC\u1ED1
-      g\u1EAFng n\xE9m tr\xFAng \u0111\u1ED1i ph\u01B0\u01A1ng nh\xE9"
+    m_Localized: "B\u1EA1n N\xE9m Tr\u01B0\u1EDBc"
     m_Metadata:
       m_Items: []
   - m_Id: 1070513018363904
-    m_Localized: "\u0110\u1ED1i ph\u01B0\u01A1ng l\xE0 ng\u01B0\u1EDDi n\xE9m tr\u01B0\u1EDBc\nC\u1ED1
-      g\u1EAFng \u0111\u1EEBng \u0111\u1EC3 qu\u1EA3 tr\u1EE9ng n\xE9m tr\xFAng"
+    m_Localized: "\u0110\u1ED1i Th\u1EE7 N\xE9m Tr\u01B0\u1EDBc"
     m_Metadata:
       m_Items:
       - rid: 4339586626695463055
@@ -97,6 +95,10 @@ MonoBehaviour:
   - m_Id: 5144310520471552
     m_Localized: "{0} l\xE0 ng\u01B0\u1EDDi chi\u1EBFn th\u1EAFng v\xE0 thu v\u1EC1
       {1} tr\u1EE9ng r\u1ED3ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6580749267361792
+    m_Localized: "Tr\u1EDF L\u1EA1i S\u1EA3nh"
     m_Metadata:
       m_Items: []
   references:

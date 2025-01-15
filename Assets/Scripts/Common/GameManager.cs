@@ -11,21 +11,9 @@ public class GameManager : Singleton<GameManager> {
 
     // AppState
     public AppState appState = new AppState {
-        profile = new Profile {
-            // id = $"player_1",
-            // name = "Duc Dat",
-            // avatar = "https://cdn.dribbble.com/users/17793/screenshots/16101765/media/beca221aaebf1d3ea7684ce067bc16e5.png",
-            // eggs = 99,
-            // ranking = 9,
-            // localeID = 0,
-        },
+        profile = new Profile(),
         resource = new Resource(),
-        account = new Account {
-            // username = "Test username",
-            // password = "Test password",
-            // token = "",
-            // refresh_token = ""
-        },
+        account = new Account(),
         client = new ClientValue(),
     };
     public event Action<AppState> OnAppStateChanged;
@@ -35,6 +23,7 @@ public class GameManager : Singleton<GameManager> {
     public GameState gameState = new GameState();
     public event Action<GameState> OnGameStateChanged;
 
+    // Function
     private void FitTheScreen() {
         float screenHeight = Camera.main.orthographicSize * 2;
         float screenWidth = screenHeight * Screen.width / Screen.height;
@@ -55,8 +44,6 @@ public class GameManager : Singleton<GameManager> {
     }
 
     void Awake() {
-        // TODO: Remove this, call api here
-        appState.profile.id = $"player_{UnityEngine.Random.Range(0, 20)}";
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) {
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
@@ -72,6 +59,10 @@ public class GameManager : Singleton<GameManager> {
 
     void Start() {
         FitTheScreen();
+    }
+
+    void OnApplicationQuit() {
+        SocketManager.Disconnected();
     }
 
     public void Initialize() { }
@@ -109,7 +100,7 @@ public class GameManager : Singleton<GameManager> {
     }
     public void StopCountUp() {
         gameState = new GameState {
-            status = GameState.Status.none,
+            status = GameState.Status.active,
             data = new FindingMatchState(),
         };
     }
