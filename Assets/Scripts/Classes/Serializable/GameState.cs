@@ -73,17 +73,19 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-            if (serializer.IsReader) {
-                var reader = serializer.GetFastBufferReader();
-                reader.ReadValueSafe(out id);
-                reader.ReadValueSafe(out name);
-                reader.ReadValueSafe(out avatar);
-            }
-            else {
+            if (serializer.IsWriter) {
                 var writer = serializer.GetFastBufferWriter();
                 writer.WriteValueSafe(id);
                 writer.WriteValueSafe(name);
                 writer.WriteValueSafe(avatar);
+                writer.WriteValueSafe(status);
+            }
+            else {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out id);
+                reader.ReadValueSafe(out name);
+                reader.ReadValueSafe(out avatar);
+                reader.ReadValueSafe(out status);
             }
         }
 
@@ -101,32 +103,37 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
     public string status;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-        int playersCount = players.Count;
-        int roomsCount = rooms.Count;
-        serializer.SerializeValue(ref playersCount);
-        serializer.SerializeValue(ref roomsCount);
-
         if (serializer.IsWriter) {
-            var writer = serializer.GetFastBufferWriter();
-            writer.WriteValueSafe(id);
+            int playersCount = players.Count;
+            int roomsCount = rooms.Count;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref roomsCount);
+
             serializer.SerializeValue(ref configs);
 
             for (int i = 0; i < playersCount; i++) {
                 players[i].NetworkSerialize(serializer);
             }
-
             for (int i = 0; i < roomsCount; i++) {
                 string jsonString = rooms[i].ToString();
                 serializer.SerializeValue(ref jsonString);
             }
 
+            var writer = serializer.GetFastBufferWriter();
+            writer.WriteValueSafe(id);
             writer.WriteValueSafe(created);
             writer.WriteValueSafe(ended);
             writer.WriteValueSafe(status);
         }
         else {
-            var reader = serializer.GetFastBufferReader();
-            reader.ReadValueSafe(out id);
+            int playersCount = 0;
+            int roomsCount = 0;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref roomsCount);
+
+            if (configs == null) {
+                configs = new Configs();
+            }
             serializer.SerializeValue(ref configs);
 
             players = new List<Player>();
@@ -135,7 +142,6 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
                 p.NetworkSerialize(serializer);
                 players.Add(p);
             }
-
             rooms = new List<JObject>();
             for (int i = 0; i < roomsCount; i++) {
                 string jsonString = string.Empty;
@@ -144,6 +150,8 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
                 rooms.Add(jObject);
             }
 
+            var reader = serializer.GetFastBufferReader();
+            reader.ReadValueSafe(out id);
             reader.ReadValueSafe(out created);
             reader.ReadValueSafe(out ended);
             reader.ReadValueSafe(out status);
@@ -171,7 +179,7 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
 [Serializable]
 public class GameState {
     public enum Status {
-        none,
+        active,
         findingMatch,
         loadingMatch,
         inGame,

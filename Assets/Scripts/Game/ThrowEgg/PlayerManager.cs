@@ -3,14 +3,14 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerManager : EntityManager {
-    private Rigidbody2D Rigid;
-    private Vector3 delta;
-    private GamePoints gamePoints;
+    Rigidbody2D Rigid;
+    Vector3 delta;
+    GamePoints gamePoints;
 
-    private bool c_setAvatar = false;
+    bool c_setAvatar = false;
 
     public NetworkVariable<RoomThrowEgg.Player> m_Player = new NetworkVariable<RoomThrowEgg.Player>();
-    private NetworkVariable<bool> m_enable = new NetworkVariable<bool>(false);
+    NetworkVariable<bool> m_enable = new NetworkVariable<bool>(false);
 
     void Awake() {
         GetComponent<SpriteRenderer>().enabled = m_enable.Value;
@@ -23,31 +23,38 @@ public class PlayerManager : EntityManager {
     }
 
     public override void OnNetworkSpawn() {
-        base.OnNetworkSpawn();
         m_enable.OnValueChanged += OnEnableChanged;
         m_Player.OnValueChanged += OnPlayerChanged;
     }
 
     public override void OnNetworkDespawn() {
-        base.OnNetworkDespawn();
         m_enable.OnValueChanged -= OnEnableChanged;
         m_Player.OnValueChanged -= OnPlayerChanged;
     }
 
-    private void OnEnableChanged(bool _, bool newValue) {
+    void OnEnableChanged(bool _, bool newValue) {
         GetComponent<SpriteRenderer>().enabled = newValue;
         GetComponent<BoxCollider2D>().enabled = newValue;
     }
 
-    private void UpdateEnable(FixedString32Bytes targetID) {
+    void S_UpdateEnable(FixedString32Bytes targetID) {
         m_enable.Value = targetID.ToString() == m_Player.Value.id;
     }
 
     public void Initialize(RoomThrowEgg.Player player, ThrowEggLogic _eggLogic) {
-        GetComponent<NetworkObject>().Spawn();
-        m_Player.Value = player;
-        UpdateEnable(_eggLogic.m_TargetID.Value);
-        _eggLogic.m_TargetID.OnValueChanged += OnTargetChanged;
+        MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
+        if (fPlayer != null) {
+            NetworkObject network = GetComponent<NetworkObject>();
+            if (fPlayer.clientID < 0) {
+                network.Spawn();
+            }
+            else {
+                network.SpawnWithOwnership((ulong)fPlayer.clientID);
+            }
+            m_Player.Value = player;
+            S_UpdateEnable(_eggLogic.m_TargetID.Value);
+            _eggLogic.m_TargetID.OnValueChanged += OnTargetChanged;
+        }
     }
 
     public void UpdatePoint(int newPoint) {
@@ -60,11 +67,11 @@ public class PlayerManager : EntityManager {
         };
     }
 
-    private void OnTargetChanged(FixedString32Bytes oldValue, FixedString32Bytes newValue) {
-        UpdateEnable(newValue);
+    void OnTargetChanged(FixedString32Bytes _, FixedString32Bytes newValue) {
+        S_UpdateEnable(newValue);
     }
 
-    private async void SetAvatar(string url) {
+    async void SetAvatar(string url) {
         c_setAvatar = true;
         try {
             Sprite sprite = await Helper.ImgUrlToSprite(url);
@@ -77,28 +84,35 @@ public class PlayerManager : EntityManager {
         }
     }
 
-    private void OnPlayerChanged(RoomThrowEgg.Player _, RoomThrowEgg.Player newValue) {
+    void LoadSceneAndUpdatePlayer(RoomThrowEgg.Player player) {
         if (gamePoints == null) {
             GameObject Canvas = GameObject.Find("Canvas");
             Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
             if (MatchScore != null) {
-                bool isUnder = m_Player.Value.init_pos.y < 0f;
+                bool isUnder = player.init_pos.y < 0f;
                 Transform PointObject = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp");
                 gamePoints = PointObject.GetComponent<GamePoints>();
-                MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == newValue.id);
+                MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
                 gamePoints.TextValue.text = fPlayer.name;
             }
         }
 
         if (!c_setAvatar) {
-            MatchState.Player player = GameManager.Instance.gameState.matchState.players.Find(p => p.id == newValue.id);
-            SetAvatar(player.avatar);
+            MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
+            SetAvatar(fPlayer.avatar);
         }
 
-        gamePoints.UpdatePoint(newValue.point);
+        gamePoints.UpdatePoint(player.point);
     }
 
-    private void HandlePanning() {
+    void OnPlayerChanged(RoomThrowEgg.Player _, RoomThrowEgg.Player newValue) {
+        // Because Network Navigate will update in server immediately but in Client, it will delay, and still have scene MatchScene before, so we must wait until GameThrowEgg scene is loaded
+        if (IsClient) {
+            LoadSceneAndUpdatePlayer(newValue);
+        }
+    }
+
+    void HandlePanning() {
         if (!IsOwner) {
             return;
         }

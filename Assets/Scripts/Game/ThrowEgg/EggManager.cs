@@ -21,9 +21,9 @@ public class EggManager : EntityManager {
         HandleCheckMissed();
     }
 
-    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong? ownerClientID = null) {
+    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong ownerClientID) {
         NetworkObject network = GetComponent<NetworkObject>();
-        network.Spawn();
+        network.SpawnWithOwnership(ownerClientID);
         s_throwEggLogic = _logic;
         m_Egg.Value = new RoomThrowEgg.Egg {
             id = Helper.GetID(),
@@ -33,32 +33,32 @@ public class EggManager : EntityManager {
             creator = creatorID,
             status = "active",
         };
-        if (ownerClientID != null) {
-            network.ChangeOwnership((ulong)ownerClientID);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
         if (IsServer) {
             PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
             if (manager != null && manager.m_Player.Value.id == s_throwEggLogic.m_TargetID.Value.ToString()) {
-                Explode();
+                s_shouldCheckMissed = false;
+                Rigid.linearVelocity = Vector2.zero;
+                ExplodeClientRpc();
+                s_throwEggLogic.S_SendResult(true);
             }
         }
     }
 
-
-    private void Explode() {
-        s_shouldCheckMissed = false;
-        Rigid.linearVelocity = Vector2.zero;
+    [ClientRpc]
+    private void ExplodeClientRpc() {
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         renderer.sprite = ExplodedSprite;
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-        s_throwEggLogic.SendResult(true);
     }
 
     [ServerRpc]
     private void ShotServerRpc() {
+        // When shotting, change owner of egg to server, now server has all control to this egg, client has no more
+        NetworkObject network = GetComponent<NetworkObject>();
+        network.ChangeOwnership(0);
         s_shouldCheckMissed = true;
         Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
     }
@@ -81,11 +81,13 @@ public class EggManager : EntityManager {
         if (GameHelper.TouchReleased()) {
             if (isPanning) {
                 isPanning = false;
-                // ShotServerRpc();
-
-                // TODO: Remove this when released
-                s_shouldCheckMissed = true;
-                Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
+                if (IsServer) { // TODO: Remove, only for test
+                    s_shouldCheckMissed = true;
+                    Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
+                }
+                else {
+                    ShotServerRpc();
+                }
             }
             return;
         }
@@ -116,7 +118,7 @@ public class EggManager : EntityManager {
         float posY = Rigid.position.y;
         if (posY > GameHelper.world.maxY || posY < -GameHelper.world.maxY) {
             s_shouldCheckMissed = false;
-            s_throwEggLogic.SendResult(false);
+            s_throwEggLogic.S_SendResult(false);
         }
     }
 }

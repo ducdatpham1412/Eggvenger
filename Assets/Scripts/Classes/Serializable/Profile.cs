@@ -18,11 +18,14 @@ public class Profile {
     }
 
     public string id;
+    public string account_type;
+    public string email;
+    public string phone;
     public string name;
+    public string description;
     public string avatar;
     public int eggs;
     public int ranking;
-    public int localeID;
     public Setting setting;
 }
 

@@ -70,13 +70,13 @@
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/Messages/ConnectionRequestMessage.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/NetworkVariable/NetworkVariableBase.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/Messages/ProxyMessage.cs" />
+    <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Configuration/SessionConfig.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/RpcTargets/BaseRpcTarget.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/RpcTargets/ClientsAndHostRpcTarget.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Timing/NetworkTimeSystem.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Transports/UNET/UNetTransport.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Core/ComponentFactory.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/Messages/ClientDisconnectedMessage.cs" />
-    <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/NetworkVariable/NetworkVariableTypes.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/SceneManagement/NetworkSceneManager.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/NetworkVariable/Serialization/INetworkVariableSerializer.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Core/NetworkObject.cs" />
@@ -147,7 +147,6 @@
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Logging/LogLevel.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/Messages/RpcMessages.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Connection/PendingClient.cs" />
-    <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/NetworkVariable/Serialization/VariableSerializationTools.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Hashing/XXHash.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/NetworkVariable/Serialization/NetworkVariableEquality.cs" />
     <Compile Include="Library/PackageCache/com.unity.netcode.gameobjects/Runtime/Messaging/DeferredMessageManager.cs" />

@@ -20,8 +20,8 @@ public class _Configs {
 
 [Serializable]
 public class _LocaleID {
-    public int En;
-    public int Vi;
+    public string En;
+    public string Vi;
 }
 
 public static class Configs {
@@ -36,7 +36,7 @@ public static class Configs {
     };
 
     public static _LocaleID LocaleID = new _LocaleID {
-        En = 0,
-        Vi = 1,
+        En = "en",
+        Vi = "vi",
     };
 }

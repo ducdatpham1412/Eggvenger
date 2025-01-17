@@ -63,7 +63,7 @@ public static class Helper {
         return base64String;
     }
 
-    public static Dictionary<string, Texture> CacheUrlTextures = new Dictionary<string, Texture>();
+    public static Dictionary<string, Texture> CacheUrlTextures = new Dictionary<string, Texture> { };
     public static Texture GetTexture(string url) {
         Texture temp = (Texture)Get(CacheUrlTextures, url);
         return temp;

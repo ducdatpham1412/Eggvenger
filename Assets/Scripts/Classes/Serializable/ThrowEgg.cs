@@ -89,25 +89,27 @@ public class RoomThrowEgg : BaseRoom, INetworkSerializable, IEquatable<RoomThrow
     public List<Egg> eggs;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-        int playersCount = players.Count;
-        int eggsCount = eggs.Count;
-        serializer.SerializeValue(ref playersCount);
-        serializer.SerializeValue(ref eggsCount);
-
         if (serializer.IsWriter) {
-            var writer = serializer.GetFastBufferWriter();
+            int playersCount = players.Count;
+            int eggsCount = eggs.Count;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref eggsCount);
             for (int i = 0; i < playersCount; i++) {
                 players[i].NetworkSerialize(serializer);
             }
             for (int i = 0; i < eggsCount; i++) {
                 eggs[i].NetworkSerialize(serializer);
             }
+            var writer = serializer.GetFastBufferWriter();
             writer.WriteValueSafe(id);
             writer.WriteValueSafe(type);
             writer.WriteValueSafe(status);
         }
         else {
-            var reader = serializer.GetFastBufferReader();
+            int playersCount = 0;
+            int eggsCount = 0;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref eggsCount);
             players = new List<Player>();
             for (int i = 0; i < playersCount; i++) {
                 Player p = new Player();
@@ -120,6 +122,7 @@ public class RoomThrowEgg : BaseRoom, INetworkSerializable, IEquatable<RoomThrow
                 e.NetworkSerialize(serializer);
                 eggs.Add(e);
             }
+            var reader = serializer.GetFastBufferReader();
             reader.ReadValueSafe(out id);
             reader.ReadValueSafe(out type);
             reader.ReadValueSafe(out status);

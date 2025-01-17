@@ -20,6 +20,9 @@ public class ImageLoader : MonoBehaviour {
     }
 
     private IEnumerator DownloadImage(string url) {
+        if (url == null) {
+            yield break;
+        }
         if (Helper.CacheUrlTextures.ContainsKey(url)) {
             GetComponent<RawImage>().texture = Helper.GetTexture(url);
             yield break;
@@ -28,7 +31,7 @@ public class ImageLoader : MonoBehaviour {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
         if (request.result != UnityWebRequest.Result.Success) {
-            Debug.LogError($"Failed to load image from URL {url}: {request.error}");
+            Debug.LogWarning($"Failed to load image from URL {url}: {request.error}");
         }
         else {
             Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;

@@ -30,7 +30,9 @@ public class Navigator : Singleton<Navigator> {
     }
 
     public void NetworkLoad(Scene scene) {
-        NetworkManager.Singleton.SceneManager.LoadScene(scene.ToString(), LoadSceneMode.Single);
+        if (NetworkManager.Singleton.IsServer) {
+            NetworkManager.Singleton.SceneManager.LoadScene(scene.ToString(), LoadSceneMode.Single);
+        }
     }
 
     public void GoBack() {

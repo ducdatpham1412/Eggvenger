@@ -24,17 +24,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1070287343837184
-    m_Localized: 'You are this first to throw
-
-      Try to hit the opponent with
-      the egg'
+    m_Localized: You Go First
     m_Metadata:
       m_Items: []
   - m_Id: 1070513018363904
-    m_Localized: 'The opponent will be the first to throw
-
-      Try to avoid getting
-      hit by the egg
+    m_Localized: 'Opponent Go First
 
 '
     m_Metadata:
@@ -102,6 +96,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 5144310520471552
     m_Localized: '{0} is the winner and earns {1} dragon eggs'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6580749267361792
+    m_Localized: Back To Lobby
     m_Metadata:
       m_Items: []
   references:
