@@ -116,4 +116,8 @@ public static class Helper {
     public static string RenderErrorMsg(string error_msg) {
         return error_msg;
     }
+
+    public static long TimeStamp() {
+        return DateTimeOffset.Now.ToUnixTimeMilliseconds();
+    }
 }
