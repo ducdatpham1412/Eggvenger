@@ -83,18 +83,23 @@
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EntityManager.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
+    <Compile Include="Assets/Scripts/Classes/ITick.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
+    <Compile Include="Assets/Scripts/Home/FindMatchButton.cs" />
     <Compile Include="Assets/Scripts/Game/GamePoints.cs" />
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
+    <Compile Include="Assets/Scripts/Classes/ClientNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Utils/Storage.cs" />
     <Compile Include="Assets/Scripts/Game/GameLoadingLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ApiManager.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
+    <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/Event.cs" />
     <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
+    <Compile Include="Assets/Scripts/Game/ShakeManager.cs" />
     <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/ThrowEgg.cs" />
@@ -112,8 +117,10 @@
     <Compile Include="Assets/Scripts/Game/RoomCardManager.cs" />
     <Compile Include="Assets/Scripts/Utils/GameHelper.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/TestNetwork/TestNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Game/FinalLeaderboard.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
+    <Compile Include="Assets/Scripts/Utils/TestCreate.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>

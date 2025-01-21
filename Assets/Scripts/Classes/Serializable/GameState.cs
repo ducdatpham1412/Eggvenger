@@ -181,7 +181,6 @@ public class GameState {
     public enum Status {
         active,
         findingMatch,
-        loadingMatch,
         inGame,
     }
     public Status status;

@@ -311,13 +311,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5848663371716112348, guid: 4d221b3f416764d37a2a024ff0c2f0b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 179723318}
   m_SourcePrefab: {fileID: 100100000, guid: 4d221b3f416764d37a2a024ff0c2f0b5, type: 3}
 --- !u!224 &179723316 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7218508299309393866, guid: 4d221b3f416764d37a2a024ff0c2f0b5, type: 3}
   m_PrefabInstance: {fileID: 179723315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &179723317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5848663371716112348, guid: 4d221b3f416764d37a2a024ff0c2f0b5, type: 3}
+  m_PrefabInstance: {fileID: 179723315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &179723318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179723317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9028e12ba40a4be691de14d7014feba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonTitle: {fileID: 331386595}
 --- !u!1 &207625734
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,9 +808,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeamView: {fileID: 540462814}
-  ButtonTitle: {fileID: 331386595}
   StopFindButton: {fileID: 530727930}
   ItemPlayerFormation: {fileID: 165070264}
+  FindButton: {fileID: 179723318}
 --- !u!1 &1328203196
 GameObject:
   m_ObjectHideFlags: 0

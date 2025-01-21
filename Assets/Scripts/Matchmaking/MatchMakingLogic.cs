@@ -2,18 +2,15 @@ using System.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class MatchMakingLogic : MonoBehaviour {
     public GameObject TeamView;
-    public LocalizeStringEvent ButtonTitle;
     public GameObject StopFindButton;
     public GameObject ItemPlayerFormation;
+    public FindMatchButton FindButton;
 
-    private float AnimatedUpDistance = 50f;
-
-
+    float AnimatedUpDistance = 50f;
 
     void Start() {
         Profile profile = GameManager.Instance.appState.profile;
@@ -25,10 +22,7 @@ public class MatchMakingLogic : MonoBehaviour {
         }
 
         GameState gameState = GameManager.Instance.gameState;
-        if (gameState != null && gameState.status == GameState.Status.findingMatch) {
-            ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "finding");
-            UpdateTextCountUp(gameState.data.secondsElapsed);
-            GameManager.Instance.OnGameStateChanged += ListenCountUp;
+        if (gameState.status == GameState.Status.findingMatch) {
             TeamView.transform.localPosition = TeamView.transform.localPosition + new Vector3(0, AnimatedUpDistance, 0);
             StopFindButton.SetActive(true);
         }
@@ -38,7 +32,6 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     void OnDestroy() {
-        GameManager.Instance.OnGameStateChanged -= ListenCountUp;
         SocketManager.OnHandleData -= MatchFound;
     }
 
@@ -51,7 +44,7 @@ public class MatchMakingLogic : MonoBehaviour {
                 state.client.match_port = match.configs.port;
                 return state;
             });
-            Navigator.Instance.NavigateTo(Navigator.Scene.GameThrowEgg);
+            Navigator.Instance.NavigateTo(Navigator.Scene.MatchScene);
         }
     }
 
@@ -76,26 +69,8 @@ public class MatchMakingLogic : MonoBehaviour {
         }
     }
 
-
-    private void UpdateTextCountUp(int secondsElapsed) {
-        int minutes = secondsElapsed / 60;
-        int seconds = secondsElapsed % 60;
-        string formattedTime = $"{minutes:00}:{seconds:00}";
-        ButtonTitle.StringReference.Arguments = new object[] { formattedTime };
-        ButtonTitle.RefreshString();
-    }
-    private void ListenCountUp(GameState newState) {
-        FindingMatchState data = newState.data;
-        UpdateTextCountUp(data.secondsElapsed);
-    }
-
     public void GoBack() {
-        if (Navigator.Instance.CanGoBack()) {
-            Navigator.Instance.GoBack();
-        }
-        else {
-            Navigator.Instance.NavigateTo(Navigator.Scene.Home);
-        }
+        Navigator.Instance.NavigateTo(Navigator.Scene.Home);
     }
 
 
@@ -103,22 +78,13 @@ public class MatchMakingLogic : MonoBehaviour {
         if (GameManager.Instance.gameState.status == GameState.Status.findingMatch) {
             return;
         }
-
-        GameManager.Instance.OnGameStateChanged += ListenCountUp;
-        ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "finding");
         StartCoroutine(AnimateLinearUp(TeamView.transform, AnimatedUpDistance, 0.25f, true));
-        StopFindButton.SetActive(true);
-        GameManager.Instance.StartCountUp();
-        SocketManager.Send(new Event.Send.FindMatch());
+        FindButton.FindMatch();
     }
 
 
     public void StopFinding() {
-        GameManager.Instance.OnGameStateChanged -= ListenCountUp;
-        ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "findMatch");
-        ButtonTitle.RefreshString();
-        GameManager.Instance.StopCountUp();
         StartCoroutine(AnimateLinearUp(TeamView.transform, -AnimatedUpDistance, 0.25f, false));
-        SocketManager.Send(new Event.Send.StopFindMatch());
+        FindButton.StopFinding();
     }
 }

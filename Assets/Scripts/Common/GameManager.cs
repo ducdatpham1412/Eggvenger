@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager> {
     protected GameManager() { }
 
     public Sprite background;
-    private SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer;
 
 
     // AppState
@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager> {
     public event Action<GameState> OnGameStateChanged;
 
     // Function
-    private void FitTheScreen() {
+    void FitTheScreen() {
         float screenHeight = Camera.main.orthographicSize * 2;
         float screenWidth = screenHeight * Screen.width / Screen.height;
 
@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager> {
         transform.localScale = scale;
     }
 
-    void Awake() {
+    void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) {
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
@@ -55,9 +55,6 @@ public class GameManager : Singleton<GameManager> {
             background = bgSprites[indexBg];
             spriteRenderer.sprite = background;
         }
-    }
-
-    void Start() {
         FitTheScreen();
     }
 
@@ -73,6 +70,7 @@ public class GameManager : Singleton<GameManager> {
     }
     public AppState UpdateAppState(Func<AppState, AppState> action) {
         appState = action(appState);
+        OnAppStateChanged?.Invoke(appState);
         return appState;
     }
 
@@ -93,6 +91,11 @@ public class GameManager : Singleton<GameManager> {
     public void UpdateGameState(GameState state) {
         gameState = state;
         OnGameStateChanged?.Invoke(gameState);
+    }
+    public GameState UpdateGameState(Func<GameState, GameState> action) {
+        gameState = action(gameState);
+        OnGameStateChanged?.Invoke(gameState);
+        return gameState;
     }
 
     public void StartCountUp() {

@@ -24,5 +24,12 @@ public class Event {
         public class Disconnected {
             public string type = "disconnected";
         }
+        public class ServerReady {
+            public string type = "server_ready";
+        }
+    }
+
+    public enum Name {
+        match_found,
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6888003016753537019
+--- !u!1 &3360639040196689957
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8694005501927319227}
-  - component: {fileID: 1588324070749065070}
-  - component: {fileID: 5475349579244468659}
-  - component: {fileID: -485841957484558521}
-  - component: {fileID: 6509481672422593515}
-  - component: {fileID: 716734581614677067}
-  - component: {fileID: -2262494859359129589}
+  - component: {fileID: 1167372563933645682}
+  - component: {fileID: 7090069155534878746}
+  - component: {fileID: 7059671783852685744}
   m_Layer: 0
-  m_Name: Egg
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8694005501927319227
+--- !u!4 &1167372563933645682
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6888003016753537019}
+  m_GameObject: {fileID: 3360639040196689957}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6518, y: 0.6518, z: 0.6518}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 8694005501927319227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1588324070749065070
+--- !u!212 &7090069155534878746
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6888003016753537019}
+  m_GameObject: {fileID: 3360639040196689957}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -92,6 +88,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7059671783852685744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3360639040196689957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46721dc792ba471abe31e959f08463a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6888003016753537019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8694005501927319227}
+  - component: {fileID: 5475349579244468659}
+  - component: {fileID: -485841957484558521}
+  - component: {fileID: 6509481672422593515}
+  - component: {fileID: 716734581614677067}
+  - component: {fileID: 5268994902700561551}
+  - component: {fileID: -6822715365480470715}
+  m_Layer: 0
+  m_Name: Egg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8694005501927319227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888003016753537019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6518, y: 0.6518, z: 0.6518}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1167372563933645682}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5475349579244468659
 Rigidbody2D:
   serializedVersion: 5
@@ -204,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   ExplodedSprite: {fileID: 750179758710078436, guid: 16a1323cafe6942d2853e0cb6f8fe538, type: 3}
+  shakeManager: {fileID: 7059671783852685744}
   m_Egg:
     m_InternalValue:
       id: 
@@ -212,7 +259,21 @@ MonoBehaviour:
       created: 0
       creator: 
       status: 
---- !u!114 &-2262494859359129589
+--- !u!114 &5268994902700561551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888003016753537019}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ec6fb66c1114defbf2c5551c738200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTick: 0
+  moveSpeed: 0
+--- !u!114 &-6822715365480470715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,11 +282,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6888003016753537019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: cea1223cbcef245a995c00e36b3d100a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -248,3 +309,4 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+  DeltaDistanceLimit: 0.2

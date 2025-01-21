@@ -30,7 +30,7 @@ public class LocalizationManager : Singleton<LocalizationManager> {
     }
 
     public string GetLocale() {
-        // return LocalizationSettings.SelectedLocale == 0 ? "en" : "vi";
-        return "en";
+        int index = LocalizationSettings.AvailableLocales.Locales.IndexOf(LocalizationSettings.SelectedLocale);
+        return index == 0 ? "en" : "vi";
     }
 }
