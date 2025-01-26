@@ -10,12 +10,17 @@ using Newtonsoft.Json.Linq;
 
 
 public static class ApiManager {
-    private static HttpClient Client = new() {
+    public enum ERROR_MSG {
+        token_expired,
+        token_blacklisted,
+    }
+
+    static HttpClient Client = new() {
         // BaseAddress = new Uri("http://localhost:8000")
     };
-    private static string BaseAddress = "http://localhost:8000/api/v1";
-    private static ConcurrentQueue<TaskCompletionSource<string>> taskQueue = new ConcurrentQueue<TaskCompletionSource<string>>();
-    private static bool isRefreshing = false;
+    static string BaseAddress = "http://localhost:8000/api/v1";
+    static ConcurrentQueue<TaskCompletionSource<string>> taskQueue = new ConcurrentQueue<TaskCompletionSource<string>>();
+    static bool isRefreshing = false;
 
     static ApiManager() {
         Client.DefaultRequestHeaders.Accept.Clear();
@@ -59,8 +64,7 @@ public static class ApiManager {
         JObject errObject = JObject.Parse(strError);
         string errMsg = errObject["error_msg"].ToString();
 
-
-        if (errMsg == "token_expired" && !isRetried) {
+        if (errMsg == ERROR_MSG.token_expired.ToString() && !isRetried) {
             if (isRefreshing) {
                 var tcs = new TaskCompletionSource<string>();
                 taskQueue.Enqueue(tcs);
@@ -73,9 +77,9 @@ public static class ApiManager {
             Client.DefaultRequestHeaders.Remove("Authorization");
             try {
                 JObject refreshRes = await POST<JObject>(
-                path: "/auth/refresh-token",
-                data: new Dictionary<string, object> { { "refresh", refreshToken } }, isRetried: true
-            );
+                    path: "/auth/refresh-token",
+                    data: new Dictionary<string, object> { { "refresh", refreshToken } }, isRetried: true
+                );
                 string newToken = refreshRes["access"].ToString();
                 Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", newToken);
 
@@ -92,10 +96,13 @@ public static class ApiManager {
                 return await PendingTask();
             }
             catch (Exception ex) {
-                if (ex.Message == "token_blacklisted") {
+                if (ex.Message == ERROR_MSG.token_blacklisted.ToString()) {
                     JObject resLogin = await POST<JObject>(
                         "/auth/login",
-                        data: new Dictionary<string, object> { { "device_id", Helper.DeviceID } }
+                        data: new Dictionary<string, object> { { "device_id", Helper.DeviceID } },
+                        parameters: new Dictionary<string, string> {
+                            {"type", "device_id"},
+                        }
                     );
                     SetAccount(resLogin);
                     while (!taskQueue.IsEmpty) {

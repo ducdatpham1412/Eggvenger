@@ -1,26 +1,61 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
-public class EggManager : EntityManager {
+public class EggManager : NetworkBehaviour {
     public Sprite ExplodedSprite;
+    public ShakeManager shakeManager;
     Rigidbody2D Rigid;
+    SpriteRenderer Renderer;
+    ClientNetworkTransform networkTransform;
+    MoveManager moveManager;
     ThrowEggLogic s_throwEggLogic;
     bool s_shouldCheckMissed = false;
-    Vector3 c_delta;
+    bool c_hit = false;
     public NetworkVariable<RoomThrowEgg.Egg> m_Egg = new NetworkVariable<RoomThrowEgg.Egg>();
+    NetworkVariable<bool> m_Moving = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
 
     void Awake() {
         Rigid = GetComponent<Rigidbody2D>();
+        Renderer = shakeManager.gameObject.GetComponent<SpriteRenderer>();
+        networkTransform = GetComponent<ClientNetworkTransform>();
+        moveManager = GetComponent<MoveManager>();
+        moveManager.enabled = false;
+    }
+
+    void Start() {
+        moveManager.TouchRelease = HandleShot;
+    }
+
+    public override void OnNetworkSpawn() {
+        if (IsOwner) {
+            moveManager.enabled = true;
+            moveManager.moveSpeed = m_Egg.Value.move_speed;
+            m_Egg.OnValueChanged += (_, newValue) => {
+                moveManager.moveSpeed = newValue.move_speed;
+            };
+            moveManager.TouchBegin = () => {
+                m_Moving.Value = true;
+            };
+        }
+
+        m_Moving.OnValueChanged += (_, newValue) => {
+            if (newValue) {
+                shakeManager.StartShake();
+                SoundManager.Instance.PlaySF(SoundManager.SF.Stretch);
+            }
+            else {
+                shakeManager.StopShake();
+            }
+        };
     }
 
     void Update() {
-        HandlePanning();
         HandleCheckMissed();
     }
 
     public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong ownerClientID) {
-        NetworkObject network = GetComponent<NetworkObject>();
-        network.SpawnWithOwnership(ownerClientID);
         s_throwEggLogic = _logic;
         m_Egg.Value = new RoomThrowEgg.Egg {
             id = Helper.GetID(),
@@ -30,78 +65,88 @@ public class EggManager : EntityManager {
             creator = creatorID,
             status = "active",
         };
+        NetworkObject network = GetComponent<NetworkObject>();
+        network.SpawnWithOwnership(ownerClientID);
+        networkTransform.DeltaDistanceLimit = move_speed / 8;
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        if (!IsServer) {
+        PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
+
+        if (manager == null) {
             return;
         }
 
-        PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
-        if (manager != null && manager.m_Player.Value.id == s_throwEggLogic.m_TargetID.Value.ToString()) {
+        if (!IsServer) {
+            if (m_Egg.Value.id == null || m_Egg.Value.creator == manager.m_Player.Value.id) {
+                return;
+            }
+            if (!c_hit) {
+                Renderer.enabled = false;
+            }
+            return;
+        }
+
+        if (manager.m_Player.Value.id == s_throwEggLogic.m_TargetID.Value.ToString()) {
             s_shouldCheckMissed = false;
             Rigid.linearVelocity = Vector2.zero;
-            ExplodeClientRpc();
+            ExplodeClientRpc(
+                explodedPos: transform.position,
+                hitSF: SoundManager.SF.Splat,
+                reactSF: Helper.GetRandomInArr(new SoundManager.SF[] { SoundManager.SF.NiceShot, SoundManager.SF.None })
+            );
             s_throwEggLogic.S_SendResult(true);
         }
     }
 
     [ClientRpc]
-    void ExplodeClientRpc() {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        renderer.sprite = ExplodedSprite;
+    void ExplodeClientRpc(Vector3 explodedPos, SoundManager.SF hitSF, SoundManager.SF reactSF) {
+        c_hit = true;
+        transform.position = explodedPos;
+        Renderer.enabled = true;
+        Renderer.sprite = ExplodedSprite;
+        Rigid.linearVelocity = Vector2.zero;
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+        C_PlaySF(hitSF, reactSF);
+    }
+
+    async void C_PlaySF(SoundManager.SF hitSF, SoundManager.SF reactSF) {
+        SoundManager.Instance.PlaySF(hitSF);
+        await Task.Delay(500);
+        SoundManager.Instance.PlaySF(reactSF);
+    }
+
+    void M_Shot() {
+        networkTransform.enabled = false;
+        Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
+        SoundManager.Instance.PlaySF(SoundManager.SF.Whoosh);
+    }
+
+    void HandleShot() {
+        ShotServerRpc();
+        M_Shot();
     }
 
     [ServerRpc]
-    void ShotServerRpc() {
-        // When shotting, change owner of egg to server, now server has all control to this egg, client has no more
+    void ShotServerRpc(ServerRpcParams rpcParams = default) {
         NetworkObject network = GetComponent<NetworkObject>();
         network.ChangeOwnership(NetworkManager.ServerClientId);
+        m_Moving.Value = false;
+        ShotBroadcastClientRpc(new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = NetworkManager.ConnectedClientsIds.Where(C => C != rpcParams.Receive.SenderClientId).ToList(),
+            }
+        });
         s_shouldCheckMissed = true;
-        Rigid.linearVelocity = new Vector2(0f, m_Egg.Value.shot_speed);
+
+        // TODO: Create class GameSnapshot and Rewind Lag Compensation
+        M_Shot();
     }
 
-    private void HandlePanning() {
-        if (!IsOwner) {
-            return;
-        }
 
-
-        if (GameHelper.TouchBegin()) {
-            Vector3 mousePos = Input.mousePosition;
-            bool check = GameHelper.TouchHitGameObject(mousePos, gameObject);
-            if (check) {
-                isPanning = true;
-            }
-            c_delta = transform.position - GameHelper.ToWorldPoint(mousePos);
-        }
-
-        if (GameHelper.TouchReleased()) {
-            if (isPanning) {
-                isPanning = false;
-                ShotServerRpc();
-            }
-            return;
-        }
-
-
-        if (isPanning) {
-            Vector2 mousePos = GameHelper.ToWorldPoint(Input.mousePosition) + c_delta;
-
-            if (c_delta != Vector3.zero) {
-                c_delta = Vector3.zero;
-            }
-
-            float distance = Vector2.Distance(mousePos, transform.position);
-            if (distance <= 0.1f) {
-                Rigid.linearVelocity = Vector2.zero;
-                return;
-            }
-
-            float directionX = (mousePos - (Vector2)transform.position).normalized.x;
-            Rigid.linearVelocity = new Vector2(directionX * m_Egg.Value.move_speed, 0f);
-        }
+    [ClientRpc]
+    void ShotBroadcastClientRpc(ClientRpcParams rpcParams) {
+        M_Shot();
     }
 
     private void HandleCheckMissed() {
@@ -111,7 +156,13 @@ public class EggManager : EntityManager {
         float posY = Rigid.position.y;
         if (posY > GameHelper.world.maxY || posY < -GameHelper.world.maxY) {
             s_shouldCheckMissed = false;
+            PlayNopeClientRpc();
             s_throwEggLogic.S_SendResult(false);
         }
+    }
+
+    [ClientRpc]
+    void PlayNopeClientRpc() {
+        SoundManager.Instance.PlaySF(SoundManager.SF.Nope);
     }
 }

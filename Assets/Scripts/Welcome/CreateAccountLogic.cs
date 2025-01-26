@@ -30,7 +30,7 @@ public class CreateAccountLogic : MonoBehaviour {
     IEnumerator PerformCreateAccount() {
         yield return new WaitForSeconds(3f);
         buttonManager.StopLoading();
-        welcomeLogic.ShowCanvas(CanvasName.EnterName.ToString());
+        welcomeLogic.ShowCanvas(WelcomeLogic.CanvasName.EnterName.ToString());
     }
 
     public void CreateAccount() {

@@ -54,9 +54,6 @@ public class FinalLeaderboard : MonoBehaviour {
         Transform Gold = transform.Find("Gold");
         Transform Silver = transform.Find("Silver");
 
-        Debug.Log($"Gold {gold.id} - {gold.name} - {gold.points}");
-        Debug.Log($"Silver {silver.id} - {silver.name} - {silver.points}");
-
         Gold.Find("Text").GetComponent<Text>().text = gold.name;
         Gold.Find("Points").GetComponent<Text>().text = gold.points.ToString();
 
@@ -70,7 +67,7 @@ public class FinalLeaderboard : MonoBehaviour {
         }
         else {
             LocalizeStringEvent localize = transform.Find("Result").Find("Text").GetComponent<LocalizeStringEvent>();
-            localize.StringReference.Arguments = new object[] { gold.name, gold.points };
+            localize.StringReference.Arguments = new object[] { gold.name, gold.points - silver.points };
             localize.RefreshString();
         }
     }

@@ -12,26 +12,29 @@ using System.Linq;
 
 
 public class ThrowEggLogic : NetworkBehaviour {
+    [Header("Prefabs")]
     public GameObject EggPrefab;
     public GameObject PlayerPrefab;
+
+    [Header("GameObjects")]
     public GameObject MatchScore;
+    public LocalizeStringEvent c_TextNotice;
+    public Image c_Hover;
+
+    [Header("NetworkVariable")]
+    public NetworkVariable<FixedString32Bytes> m_TargetID = new NetworkVariable<FixedString32Bytes>("");
+
     RoomThrowEgg roomThrowEgg;
     MatchState matchState;
     SynchronizationContext context;
-
-    public LocalizeStringEvent c_TextNotice;
-    public Image c_Hover;
 
     List<int> s_ConnectedClients = new List<int>();
     Dictionary<string, PlayerManager> s_Players = new Dictionary<string, PlayerManager>();
     GameObject s_Egg;
 
-    public NetworkVariable<FixedString32Bytes> m_TargetID = new NetworkVariable<FixedString32Bytes>("");
-
-
     void Start() {
         context = SynchronizationContext.Current;
-        // SoundManager.Instance.PlayMusic(SoundManager.MusicSource.lifeWandering);
+        SoundManager.Instance.PlayMusic(SoundManager.MusicSource.lifeWandering);
 
         matchState = GameManager.Instance.gameState.matchState;
         roomThrowEgg = matchState.rooms.Find(r => r["status"].ToString() == "active").ToObject<RoomThrowEgg>();
@@ -57,11 +60,11 @@ public class ThrowEggLogic : NetworkBehaviour {
             creatorID: playerManager.m_Player.Value.id,
             move_speed: playerManager.m_Player.Value.move_speed,
             shot_speed: playerManager.m_Player.Value.shot_speed * (isUnder ? 1 : -1), _logic: this,
-            ownerClientID: (ulong)(ownerClientID < 0 ? 0 : ownerClientID)
+            ownerClientID: ownerClientID < 0 ? NetworkManager.ServerClientId : (ulong)ownerClientID
         );
     }
 
-    void S_InitObjects() {
+    FixedString32Bytes S_InitObjects() {
         PlayerManager InitPlayer(RoomThrowEgg.Player player) {
             GameObject newGameObject = Instantiate(PlayerPrefab, player.init_pos, Quaternion.identity);
             PlayerManager manager = newGameObject.GetComponent<PlayerManager>();
@@ -74,6 +77,8 @@ public class ThrowEggLogic : NetworkBehaviour {
         PlayerManager manager01 = InitPlayer(roomThrowEgg.players[0]);
         InitPlayer(roomThrowEgg.players[1]);
         S_InitEgg(manager01);
+
+        return m_TargetID.Value;
     }
 
 
@@ -94,16 +99,17 @@ public class ThrowEggLogic : NetworkBehaviour {
         }
 
         if (allReady) {
-            S_InitObjects();
+            FixedString32Bytes initTarget = S_InitObjects();
             StartCoroutine(FadeOutHover());
-            IntroduceRoomClientRpc();
+            IntroduceRoomClientRpc(initTarget);
         }
     }
 
     [ClientRpc]
-    private void IntroduceRoomClientRpc() {
+    private void IntroduceRoomClientRpc(FixedString32Bytes initTarget) {
+        // We have to pass initTarget instead of using m_TargetID because of the delay of the internet
         context.Post(async _ => {
-            bool isMyTurnFirst = m_TargetID.Value.ToString() != GameManager.Instance.appState.profile.id;
+            bool isMyTurnFirst = initTarget.ToString() != GameManager.Instance.appState.profile.id;
             await ShowNotice(isMyTurnFirst ? "youAreTheFirst" : "opponentBeFirst", 2000);
             await ShowNotice("areYouReady", 1500);
             await ShowNotice("fight", 1000, 50);
@@ -160,29 +166,34 @@ public class ThrowEggLogic : NetworkBehaviour {
     }
 
     private async void S_SwitchTurn(bool isHit) {
-        // TODO: Do smile, sound effect here
-        await Task.Delay(1300);
-        NetworkObject network = s_Egg.GetComponent<NetworkObject>();
-        network.Despawn();
         PlayerManager Target = s_Players[m_TargetID.Value.ToString()];
+        string newTarget = m_TargetID.Value.ToString();
+        string winnerID = "";
+
         foreach (KeyValuePair<string, PlayerManager> kpv in s_Players) {
             if (kpv.Key != m_TargetID.Value.ToString()) {
-                m_TargetID.Value = kpv.Key;
+                newTarget = kpv.Key;
                 PlayerManager Shot = kpv.Value;
                 if (isHit) {
                     bool ended = S_PlusPointAndCheckEnded(Shot, Target);
                     if (ended) {
-                        S_EndGame(winnerID: Shot.m_Player.Value.id);
-                        return;
+                        winnerID = Shot.m_Player.Value.id;
                     }
                 }
                 else if (Target.m_Player.Value.point == 5) {
-                    S_EndGame(winnerID: Target.m_Player.Value.id);
-                    return;
+                    winnerID = Target.m_Player.Value.id;
                 }
-                S_InitEgg(Target);
-                return;
             }
+        }
+        await Task.Delay(1300);
+        NetworkObject network = s_Egg.GetComponent<NetworkObject>();
+        network.Despawn();
+        m_TargetID.Value = newTarget;
+        if (winnerID != "") {
+            S_EndGame(winnerID);
+        }
+        else {
+            S_InitEgg(Target);
         }
     }
 

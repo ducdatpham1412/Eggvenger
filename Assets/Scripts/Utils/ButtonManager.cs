@@ -23,7 +23,7 @@ public class ButtonManager : MonoBehaviour {
 
     private void PlaySound() {
         if (audioClick == AudioClick.KnockWood) {
-            SoundManager.Instance.PlayKnowWood();
+            SoundManager.Instance.PlaySF(SoundManager.SF.KnockWood);
         }
     }
 

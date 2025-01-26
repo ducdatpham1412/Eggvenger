@@ -120,4 +120,8 @@ public static class Helper {
     public static long TimeStamp() {
         return DateTimeOffset.Now.ToUnixTimeMilliseconds();
     }
+
+    public static T GetRandomInArr<T>(T[] objects) {
+        return objects[UnityEngine.Random.Range(0, objects.Length)];
+    }
 }

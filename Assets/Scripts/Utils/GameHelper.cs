@@ -59,15 +59,6 @@ public static class GameHelper {
         return Camera.main.ScreenToWorldPoint(localPos);
     }
     public static bool TouchHitGameObject(Vector3 localPos, GameObject gameObject) {
-        // Ray ray = Camera.main.ScreenPointToRay(localPos);
-        // RaycastHit hit;
-        // if (Physics.Raycast(ray, out hit)) {
-        //     Debug.Log("Check hehe: " + hit.collider.gameObject.name);
-        //     if (hit.collider.gameObject == gameObject) {
-        //         return true;
-        //     }
-        // }
-        // Debug.Log("Not touch anything");
         Vector3 worldPoint = ToWorldPoint(localPos);
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPoint);
         if (hitCollider != null && hitCollider.gameObject == gameObject) {

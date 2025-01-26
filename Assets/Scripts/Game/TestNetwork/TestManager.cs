@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 
@@ -71,6 +72,49 @@ public class TestManager : NetworkBehaviour {
     //     // eggManager.Reconciliate(_newState.egg);
     // }
 
+    public TestEggManager eggManager;
+    public PlayerManager playerManager;
+    public GameObject EggPrefab;
+
+    GameStateBuffer gameStateBuffer = new GameStateBuffer(1024);
+
+
+    public void HandleShot(long timestamp, ulong SenderClientID) {
+        long current = Helper.TimeStamp();
+        long tsOnServer = current - 2 * (current - timestamp); // t - RTT
+        GameStateSnapShot snapShot = gameStateBuffer.GetSnapshot(tsOnServer);
+        if (snapShot == null) return;
+
+        // TODO: Simulate & Rewind
+    }
+
+    public override void OnNetworkSpawn() {
+        if (IsServer) {
+            NetworkManager.Singleton.OnClientConnectedCallback += (ulong clientID) => {
+                Debug.Log($"Having client connected: {clientID}");
+                // if (eggManager.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.ServerClientId) {
+                //     eggManager.gameObject.GetComponent<NetworkObject>().ChangeOwnership(clientID);
+                // }
+                // else {
+                //     playerManager.gameObject.GetComponent<NetworkObject>().ChangeOwnership(clientID);
+                // }
+            };
+
+
+            GameObject egg = Instantiate(EggPrefab);
+            egg.GetComponent<NetworkObject>().Spawn();
+
+            Debug.Log("Ok spawn an egg");
+        }
+    }
+
+    // void Start() {
+    //     UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+    //     transport.SetConnectionData("0.0.0.0", 7778);
+    //     NetworkManager.Singleton.StartServer();
+    // }
+
+
     public class GameStateSnapShot {
         public class Value {
             public Vector3 position;
@@ -105,31 +149,6 @@ public class TestManager : NetworkBehaviour {
                 }
             }
             return null;
-        }
-    }
-
-
-    public TestEggManager eggManager;
-    public PlayerManager playerManager;
-
-    GameStateBuffer gameStateBuffer = new GameStateBuffer(1024);
-
-
-    [ServerRpc(RequireOwnership = false)]
-    public void ShotServerRpc(long timestamp) {
-        GameStateSnapShot snapShot = gameStateBuffer.GetSnapshot(timestamp);
-        if (snapShot == null) return;
-
-
-    }
-
-
-    public override void OnNetworkSpawn() {
-        base.OnNetworkSpawn();
-        if (IsServer) {
-            NetworkManager.Singleton.OnClientConnectedCallback += (ulong clientID) => {
-                eggManager.gameObject.GetComponent<NetworkObject>().ChangeOwnership(clientID);
-            };
         }
     }
 }

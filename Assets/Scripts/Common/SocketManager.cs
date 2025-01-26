@@ -18,7 +18,7 @@ public static class SocketManager {
         Task.Run(HandleState);
     }
 
-    private static void Connect() {
+    public static void Connect() {
         __Send(new Event.Send.Connect {
             player_id = GameManager.Instance.appState.profile.id
         });
@@ -37,11 +37,6 @@ public static class SocketManager {
         }
     }
 
-    static void MatchFound(JObject state) {
-        MatchState newMatch = state["data"].ToObject<MatchState>();
-        Debug.Log($"Data match found: {state}");
-    }
-
     private static async void HandleState() {
         while (true) {
             try {
@@ -55,9 +50,6 @@ public static class SocketManager {
                 }
                 else if (type == "connect") {
                     HandleConnect(state);
-                }
-                else if (type == "match_found") {
-                    MatchFound(state);
                 }
                 else {
                     lastData = null;

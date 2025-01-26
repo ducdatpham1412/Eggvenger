@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: New Linux Server Profile
+  m_Name: Linux Server
   m_EditorClassIdentifier: 
   m_AssetVersion: 1
   m_BuildTarget: 24
@@ -163,7 +163,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.2'
+    - line: '|   bundleVersion: 1.0.0'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -276,7 +276,7 @@ MonoBehaviour:
     - line: '|   iOSRequireARKit: 0'
     - line: '|   iOSAutomaticallyDetectAndAddCapabilities: 1'
     - line: '|   appleEnableProMotion: 0'
-    - line: '|   shaderPrecisionModel: 0'
+    - line: '|   shaderPrecisionModel: 1'
     - line: '|   clonedFromGUID: f918f204a65eb664ba9e5b39d533ff8e'
     - line: '|   templatePackageId: com.unity.template.mobile2d@6.0.0'
     - line: '|   templateDefaultScene: Assets/Scenes/SampleScene.unity'
@@ -939,7 +939,7 @@ MonoBehaviour:
     - line: '|   hmiLoadingImage: {instanceID: 0}'
     - line: '|   platformRequiresReadableAssets: 0'
     - line: '|   virtualTexturingSupportEnabled: 0'
-    - line: '|   insecureHttpOption: 0'
+    - line: '|   insecureHttpOption: 2'
     - line: '|   androidVulkanDenyFilterList: []'
     - line: '|   androidVulkanAllowFilterList: []'
     - line: '| '
