@@ -31,69 +31,6 @@ public class BaseRoom {
 
 [Serializable]
 public class MatchState : INetworkSerializable, IEquatable<MatchState> {
-    public class Configs : INetworkSerializable, IEquatable<Configs> {
-        public float maxX;
-        public float maxY;
-        public string ip;
-        public int port;
-
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-            if (serializer.IsWriter) {
-                var writer = serializer.GetFastBufferWriter();
-                writer.WriteValueSafe(maxX);
-                writer.WriteValueSafe(maxY);
-                writer.WriteValueSafe(ip);
-                writer.WriteValueSafe(port);
-            }
-            else {
-                var reader = serializer.GetFastBufferReader();
-                reader.ReadValueSafe(out maxX);
-                reader.ReadValueSafe(out maxY);
-                reader.ReadValueSafe(out ip);
-                reader.ReadValueSafe(out port);
-            }
-        }
-
-        public bool Equals(Configs other) {
-            return maxX == other.maxX && maxY == other.maxY && ip == other.ip && port == other.port;
-        }
-
-    }
-
-    public class Player : INetworkSerializable, IEquatable<Player> {
-        public string id;
-        public string name;
-        public string avatar;
-        public int clientID; // = -1 if client has not connected or disconnected
-        public string status;
-
-        public enum Status {
-            active,
-            ready,
-        }
-
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-            if (serializer.IsWriter) {
-                var writer = serializer.GetFastBufferWriter();
-                writer.WriteValueSafe(id);
-                writer.WriteValueSafe(name);
-                writer.WriteValueSafe(avatar);
-                writer.WriteValueSafe(status);
-            }
-            else {
-                var reader = serializer.GetFastBufferReader();
-                reader.ReadValueSafe(out id);
-                reader.ReadValueSafe(out name);
-                reader.ReadValueSafe(out avatar);
-                reader.ReadValueSafe(out status);
-            }
-        }
-
-        public bool Equals(Player other) {
-            return id == other.id && name == other.name && avatar == other.avatar;
-        }
-    }
-
     public string id;
     public Configs configs;
     public List<Player> players;
@@ -173,6 +110,71 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
 
         return id == other.id && created == other.created && ended == other.ended && status == other.status;
     }
+
+
+    public class Configs : INetworkSerializable, IEquatable<Configs> {
+        public float maxX;
+        public float maxY;
+        public string ip;
+        public int port;
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            if (serializer.IsWriter) {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(maxX);
+                writer.WriteValueSafe(maxY);
+                writer.WriteValueSafe(ip);
+                writer.WriteValueSafe(port);
+            }
+            else {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out maxX);
+                reader.ReadValueSafe(out maxY);
+                reader.ReadValueSafe(out ip);
+                reader.ReadValueSafe(out port);
+            }
+        }
+
+        public bool Equals(Configs other) {
+            return maxX == other.maxX && maxY == other.maxY && ip == other.ip && port == other.port;
+        }
+
+    }
+
+    public class Player : INetworkSerializable, IEquatable<Player> {
+        public string id;
+        public string name;
+        public string avatar;
+        public int clientID; // = -1 if client has not connected or disconnected
+        public string status;
+
+        public enum Status {
+            active,
+            ready,
+        }
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            if (serializer.IsWriter) {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(id);
+                writer.WriteValueSafe(name);
+                writer.WriteValueSafe(avatar);
+                writer.WriteValueSafe(status);
+            }
+            else {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out id);
+                reader.ReadValueSafe(out name);
+                reader.ReadValueSafe(out avatar);
+                reader.ReadValueSafe(out status);
+            }
+        }
+
+        public bool Equals(Player other) {
+            return id == other.id && name == other.name && avatar == other.avatar;
+        }
+    }
+
 }
 
 

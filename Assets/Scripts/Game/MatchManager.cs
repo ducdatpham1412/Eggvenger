@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -16,6 +18,7 @@ public class MatchManager : NetworkBehaviour {
 
     string READY_STATUS = MatchState.Player.Status.ready.ToString();
     bool hasLoadedMatch = false;
+    bool ended = false;
 
     AppState appState;
     GameState gameState;
@@ -62,6 +65,7 @@ public class MatchManager : NetworkBehaviour {
 
     void S_LoadMatch(JObject evt) {
         string eventType = evt["type"].ToString();
+
         if (eventType == "load_match") {
             gameState.status = GameState.Status.inGame;
             gameState.matchState = evt["data"].ToObject<MatchState>();
@@ -70,9 +74,15 @@ public class MatchManager : NetworkBehaviour {
                 DisplayCards();
             }, null);
         }
+
+        else if (eventType == "disconnected") {
+            EndGame();
+        }
     }
 
     void DisplayCards() {
+        if (ended) return;
+
         if (!hasLoadedMatch) {
             for (int i = 0; i < gameState.matchState.rooms.Count; i++) {
                 JObject room = gameState.matchState.rooms[i];
@@ -184,8 +194,9 @@ public class MatchManager : NetworkBehaviour {
     }
 
 
-    void EndGame() {
+    async void EndGame() {
         if (IsClient) {
+            ended = true;
             NetworkManager.Singleton.Shutdown();
             GameObject LineObject = Instantiate(Line);
             GameObject Final = Instantiate(FinalLeaderBoard);
@@ -198,10 +209,21 @@ public class MatchManager : NetworkBehaviour {
         }
 
         if (IsServer) {
-            // TODO: Send data to UDP server to save
-            Debug.Log("SERVER QUITTED");
-            Application.Quit();
-            return;
+            try {
+                await ApiManager.POST<JObject>(
+                    path: "/game/history",
+                    data: new Dictionary<string, object> {
+                        {"match_state", JsonConvert.SerializeObject(gameState.matchState)}
+                    }
+                );
+            }
+            catch (Exception) {
+                Debug.Log($"ERROR SAVING MATCH_STATE: {JObject.FromObject(gameState.matchState)}");
+            }
+            finally {
+                Debug.Log($"SERVER QUITTED | TIME: {DateTime.Now}");
+                Application.Quit();
+            }
         }
     }
 

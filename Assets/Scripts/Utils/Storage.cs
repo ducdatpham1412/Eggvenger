@@ -22,7 +22,7 @@ public static class Storage {
             return JsonConvert.DeserializeObject<T>(res);
         }
         catch (JsonException jsonEx) {
-            Debug.LogError($"Deserialization failed: {jsonEx.Message}");
+            Debug.LogWarning($"Deserialization failed: {jsonEx.Message}");
             return default(T);
         }
     }

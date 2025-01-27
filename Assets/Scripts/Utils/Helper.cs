@@ -34,7 +34,7 @@ public static class Helper {
         if (ColorUtility.TryParseHtmlString(hex, out color)) {
             return color;
         }
-        Debug.LogError("Invalid hex code: " + hex);
+        Debug.LogWarning("Invalid hex code: " + hex);
         return Color.white;
     }
 
@@ -88,7 +88,7 @@ public static class Helper {
         }
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
-            Debug.LogError(request.error);
+            Debug.LogWarning(request.error);
             return null;
         }
         else {
