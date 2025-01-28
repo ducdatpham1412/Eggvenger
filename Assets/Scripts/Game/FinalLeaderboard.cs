@@ -35,11 +35,9 @@ public class FinalLeaderboard : MonoBehaviour {
         };
 
         foreach (JObject room in state.rooms) {
-            Debug.Log($"Room: {room}");
             if (room["type"].ToString() == BaseRoom.Type.throw_egg.ToString()) {
                 RoomThrowEgg roomThrowEgg = room.ToObject<RoomThrowEgg>();
                 foreach (RoomThrowEgg.Player player in roomThrowEgg.players) {
-                    Debug.Log($"Plus {player.id}: {player.point}");
                     Dict[player.id].points += player.point;
                 }
             }

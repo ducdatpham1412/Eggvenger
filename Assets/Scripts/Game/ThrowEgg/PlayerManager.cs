@@ -72,15 +72,11 @@ public class PlayerManager : NetworkBehaviour {
 
     async void SetAvatar(string url) {
         c_setAvatar = true;
-        try {
-            Sprite sprite = await Helper.ImgUrlToSprite(url);
+        Sprite sprite = await Helper.ImgUrlToSprite(url);
+        if (sprite != null) {
             GetComponent<SpriteRenderer>().sprite = sprite;
-            // Helper.FitSpriteToGameObject(gameObject);
         }
-        catch (System.Exception) {
-            c_setAvatar = false;
-            Debug.LogWarning("Error set avatar");
-        }
+        // Helper.FitSpriteToGameObject(gameObject);
     }
 
     void LoadSceneAndUpdatePlayer(RoomThrowEgg.Player player) {

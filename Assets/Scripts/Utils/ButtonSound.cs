@@ -4,29 +4,23 @@ using UnityEngine.UI;
 public class ButtonSound : MonoBehaviour {
     public Texture IconSound;
     public Texture IconSoundMute;
-
     private RawImage iconSoundImg;
-    private bool playing = true;
-
 
     void Start() {
         Transform iconSound = transform.Find("IconSound");
         if (iconSound != null) {
             iconSoundImg = iconSound.GetComponent<RawImage>();
         }
+        SetPlaying(SoundManager.Instance.Music.isPlaying);
+        SoundManager.Instance.OnMusicPlaying += SetPlaying;
+    }
 
-        Button button = GetComponent<Button>();
-        if (button != null) {
-            button.onClick.AddListener(ChangePlaying);
-        }
+    void OnDestroy() {
+        SoundManager.Instance.OnMusicPlaying -= SetPlaying;
     }
 
     public void SetPlaying(bool value) {
-        playing = value;
-        iconSoundImg.texture = playing ? IconSound : IconSoundMute;
+        iconSoundImg.texture = value ? IconSound : IconSoundMute;
     }
 
-    public void ChangePlaying() {
-        SetPlaying(!playing);
-    }
 }

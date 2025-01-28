@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class TestCreate : MonoBehaviour {
-    public string input_01;
-    public string input_02;
-    public string input_03;
+    public string input_01 = "";
+    public string input_02 = "";
+    public string input_03 = "";
 
     public void OnChangeInput01(string value) {
         input_01 = value;

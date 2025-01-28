@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class SoundManager : Singleton<SoundManager> {
     }
     protected SoundManager() { }
     Dictionary<MusicSource, AudioClip> Sources = new Dictionary<MusicSource, AudioClip>();
-    AudioSource Music;
+    public AudioSource Music;
     AudioSource KnockWood;
     AudioSource Whoosh;
     AudioSource Stretch;
@@ -18,8 +19,7 @@ public class SoundManager : Singleton<SoundManager> {
     AudioSource HaHa;
     AudioSource NiceShot;
 
-
-
+    public event Action<bool> OnMusicPlaying;
 
     void Awake() {
         Music = gameObject.AddComponent<AudioSource>();
@@ -65,14 +65,15 @@ public class SoundManager : Singleton<SoundManager> {
         return Resources.Load<AudioClip>($"Sounds/SFs/{name}");
     }
 
-
     public void PauseUnPauseMusicBackground() {
         if (Music != null) {
             if (Music.isPlaying) {
                 Music.Pause();
+                OnMusicPlaying?.Invoke(false);
             }
             else {
                 Music.UnPause();
+                OnMusicPlaying?.Invoke(true);
             }
         }
     }
@@ -120,6 +121,7 @@ public class SoundManager : Singleton<SoundManager> {
             }
             Music.clip = Sources[source];
             Music.Play();
+            OnMusicPlaying?.Invoke(true);
         }
     }
 
