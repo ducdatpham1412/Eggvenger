@@ -151,6 +151,7 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
         public enum Status {
             active,
             ready,
+            disconnected,
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {

@@ -120,6 +120,7 @@
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Game/FinalLeaderboard.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
+    <Compile Include="Assets/Scripts/Game/ConnectManager.cs" />
     <Compile Include="Assets/Scripts/Utils/TestCreate.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/PlayerManager.cs" />
   </ItemGroup>

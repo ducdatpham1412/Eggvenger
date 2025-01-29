@@ -179,7 +179,7 @@ public class MatchManager : NetworkBehaviour {
                     S_InitServer(match_id, port);
                     return;
                 }
-                catch (System.Exception e) {
+                catch (Exception e) {
                     Debug.Log($"ERROR CRASH APP: {e.Message}");
                     Application.Quit();
                 }

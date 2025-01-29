@@ -14,7 +14,7 @@ public static class SocketManager {
 
     static SocketManager() {
         udpClient = new UdpClient();
-        udpClient.Connect("127.0.0.1", 5000);
+        udpClient.Connect(Configs.Env.socket_url, 5000);
         Task.Run(HandleState);
     }
 
@@ -87,7 +87,6 @@ public static class SocketManager {
     }
 
     public static void Disconnected() {
-        Debug.Log("Send disconnected");
         __Send(new Event.Send.Disconnected());
     }
 }
