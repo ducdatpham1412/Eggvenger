@@ -6,6 +6,7 @@ public class SoundManager : Singleton<SoundManager> {
     public enum MusicSource {
         background,
         lifeWandering,
+        mathBeat,
     }
     protected SoundManager() { }
     Dictionary<MusicSource, AudioClip> Sources = new Dictionary<MusicSource, AudioClip>();
@@ -18,6 +19,7 @@ public class SoundManager : Singleton<SoundManager> {
     AudioSource Nope;
     AudioSource HaHa;
     AudioSource NiceShot;
+    AudioSource Correct;
 
     public event Action<bool> OnMusicPlaying;
 
@@ -31,9 +33,11 @@ public class SoundManager : Singleton<SoundManager> {
         Nope = gameObject.AddComponent<AudioSource>();
         HaHa = gameObject.AddComponent<AudioSource>();
         NiceShot = gameObject.AddComponent<AudioSource>();
+        Correct = gameObject.AddComponent<AudioSource>();
 
         Sources[MusicSource.background] = LoadMusic("mc_newdayagain");
         Sources[MusicSource.lifeWandering] = LoadMusic("mc_life_wandering");
+        Sources[MusicSource.mathBeat] = LoadMusic("mc_math_beat");
 
         KnockWood.clip = LoadSF("sf_knockwood");
         Whoosh.clip = LoadSF("sf_whoosh");
@@ -43,6 +47,7 @@ public class SoundManager : Singleton<SoundManager> {
         Nope.clip = LoadSF("sf_nope");
         HaHa.clip = LoadSF("sf_haha");
         NiceShot.clip = LoadSF("sf_nice_shot");
+        Correct.clip = LoadSF("sf_correct");
 
         AudioSource[] sources = GetComponents<AudioSource>();
         for (int i = 0; i < sources.Length; i++) {
@@ -111,6 +116,10 @@ public class SoundManager : Singleton<SoundManager> {
             NiceShot.Play();
             return;
         }
+        if (sf == SF.Correct) {
+            Correct.Play();
+            return;
+        }
     }
 
 
@@ -135,6 +144,7 @@ public class SoundManager : Singleton<SoundManager> {
         Nope,
         Haha,
         NiceShot,
+        Correct,
         None,
     }
 }

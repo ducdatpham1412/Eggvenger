@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestNetwork.unity
     guid: eb0609fbcf9414304b21246bd9f3f79b
+  - enabled: 1
+    path: Assets/Scenes/GameMath.unity
+    guid: 0e4b8c460acdc4ec1b022359489c6e44
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 818fd7c61ee344de49b1ed1066b19cfd, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 5a2f77de8d9a143a98023c0e418016da, type: 2}

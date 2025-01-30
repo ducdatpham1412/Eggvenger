@@ -73,7 +73,7 @@ public class TestManager : NetworkBehaviour {
     // }
 
     public TestEggManager eggManager;
-    public PlayerManager playerManager;
+    public PlayerThrowEggManager playerManager;
     public GameObject EggPrefab;
 
     GameStateBuffer gameStateBuffer = new GameStateBuffer(1024);

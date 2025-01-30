@@ -14,6 +14,8 @@ public class RoomCardManager : MonoBehaviour {
     public Text TextStatus;
     public string roomID;
 
+    string roomType;
+
 
     private void SetPlayerUI(GameObject Player, MatchState.Player data) {
         ImageLoader loader = Player.transform.Find("Avatar").transform.Find("Avatar").GetComponent<ImageLoader>();
@@ -29,14 +31,14 @@ public class RoomCardManager : MonoBehaviour {
         return Helper.GetLocalizedValue(LocalizationManager.Table.Game, key);
     }
 
-    private string GetGameByType(string roomType) {
-        if (roomType == "throw_egg") {
+    private string GetGameByType(string type) {
+        if (type == BaseRoom.Type.throw_egg.ToString()) {
             return GetText("throwEgg");
         }
-        if (roomType == "solve_math") {
+        if (type == BaseRoom.Type.math.ToString()) {
             return GetText("solveMath");
         }
-        if (roomType == "flappy_egg") {
+        if (type == BaseRoom.Type.flappy_egg.ToString()) {
             return GetText("flappyEgg");
         }
         return "";
@@ -48,12 +50,46 @@ public class RoomCardManager : MonoBehaviour {
         List<JObject> rooms = matchState.rooms;
         int index = rooms.FindIndex(r => r["id"].ToString() == roomID);
         JObject room = rooms[index];
-        RoomThrowEgg roomThrowEgg = room.ToObject<RoomThrowEgg>();
 
-        Title.text = $"{GetText("round")} {index + 1}: {GetGameByType(roomThrowEgg.type)}";
+        roomType = room["type"].ToString();
 
-        MatchState.Player Player01 = matchState.players.Find(p => p.id == roomThrowEgg.players[0].id);
-        MatchState.Player Player02 = matchState.players.Find(p => p.id == roomThrowEgg.players[1].id);
+        string player1_id = "";
+        int player1_point = 0;
+
+        string player2_id = "";
+        int player2_point = 0;
+
+        string status = "";
+
+        bool isValid = false;
+
+        if (roomType == BaseRoom.Type.throw_egg.ToString()) {
+            RoomThrowEgg roomObject = room.ToObject<RoomThrowEgg>();
+            player1_id = roomObject.players[0].id;
+            player1_point = roomObject.players[0].point;
+            player2_id = roomObject.players[1].id;
+            player2_point = roomObject.players[1].point;
+            status = roomObject.status;
+            isValid = true;
+        }
+        else if (roomType == BaseRoom.Type.math.ToString()) {
+            RoomMath roomObject = room.ToObject<RoomMath>();
+            player1_id = roomObject.players[0].id;
+            player1_point = roomObject.players[0].point;
+            player2_id = roomObject.players[1].id;
+            player2_point = roomObject.players[1].point;
+            status = roomObject.status;
+            isValid = true;
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        Title.text = $"{GetText("round")} {index + 1}: {GetGameByType(roomType)}";
+
+        MatchState.Player Player01 = matchState.players.Find(p => p.id == player1_id);
+        MatchState.Player Player02 = matchState.players.Find(p => p.id == player2_id);
 
         int sum01 = (Player01.id + Player01.name).ToIntArray().Sum();
         int sum02 = (Player02.id + Player02.name).ToIntArray().Sum();
@@ -61,14 +97,15 @@ public class RoomCardManager : MonoBehaviour {
 
         MatchState.Player left = isLess ? Player01 : Player02;
         MatchState.Player right = isLess ? Player02 : Player01;
-        int leftPoint = isLess ? roomThrowEgg.players[0].point : roomThrowEgg.players[1].point;
-        int rightPoint = isLess ? roomThrowEgg.players[1].point : roomThrowEgg.players[0].point;
+
+        int leftPoint = isLess ? player1_point : player2_point;
+        int rightPoint = isLess ? player2_point : player1_point;
 
         SetPlayerUI(PlayerLeft, left);
         SetPlayerUI(PlayerRight, right);
 
         TextScore.text = $"{leftPoint}  -  {rightPoint}";
-        if (roomThrowEgg.status == BaseRoom.Status.ended.ToString()) {
+        if (status == BaseRoom.Status.ended.ToString()) {
             TextStatus.text = GetText("ended");
         }
     }
@@ -83,7 +120,12 @@ public class RoomCardManager : MonoBehaviour {
         }
         TextStatus.text = GetText("start");
         yield return new WaitForSeconds(1f);
-        Navigator.Instance.NetworkLoad(Navigator.Scene.GameThrowEgg);
+        if (roomType == BaseRoom.Type.throw_egg.ToString()) {
+            Navigator.Instance.NetworkLoad(Navigator.Scene.GameThrowEgg);
+        }
+        else if (roomType == BaseRoom.Type.math.ToString()) {
+            Navigator.Instance.NetworkLoad(Navigator.Scene.GameMath);
+        }
     }
 
     public void CountDownToBegin(int seconds = 3) {

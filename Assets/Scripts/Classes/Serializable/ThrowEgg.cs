@@ -8,6 +8,57 @@ using UnityEngine;
 
 [Serializable]
 public class RoomThrowEgg : BaseRoom, INetworkSerializable, IEquatable<RoomThrowEgg> {
+    public List<Player> players;
+    public List<Egg> eggs;
+
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+        if (serializer.IsWriter) {
+            int playersCount = players.Count;
+            int eggsCount = eggs.Count;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref eggsCount);
+            for (int i = 0; i < playersCount; i++) {
+                players[i].NetworkSerialize(serializer);
+            }
+            for (int i = 0; i < eggsCount; i++) {
+                eggs[i].NetworkSerialize(serializer);
+            }
+            var writer = serializer.GetFastBufferWriter();
+            writer.WriteValueSafe(id);
+            writer.WriteValueSafe(type);
+            writer.WriteValueSafe(status);
+        }
+        else {
+            int playersCount = 0;
+            int eggsCount = 0;
+            serializer.SerializeValue(ref playersCount);
+            serializer.SerializeValue(ref eggsCount);
+            players = new List<Player>();
+            for (int i = 0; i < playersCount; i++) {
+                Player p = new Player();
+                p.NetworkSerialize(serializer);
+                players.Add(p);
+            }
+            eggs = new List<Egg>();
+            for (int i = 0; i < eggsCount; i++) {
+                Egg e = new Egg();
+                e.NetworkSerialize(serializer);
+                eggs.Add(e);
+            }
+            var reader = serializer.GetFastBufferReader();
+            reader.ReadValueSafe(out id);
+            reader.ReadValueSafe(out type);
+            reader.ReadValueSafe(out status);
+        }
+    }
+
+
+    public bool Equals(RoomThrowEgg other) {
+        return players.Equals(other.players) && eggs.Equals(other.eggs) && status == other.status;
+    }
+
+
     [Serializable]
     public class Player : INetworkSerializable, IEquatable<Player> {
         public string id;
@@ -83,53 +134,5 @@ public class RoomThrowEgg : BaseRoom, INetworkSerializable, IEquatable<RoomThrow
         public bool Equals(Egg other) {
             return move_speed == other.move_speed && shot_speed == other.shot_speed && status == other.status;
         }
-    }
-
-    public List<Player> players;
-    public List<Egg> eggs;
-
-    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
-        if (serializer.IsWriter) {
-            int playersCount = players.Count;
-            int eggsCount = eggs.Count;
-            serializer.SerializeValue(ref playersCount);
-            serializer.SerializeValue(ref eggsCount);
-            for (int i = 0; i < playersCount; i++) {
-                players[i].NetworkSerialize(serializer);
-            }
-            for (int i = 0; i < eggsCount; i++) {
-                eggs[i].NetworkSerialize(serializer);
-            }
-            var writer = serializer.GetFastBufferWriter();
-            writer.WriteValueSafe(id);
-            writer.WriteValueSafe(type);
-            writer.WriteValueSafe(status);
-        }
-        else {
-            int playersCount = 0;
-            int eggsCount = 0;
-            serializer.SerializeValue(ref playersCount);
-            serializer.SerializeValue(ref eggsCount);
-            players = new List<Player>();
-            for (int i = 0; i < playersCount; i++) {
-                Player p = new Player();
-                p.NetworkSerialize(serializer);
-                players.Add(p);
-            }
-            eggs = new List<Egg>();
-            for (int i = 0; i < eggsCount; i++) {
-                Egg e = new Egg();
-                e.NetworkSerialize(serializer);
-                eggs.Add(e);
-            }
-            var reader = serializer.GetFastBufferReader();
-            reader.ReadValueSafe(out id);
-            reader.ReadValueSafe(out type);
-            reader.ReadValueSafe(out status);
-        }
-    }
-
-    public bool Equals(RoomThrowEgg other) {
-        return players.Equals(other.players) && eggs.Equals(other.eggs) && status == other.status;
     }
 }

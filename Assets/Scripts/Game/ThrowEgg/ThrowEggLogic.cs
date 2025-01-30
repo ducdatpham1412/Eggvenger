@@ -29,7 +29,7 @@ public class ThrowEggLogic : NetworkBehaviour {
     SynchronizationContext context;
 
     List<int> s_ConnectedClients = new List<int>();
-    Dictionary<string, PlayerManager> s_Players = new Dictionary<string, PlayerManager>();
+    Dictionary<string, PlayerThrowEggManager> s_Players = new Dictionary<string, PlayerThrowEggManager>();
     GameObject s_Egg;
 
     void Start() {
@@ -67,7 +67,7 @@ public class ThrowEggLogic : NetworkBehaviour {
         }
     }
 
-    void S_InitEgg(PlayerManager playerManager) {
+    void S_InitEgg(PlayerThrowEggManager playerManager) {
         int ownerClientID = matchState.players.Find(p => p.id == playerManager.m_Player.Value.id).clientID;
         bool isUnder = playerManager.m_Player.Value.init_pos.y < 0;
         s_Egg = Instantiate(EggPrefab, playerManager.m_Player.Value.init_pos, isUnder ? Quaternion.identity : Quaternion.Euler(180, 0, 0));
@@ -81,16 +81,16 @@ public class ThrowEggLogic : NetworkBehaviour {
     }
 
     FixedString32Bytes S_InitObjects() {
-        PlayerManager InitPlayer(RoomThrowEgg.Player player) {
+        PlayerThrowEggManager InitPlayer(RoomThrowEgg.Player player) {
             GameObject newGameObject = Instantiate(PlayerPrefab, player.init_pos, Quaternion.identity);
-            PlayerManager manager = newGameObject.GetComponent<PlayerManager>();
+            PlayerThrowEggManager manager = newGameObject.GetComponent<PlayerThrowEggManager>();
             manager.Initialize(player, this);
             s_Players.Add(player.id, manager);
             return manager;
         }
 
         m_TargetID.Value = roomThrowEgg.players[1].id;
-        PlayerManager manager01 = InitPlayer(roomThrowEgg.players[0]);
+        PlayerThrowEggManager manager01 = InitPlayer(roomThrowEgg.players[0]);
         InitPlayer(roomThrowEgg.players[1]);
         S_InitEgg(manager01);
 
@@ -158,7 +158,7 @@ public class ThrowEggLogic : NetworkBehaviour {
         c_TextNotice.gameObject.SetActive(false);
     }
 
-    bool S_PlusPointAndCheckEnded(PlayerManager Shot, PlayerManager Target) {
+    bool S_PlusPointAndCheckEnded(PlayerThrowEggManager Shot, PlayerThrowEggManager Target) {
         int newPoint = Shot.m_Player.Value.point + 1;
         bool equalTurn = roomThrowEgg.eggs.Count % 2 == 0;
         if (newPoint == 5) {
@@ -182,14 +182,14 @@ public class ThrowEggLogic : NetworkBehaviour {
     }
 
     async void S_SwitchTurn(bool isHit) {
-        PlayerManager Target = s_Players[m_TargetID.Value.ToString()];
+        PlayerThrowEggManager Target = s_Players[m_TargetID.Value.ToString()];
         string newTarget = m_TargetID.Value.ToString();
         string winnerID = "";
 
-        foreach (KeyValuePair<string, PlayerManager> kpv in s_Players) {
+        foreach (KeyValuePair<string, PlayerThrowEggManager> kpv in s_Players) {
             if (kpv.Key != m_TargetID.Value.ToString()) {
                 newTarget = kpv.Key;
-                PlayerManager Shot = kpv.Value;
+                PlayerThrowEggManager Shot = kpv.Value;
                 if (isHit) {
                     bool ended = S_PlusPointAndCheckEnded(Shot, Target);
                     if (ended) {

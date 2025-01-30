@@ -108,6 +108,7 @@
     <Compile Include="Assets/Scripts/Classes/Serializable/Common.cs" />
     <Compile Include="Assets/Scripts/Profile/LeaderBoardLogic.cs" />
     <Compile Include="Assets/Scripts/Profile/AccountInfoLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Math/MathManager.cs" />
     <Compile Include="Assets/Scripts/Classes/MonoBehaviorSingleton.cs" />
     <Compile Include="Assets/Scripts/Utils/Helper.cs" />
     <Compile Include="Assets/Scripts/Utils/LoadingManager.cs" />
@@ -115,14 +116,15 @@
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestEggManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/ThrowEggLogic.cs" />
     <Compile Include="Assets/Scripts/Game/RoomCardManager.cs" />
+    <Compile Include="Assets/Scripts/Classes/Serializable/Math.cs" />
     <Compile Include="Assets/Scripts/Utils/GameHelper.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Game/FinalLeaderboard.cs" />
+    <Compile Include="Assets/Scripts/Game/ThrowEgg/PlayerThrowEggManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/GameState.cs" />
     <Compile Include="Assets/Scripts/Game/ConnectManager.cs" />
     <Compile Include="Assets/Scripts/Utils/TestCreate.cs" />
-    <Compile Include="Assets/Scripts/Game/ThrowEgg/PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
