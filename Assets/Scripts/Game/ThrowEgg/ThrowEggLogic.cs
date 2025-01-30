@@ -42,10 +42,10 @@ public class ThrowEggLogic : NetworkBehaviour {
     }
 
     public override void OnNetworkSpawn() {
+        matchState = GameManager.Instance.gameState.matchState;
+        roomThrowEgg = matchState.rooms.Find(r => r["status"].ToString() == "active").ToObject<RoomThrowEgg>();
         if (IsClient) {
             ReadyServerRpc();
-            matchState = GameManager.Instance.gameState.matchState;
-            roomThrowEgg = matchState.rooms.Find(r => r["status"].ToString() == "active").ToObject<RoomThrowEgg>();
             C_ModifyCameraView();
         }
     }
