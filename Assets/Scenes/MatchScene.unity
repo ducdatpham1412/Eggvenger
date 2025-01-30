@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 194228244}
   - component: {fileID: 194228245}
   - component: {fileID: 194228246}
+  - component: {fileID: 194228247}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -195,6 +196,19 @@ MonoBehaviour:
   Line: {fileID: 5261926940476280679, guid: 0b17faeb27d9e4b549bfd749b0f8b431, type: 3}
   FinalLeaderBoard: {fileID: 8466012069343033356, guid: f00ff43192a384bf9bec230d6cc2db10, type: 3}
   BackToLobby: {fileID: 2083492059}
+--- !u!114 &194228247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194228243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4d85f6c9af745438fc261058bd17b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &232987084
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +390,7 @@ GameObject:
   - component: {fileID: 648011330}
   - component: {fileID: 648011333}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

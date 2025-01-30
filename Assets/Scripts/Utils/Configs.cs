@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using System.IO;
+using UnityEngine;
 
 
 public class Configs {
@@ -20,16 +23,53 @@ public class Configs {
     public static _Env Env = new _Env {
         match_id = GetEnv("match_id"),
         match_port = GetEnv("match_port"),
+        api_url = GetEnv("API_URL"),
+        socket_url = GetEnv("SOCKET_URL"),
     };
 
+    static bool hasReadEnv = false;
 
     static string GetEnv(string key) {
+        if (!hasReadEnv) {
+            ReadEnvFile();
+            hasReadEnv = true;
+        }
+
         try {
-            return Environment.GetEnvironmentVariable(key);
+            string value = Environment.GetEnvironmentVariable(key);
+            return value;
         }
         catch (Exception) {
             UnityEngine.Debug.LogWarning($"No env found: {key}");
             return null;
+        }
+    }
+
+    static void ReadEnvFile() {
+        string basePath = Directory.GetCurrentDirectory();
+        if (Application.isEditor) {
+            basePath = basePath.Split("/RandomRelax")[0] + "/RandomRelax";
+        }
+
+        string filePath = Path.Combine(basePath, ".env");
+
+        if (!File.Exists(filePath)) {
+            UnityEngine.Debug.Log($"File path does not existed: {filePath}");
+            return;
+        }
+
+        foreach (var line in File.ReadAllLines(filePath)) {
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
+                continue;
+
+            var parts = line.Split('=', 2);
+            if (parts.Length != 2)
+                continue;
+
+            var key = parts[0].Trim();
+            var value = parts[1].Trim();
+            UnityEngine.Debug.Log("Set env: " + key + " - " + value);
+            Environment.SetEnvironmentVariable(key, value);
         }
     }
 
@@ -55,5 +95,7 @@ public class Configs {
     public class _Env {
         public string match_id;
         public string match_port;
+        public string api_url;
+        public string socket_url;
     }
 }

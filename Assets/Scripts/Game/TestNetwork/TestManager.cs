@@ -79,6 +79,13 @@ public class TestManager : NetworkBehaviour {
     GameStateBuffer gameStateBuffer = new GameStateBuffer(1024);
 
 
+    void Start() {
+        GameObject mainCamera = GameObject.Find("MainCamera");
+        FlipGameObject(mainCamera);
+        FlipGameObject(GameManager.Instance.gameObject);
+    }
+
+
     public void HandleShot(long timestamp, ulong SenderClientID) {
         long current = Helper.TimeStamp();
         long tsOnServer = current - 2 * (current - timestamp); // t - RTT
@@ -108,12 +115,23 @@ public class TestManager : NetworkBehaviour {
         }
     }
 
-    // void Start() {
-    //     UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-    //     transport.SetConnectionData("0.0.0.0", 7778);
-    //     NetworkManager.Singleton.StartServer();
-    // }
+    void StartServer() {
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        transport.SetConnectionData("0.0.0.0", 7778);
+        NetworkManager.Singleton.StartServer();
+    }
 
+    void FlipGameObject(GameObject gameObject) {
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180f));
+        Vector3 pos = gameObject.transform.position;
+        pos.y = pos.y - 1;
+        gameObject.transform.position = pos;
+    }
+
+    void ReverseGameObject(GameObject gameObject) {
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        gameObject.transform.position = new Vector3(0, 0, 0);
+    }
 
     public class GameStateSnapShot {
         public class Value {

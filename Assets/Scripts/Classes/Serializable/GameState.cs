@@ -37,7 +37,7 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
     public List<JObject> rooms;
     public float created;
     public float ended;
-    public string status;
+    public string status; // active, ended, disconnected
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
         if (serializer.IsWriter) {
@@ -151,6 +151,7 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
         public enum Status {
             active,
             ready,
+            disconnected,
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
@@ -175,6 +176,11 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
         }
     }
 
+    public enum Status {
+        active,
+        ended,
+        disconnected,
+    }
 }
 
 

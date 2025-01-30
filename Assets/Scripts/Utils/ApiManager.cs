@@ -18,7 +18,7 @@ public static class ApiManager {
     static HttpClient Client = new() {
         // BaseAddress = new Uri("http://localhost:8000")
     };
-    static string BaseAddress = "http://localhost:8000/api/v1"; // TODO: http://app:8000/api/v1 to server
+    static string BaseAddress = $"{Configs.Env.api_url}/api/v1";
     static ConcurrentQueue<TaskCompletionSource<string>> taskQueue = new ConcurrentQueue<TaskCompletionSource<string>>();
     static bool isRefreshing = false;
 
