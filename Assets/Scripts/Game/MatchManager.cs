@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -73,10 +72,6 @@ public class MatchManager : NetworkBehaviour {
             context.Post(_ => {
                 DisplayCards();
             }, null);
-        }
-
-        else if (eventType == "disconnected") {
-            EndGame();
         }
     }
 
@@ -194,7 +189,7 @@ public class MatchManager : NetworkBehaviour {
     }
 
 
-    async void EndGame() {
+    void EndGame() {
         if (IsClient) {
             ended = true;
             NetworkManager.Singleton.Shutdown();
@@ -209,21 +204,8 @@ public class MatchManager : NetworkBehaviour {
         }
 
         if (IsServer) {
-            try {
-                await ApiManager.POST<JObject>(
-                    path: "/game/history",
-                    data: new Dictionary<string, object> {
-                        {"match_state", JsonConvert.SerializeObject(gameState.matchState)}
-                    }
-                );
-            }
-            catch (Exception) {
-                Debug.Log($"ERROR SAVING MATCH_STATE: {JObject.FromObject(gameState.matchState)}");
-            }
-            finally {
-                Debug.Log($"SERVER QUITTED | TIME: {DateTime.Now}");
-                Application.Quit();
-            }
+            ConnectManager connectManager = GetComponent<ConnectManager>();
+            connectManager.S_EndGame(MatchState.Status.ended);
         }
     }
 
