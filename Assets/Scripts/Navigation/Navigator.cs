@@ -9,6 +9,7 @@ public class Navigator : Singleton<Navigator> {
         MatchMaking,
         GameOverview,
         GameThrowEgg,
+        GameMath,
         Profile,
         ProfileEdit,
         AccountInfo,

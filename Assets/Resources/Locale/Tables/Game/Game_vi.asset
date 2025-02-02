@@ -101,6 +101,10 @@ MonoBehaviour:
     m_Localized: "Tr\u1EDF L\u1EA1i S\u1EA3nh"
     m_Metadata:
       m_Items: []
+  - m_Id: 11600631084081152
+    m_Localized: "Ai gi\u1EA3i to\xE1n nhanh h\u01A1n?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

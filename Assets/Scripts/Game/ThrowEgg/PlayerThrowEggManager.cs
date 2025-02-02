@@ -2,7 +2,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerManager : NetworkBehaviour {
+public class PlayerThrowEggManager : NetworkBehaviour {
     GamePoints gamePoints;
     SpriteRenderer Renderer;
     ClientNetworkTransform networkTransform;
@@ -79,12 +79,12 @@ public class PlayerManager : NetworkBehaviour {
         // Helper.FitSpriteToGameObject(gameObject);
     }
 
-    void LoadSceneAndUpdatePlayer(RoomThrowEgg.Player player) {
+    void UpdateScoreUI(RoomThrowEgg.Player player) {
         if (gamePoints == null) {
             GameObject Canvas = GameObject.Find("Canvas");
             Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
             if (MatchScore != null) {
-                bool isUnder = player.init_pos.y < 0f;
+                bool isUnder = player.id == GameManager.Instance.appState.profile.id;
                 Transform PointObject = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp");
                 gamePoints = PointObject.GetComponent<GamePoints>();
                 MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
@@ -103,7 +103,7 @@ public class PlayerManager : NetworkBehaviour {
     void OnPlayerChanged(RoomThrowEgg.Player _, RoomThrowEgg.Player newValue) {
         // Because Network Navigate will update in server immediately but in Client, it will delay, and still have scene MatchScene before, so we must wait until GameThrowEgg scene is loaded
         if (IsClient) {
-            LoadSceneAndUpdatePlayer(newValue);
+            UpdateScoreUI(newValue);
         }
         if (IsOwner) {
             moveManager.moveSpeed = m_Player.Value.move_speed;

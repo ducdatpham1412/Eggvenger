@@ -71,7 +71,7 @@ public class EggManager : NetworkBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        PlayerManager manager = collider.gameObject.GetComponent<PlayerManager>();
+        PlayerThrowEggManager manager = collider.gameObject.GetComponent<PlayerThrowEggManager>();
 
         if (manager == null) {
             return;

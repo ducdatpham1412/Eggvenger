@@ -27,6 +27,10 @@ public class Event {
         public class ServerReady {
             public string type = "server_ready";
         }
+        public class GetMoreQuestion {
+            public string type = "get_more_ques";
+            public int last_id;
+        }
     }
 
     public enum Name {

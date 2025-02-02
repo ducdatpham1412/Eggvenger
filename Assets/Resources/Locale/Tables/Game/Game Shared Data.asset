@@ -95,6 +95,10 @@ MonoBehaviour:
     m_Key: backToLobby
     m_Metadata:
       m_Items: []
+  - m_Id: 11600631084081152
+    m_Key: whoSolveFaster
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

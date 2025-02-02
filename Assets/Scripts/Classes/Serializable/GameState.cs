@@ -15,7 +15,7 @@ public class FindingMatchState {
 public class BaseRoom {
     public enum Type {
         throw_egg,
-        solve_math,
+        math,
         flappy_egg,
     }
     public enum Status {

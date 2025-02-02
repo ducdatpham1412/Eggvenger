@@ -81,15 +81,12 @@ public class MatchManager : NetworkBehaviour {
         if (!hasLoadedMatch) {
             for (int i = 0; i < gameState.matchState.rooms.Count; i++) {
                 JObject room = gameState.matchState.rooms[i];
-                string roomType = room["type"].ToString();
                 GameObject NewCard = Instantiate(CardPrefab);
                 NewCard.transform.SetParent(Content, false);
 
-                if (roomType == BaseRoom.Type.throw_egg.ToString()) {
-                    RoomCardManager manager = NewCard.GetComponent<RoomCardManager>();
-                    manager.Initialize(room["id"].ToString());
-                    roomManagers.Add(manager);
-                }
+                RoomCardManager manager = NewCard.GetComponent<RoomCardManager>();
+                manager.Initialize(room["id"].ToString());
+                roomManagers.Add(manager);
             }
             hasLoadedMatch = true;
         }
