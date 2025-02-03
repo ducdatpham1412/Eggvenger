@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: finding
     m_Metadata:
       m_Items: []
+  - m_Id: 14110049424105472
+    m_Key: matchFound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14128784369246208
+    m_Key: readyForMatch
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

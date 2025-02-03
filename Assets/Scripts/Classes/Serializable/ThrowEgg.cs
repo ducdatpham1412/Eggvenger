@@ -103,7 +103,7 @@ public class RoomThrowEgg : BaseRoom, INetworkSerializable, IEquatable<RoomThrow
 
     [Serializable]
     public class Egg : INetworkSerializable, IEquatable<Egg> {
-        public string id;
+        public int id;
         public float move_speed;
         public float shot_speed;
         public float created;

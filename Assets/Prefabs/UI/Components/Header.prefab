@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 4739839202932156685}
   - component: {fileID: 5436535223832831046}
   - component: {fileID: 7472899647773221824}
+  - component: {fileID: 8561929580329057979}
   m_Layer: 5
   m_Name: Amount
   m_TagString: Untagged
@@ -226,6 +227,18 @@ MonoBehaviour:
   m_HorizontalFit: 2
   m_VerticalFit: 0
 --- !u!114 &7472899647773221824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3842824075047452789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538b179c893c54ccaa7c9976f2caf412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8561929580329057979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,7 +385,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HomeLogic, Assembly-CSharp
+        m_TargetAssemblyTypeName: Header, Assembly-CSharp
         m_MethodName: GoToProfile
         m_Mode: 1
         m_Arguments:
@@ -491,6 +504,7 @@ GameObject:
   - component: {fileID: 2467383088404829162}
   - component: {fileID: 5265331163161060005}
   - component: {fileID: 597957280466189914}
+  - component: {fileID: 1580766393243604514}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -557,6 +571,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1580766393243604514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647617997136505229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2fc8ad2e0284906b9293a9ec527401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EggsAmount: {fileID: 4739839202932156685}
 --- !u!1 &7894268888820164186
 GameObject:
   m_ObjectHideFlags: 0

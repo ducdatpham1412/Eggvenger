@@ -70,9 +70,15 @@ public class ThrowEggLogic : NetworkBehaviour {
     void S_InitEgg(PlayerThrowEggManager playerManager) {
         int ownerClientID = matchState.players.Find(p => p.id == playerManager.m_Player.Value.id).clientID;
         bool isUnder = playerManager.m_Player.Value.init_pos.y < 0;
+        int eggID = 1;
+        if (s_Egg != null) {
+            EggManager lastManager = s_Egg.GetComponent<EggManager>();
+            eggID = lastManager.m_Egg.Value.id + 1;
+        }
         s_Egg = Instantiate(EggPrefab, playerManager.m_Player.Value.init_pos, isUnder ? Quaternion.identity : Quaternion.Euler(180, 0, 0));
         EggManager manager = s_Egg.GetComponent<EggManager>();
         manager.Initialize(
+            id: eggID,
             creatorID: playerManager.m_Player.Value.id,
             move_speed: playerManager.m_Player.Value.move_speed,
             shot_speed: playerManager.m_Player.Value.shot_speed * (isUnder ? 1 : -1), _logic: this,
@@ -128,6 +134,7 @@ public class ThrowEggLogic : NetworkBehaviour {
             bool isMyTurnFirst = initTarget.ToString() != GameManager.Instance.appState.profile.id;
             await ShowNotice(isMyTurnFirst ? "youAreTheFirst" : "opponentBeFirst", 2000);
             await ShowNotice("areYouReady", 1500);
+            SoundManager.Instance.PlaySF(SoundManager.SF.Fight);
             await ShowNotice("fight", 1000, 50);
             StartCoroutine(FadeOutHover());
         }, null);

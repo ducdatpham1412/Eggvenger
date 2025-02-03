@@ -1,5 +1,5 @@
 using System.Collections;
-using Newtonsoft.Json;
+using System.Threading;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +10,13 @@ public class MatchMakingLogic : MonoBehaviour {
     public GameObject ItemPlayerFormation;
     public FindMatchButton FindButton;
 
+    SynchronizationContext context;
+
     float AnimatedUpDistance = 50f;
 
     void Start() {
+        context = SynchronizationContext.Current;
+
         Profile profile = GameManager.Instance.appState.profile;
         if (ItemPlayerFormation != null && profile != null) {
             Text name = ItemPlayerFormation.transform.Find("Name").GetComponent<Text>();
@@ -37,18 +41,14 @@ public class MatchMakingLogic : MonoBehaviour {
 
 
     private void MatchFound(JObject evt) {
-        if (evt["type"]?.ToString() == "match_found") {
-            MatchState match = JsonConvert.DeserializeObject<MatchState>(evt["data"].ToString());
-            GameManager.Instance.UpdateAppState(state => {
-                state.client.match_ip = match.configs.ip;
-                state.client.match_port = match.configs.port;
-                return state;
-            });
-            Navigator.Instance.NavigateTo(Navigator.Scene.MatchScene);
+        if (evt["type"]?.ToString() == Event.Name.match_found.ToString()) {
+            context.Post(_ => {
+                StartCoroutine(AnimateLinear(TeamView.transform, -AnimatedUpDistance, 0.25f, false));
+            }, null);
         }
     }
 
-    private IEnumerator AnimateLinearUp(Transform target, float distance, float duration, bool active) {
+    private IEnumerator AnimateLinear(Transform target, float distance, float duration, bool active) {
         if (!active) {
             StopFindButton.SetActive(false);
         }
@@ -78,13 +78,13 @@ public class MatchMakingLogic : MonoBehaviour {
         if (GameManager.Instance.gameState.status == GameState.Status.findingMatch) {
             return;
         }
-        StartCoroutine(AnimateLinearUp(TeamView.transform, AnimatedUpDistance, 0.25f, true));
+        StartCoroutine(AnimateLinear(TeamView.transform, AnimatedUpDistance, 0.25f, true));
         FindButton.FindMatch();
     }
 
 
     public void StopFinding() {
-        StartCoroutine(AnimateLinearUp(TeamView.transform, -AnimatedUpDistance, 0.25f, false));
+        StartCoroutine(AnimateLinear(TeamView.transform, -AnimatedUpDistance, 0.25f, false));
         FindButton.StopFinding();
     }
 }

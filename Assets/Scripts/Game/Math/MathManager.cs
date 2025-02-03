@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Unity.Collections;
 using Unity.Netcode;
@@ -68,6 +67,11 @@ public class MathManager : NetworkBehaviour {
         if (IsServer) {
             SocketManager.OnHandleData -= S_LoadMatch;
         }
+    }
+
+    void C_ScaleUI(GamePoints Point) {
+        ShakeManager shake = Point.gameObject.GetComponent<ShakeManager>();
+        shake.StartScale();
     }
 
     void S_LoadMatch(JObject evt) {
@@ -215,21 +219,27 @@ public class MathManager : NetworkBehaviour {
             SoundManager.Instance.PlaySF(SoundManager.SF.Correct);
             GamePointsBelow.UpdatePoint(winnerPoint);
             GamePointAbove.UpdatePoint(loserPoint);
+            C_ScaleUI(GamePointsBelow);
         }
         else {
             SoundManager.Instance.PlaySF(SoundManager.SF.Nope);
             GamePointAbove.UpdatePoint(winnerPoint);
             GamePointsBelow.UpdatePoint(loserPoint);
+            C_ScaleUI(GamePointAbove);
         }
     }
 
     [ClientRpc]
     void NotifyWinnerClientRpc(FixedString32Bytes winnerID, int point) {
         if (winnerID.ToString() == c_myID) {
+            SoundManager.Instance.PlaySF(SoundManager.SF.Correct);
             GamePointsBelow.UpdatePoint(point);
+            C_ScaleUI(GamePointsBelow);
         }
         else {
+            SoundManager.Instance.PlaySF(SoundManager.SF.Nope);
             GamePointAbove.UpdatePoint(point);
+            C_ScaleUI(GamePointAbove);
         }
     }
 

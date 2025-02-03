@@ -55,10 +55,10 @@ public class EggManager : NetworkBehaviour {
         HandleCheckMissed();
     }
 
-    public void Initialize(string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong ownerClientID) {
+    public void Initialize(int id, string creatorID, float move_speed, float shot_speed, ThrowEggLogic _logic, ulong ownerClientID) {
         s_throwEggLogic = _logic;
         m_Egg.Value = new RoomThrowEgg.Egg {
-            id = Helper.GetID(),
+            id = id,
             move_speed = move_speed,
             shot_speed = shot_speed,
             created = Helper.TsNow(),
@@ -78,7 +78,7 @@ public class EggManager : NetworkBehaviour {
         }
 
         if (!IsServer) {
-            if (m_Egg.Value.id == null || m_Egg.Value.creator == manager.m_Player.Value.id) {
+            if (m_Egg.Value.status == null || m_Egg.Value.creator == manager.m_Player.Value.id) {
                 return;
             }
             if (!c_hit) {

@@ -99,6 +99,22 @@ MonoBehaviour:
     m_Key: whoSolveFaster
     m_Metadata:
       m_Items: []
+  - m_Id: 12934611645489152
+    m_Key: victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934618557702144
+    m_Key: tie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934725340487680
+    m_Key: lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934866382348288
+    m_Key: eggCollected
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
