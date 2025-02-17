@@ -59,8 +59,8 @@
     <UnityVersion>6000.0.29f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
+    <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.1.0/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/Eggvenger/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -96,6 +96,7 @@
     <Compile Include="Assets/Scripts/Game/GameLoadingLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ApiManager.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
+    <Compile Include="Assets/Prefabs/Skills/Attack/BindingRoot/BindingRoot.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
