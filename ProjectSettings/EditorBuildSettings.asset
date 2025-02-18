@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameMath.unity
     guid: 0e4b8c460acdc4ec1b022359489c6e44
+  - enabled: 1
+    path: Assets/Scenes/GameEggvenger.unity
+    guid: 681e78fd0c4bf4de986647dbd68876e2
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 818fd7c61ee344de49b1ed1066b19cfd, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 5a2f77de8d9a143a98023c0e418016da, type: 2}

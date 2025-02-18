@@ -75,14 +75,18 @@
     <Compile Include="Assets/Scripts/Extensions/GameObjectExtensions.cs" />
     <Compile Include="Assets/Scripts/Profile/EditProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
+    <Compile Include="Assets/Prefabs/Skills/Attack/MagmaFire/MagmaFire.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/Common/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Matchmaking/MatchMakingLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/EggvengerManager.cs" />
     <Compile Include="Assets/Scripts/Profile/ProfileLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/BaseSkill.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EntityManager.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerManager.cs" />
     <Compile Include="Assets/Scripts/Classes/ITick.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
     <Compile Include="Assets/Scripts/Home/FindMatchButton.cs" />
@@ -90,6 +94,7 @@
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/Scripts/Classes/ClientNetworkTransform.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/BulletTrajectory.cs" />
     <Compile Include="Assets/Scripts/Profile/Components/ItemHistory.cs" />
     <Compile Include="Assets/Scripts/Utils/Storage.cs" />
     <Compile Include="Assets/Scripts/Common/Components/Header.cs" />

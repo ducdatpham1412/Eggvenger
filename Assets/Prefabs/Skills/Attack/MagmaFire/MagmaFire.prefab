@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 2980064811842792365}
   - component: {fileID: 1526785643063680675}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: MagmaBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4987,6 +4987,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6504763350198064945}
+  - component: {fileID: -913414819805900778}
+  - component: {fileID: 2522611951124404075}
   m_Layer: 0
   m_Name: MagmaFire
   m_TagString: Untagged
@@ -5011,3 +5013,44 @@ Transform:
   - {fileID: 7135070632158808362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-913414819805900778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116459007912485793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729b6115e6b8c47f0b0e6b1e9c885749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MagmaBall: {fileID: 1862581295424902880}
+  FireWall: {fileID: 962576551142722240}
+--- !u!50 &2522611951124404075
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116459007912485793}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.02
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

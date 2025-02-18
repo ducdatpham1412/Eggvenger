@@ -11,8 +11,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - VFX
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 3294027443
+    locked: 0
   - name: Background
     uniqueID: 45855593
     locked: 0
@@ -49,6 +52,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 92008043
+    locked: 0
+  - name: VFX
+    uniqueID: 2400628075
     locked: 0
   m_RenderingLayers:
   - Default
