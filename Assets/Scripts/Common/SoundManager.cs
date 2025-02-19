@@ -20,6 +20,8 @@ public class SoundManager : Singleton<SoundManager> {
     AudioSource HaHa;
     AudioSource NiceShot;
     AudioSource Correct;
+    AudioSource Fight;
+    AudioSource NewTing;
 
     public event Action<bool> OnMusicPlaying;
 
@@ -34,6 +36,8 @@ public class SoundManager : Singleton<SoundManager> {
         HaHa = gameObject.AddComponent<AudioSource>();
         NiceShot = gameObject.AddComponent<AudioSource>();
         Correct = gameObject.AddComponent<AudioSource>();
+        Fight = gameObject.AddComponent<AudioSource>();
+        NewTing = gameObject.AddComponent<AudioSource>();
 
         Sources[MusicSource.background] = LoadMusic("mc_newdayagain");
         Sources[MusicSource.lifeWandering] = LoadMusic("mc_life_wandering");
@@ -48,6 +52,8 @@ public class SoundManager : Singleton<SoundManager> {
         HaHa.clip = LoadSF("sf_haha");
         NiceShot.clip = LoadSF("sf_nice_shot");
         Correct.clip = LoadSF("sf_correct");
+        Fight.clip = LoadSF("sf_fight");
+        NewTing.clip = LoadSF("sf_new_ting");
 
         AudioSource[] sources = GetComponents<AudioSource>();
         for (int i = 0; i < sources.Length; i++) {
@@ -120,6 +126,14 @@ public class SoundManager : Singleton<SoundManager> {
             Correct.Play();
             return;
         }
+        if (sf == SF.Fight) {
+            Fight.Play();
+            return;
+        }
+        if (sf == SF.NewTing) {
+            NewTing.Play();
+            return;
+        }
     }
 
 
@@ -145,6 +159,8 @@ public class SoundManager : Singleton<SoundManager> {
         Haha,
         NiceShot,
         Correct,
+        Fight,
         None,
+        NewTing,
     }
 }

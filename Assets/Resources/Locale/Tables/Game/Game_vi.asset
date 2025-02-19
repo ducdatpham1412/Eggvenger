@@ -105,6 +105,22 @@ MonoBehaviour:
     m_Localized: "Ai gi\u1EA3i to\xE1n nhanh h\u01A1n?"
     m_Metadata:
       m_Items: []
+  - m_Id: 12934611645489152
+    m_Localized: "Chi\u1EBFn th\u1EAFng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934618557702144
+    m_Localized: "Ho\xE0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934725340487680
+    m_Localized: "Th\u1EA5t b\u1EA1i"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934866382348288
+    m_Localized: "Tr\u1EE9ng thu th\u1EADp"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

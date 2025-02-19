@@ -79,17 +79,21 @@ public class PlayerThrowEggManager : NetworkBehaviour {
         // Helper.FitSpriteToGameObject(gameObject);
     }
 
+    void GetGamePoint(RoomThrowEgg.Player player) {
+        GameObject Canvas = GameObject.Find("Canvas");
+        Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
+        if (MatchScore != null) {
+            bool isUnder = player.id == GameManager.Instance.appState.profile.id;
+            Transform PointObject = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp");
+            gamePoints = PointObject.GetComponent<GamePoints>();
+            MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
+            gamePoints.TextValue.text = fPlayer.name;
+        }
+    }
+
     void UpdateScoreUI(RoomThrowEgg.Player player) {
         if (gamePoints == null) {
-            GameObject Canvas = GameObject.Find("Canvas");
-            Transform MatchScore = Helper.FindChildRecursive(Canvas.transform, "MatchScore");
-            if (MatchScore != null) {
-                bool isUnder = player.id == GameManager.Instance.appState.profile.id;
-                Transform PointObject = Helper.FindChildRecursive(MatchScore, isUnder ? "PointDown" : "PointUp");
-                gamePoints = PointObject.GetComponent<GamePoints>();
-                MatchState.Player fPlayer = GameManager.Instance.gameState.matchState.players.Find(p => p.id == player.id);
-                gamePoints.TextValue.text = fPlayer.name;
-            }
+            GetGamePoint(player);
         }
 
         if (!c_setAvatar) {
@@ -100,13 +104,21 @@ public class PlayerThrowEggManager : NetworkBehaviour {
         gamePoints.UpdatePoint(player.point);
     }
 
-    void OnPlayerChanged(RoomThrowEgg.Player _, RoomThrowEgg.Player newValue) {
+    void OnPlayerChanged(RoomThrowEgg.Player oldValue, RoomThrowEgg.Player newValue) {
         // Because Network Navigate will update in server immediately but in Client, it will delay, and still have scene MatchScene before, so we must wait until GameThrowEgg scene is loaded
         if (IsClient) {
             UpdateScoreUI(newValue);
+            if (newValue.point > oldValue.point) {
+                Scale();
+            }
         }
         if (IsOwner) {
             moveManager.moveSpeed = m_Player.Value.move_speed;
         }
+    }
+
+    void Scale() {
+        ShakeManager shake = gamePoints.gameObject.GetComponent<ShakeManager>();
+        shake.StartScale();
     }
 }

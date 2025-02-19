@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Threading;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Localization.Components;
@@ -25,8 +25,7 @@ public class FindMatchButton : MonoBehaviour {
     }
 
     void ListenCountUp(GameState newState) {
-        FindingMatchState data = newState.data;
-        UpdateTextCountUp(data.secondsElapsed);
+        UpdateTextCountUp(newState.data.secondsElapsed);
     }
 
     void UpdateTextCountUp(int secondsElapsed) {
@@ -39,20 +38,28 @@ public class FindMatchButton : MonoBehaviour {
 
     void MatchFound(JObject evt) {
         if (evt["type"]?.ToString() == Event.Name.match_found.ToString()) {
-            MatchState match = JsonConvert.DeserializeObject<MatchState>(evt["data"].ToString());
             context.Post(_ => {
-                GameManager.Instance.StopCountUp();
-                GameManager.Instance.UpdateAppState(state => {
-                    state.client.match_ip = match.configs.ip;
-                    state.client.match_port = match.configs.port;
-                    return state;
-                });
-                GameManager.Instance.UpdateGameState(state => {
-                    state.status = GameState.Status.inGame;
-                    return state;
-                });
-                Navigator.Instance.NavigateTo(Navigator.Scene.MatchScene);
+                ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "matchFound");
+                StartCoroutine(Twink());
             }, null);
+        }
+    }
+
+    IEnumerator Twink() {
+        int count = 0;
+        bool changedText = false;
+        while (true) {
+            ButtonTitle.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            ButtonTitle.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.2f);
+            if (count <= 3) {
+                count++;
+            }
+            else if (!changedText) {
+                ButtonTitle.StringReference.SetReference(LocalizationManager.Table.Home.ToString(), "readyForMatch");
+                changedText = true;
+            }
         }
     }
 

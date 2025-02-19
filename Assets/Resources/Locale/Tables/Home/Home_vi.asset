@@ -32,6 +32,14 @@ MonoBehaviour:
     m_Localized: "\u0110ang t\xECm {0}"
     m_Metadata:
       m_Items: []
+  - m_Id: 14110049424105472
+    m_Localized: "\u0110\xE3 t\xECm th\u1EA5y"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14128784369246208
+    m_Localized: "S\u1EB5n s\xE0ng v\xE0o tr\u1EADn"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -35,5 +35,6 @@ public class Event {
 
     public enum Name {
         match_found,
+        server_ready,
     }
 }

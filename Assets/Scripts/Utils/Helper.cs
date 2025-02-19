@@ -124,4 +124,10 @@ public static class Helper {
     public static T GetRandomInArr<T>(T[] objects) {
         return objects[UnityEngine.Random.Range(0, objects.Length)];
     }
+
+    public enum Layer {
+        Background,
+        Foreground,
+        Player,
+    }
 }

@@ -106,6 +106,22 @@ MonoBehaviour:
     m_Localized: Who solves math faster?
     m_Metadata:
       m_Items: []
+  - m_Id: 12934611645489152
+    m_Localized: Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934618557702144
+    m_Localized: Tie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934725340487680
+    m_Localized: Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12934866382348288
+    m_Localized: Egg collected
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

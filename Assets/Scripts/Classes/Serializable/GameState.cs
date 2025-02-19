@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Unity.Netcode;
-using UnityEngine;
 
 
 [Serializable]
@@ -201,4 +200,28 @@ public class GameState {
 public class World {
     public float maxX;
     public float maxY;
+}
+
+
+[Serializable]
+public class GameHistory {
+    public string id;
+    public Room[] rooms;
+    public float created;
+    public float ended;
+    public string status; // MathState.Status
+
+    [Serializable]
+    public class Room {
+        public string id;
+        public Player[] players;
+        public string type;
+        public string status;
+
+        [Serializable]
+        public class Player {
+            public string id;
+            public int point;
+        }
+    }
 }

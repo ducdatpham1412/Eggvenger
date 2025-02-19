@@ -59,8 +59,8 @@
     <UnityVersion>6000.0.29f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.5/Analyzers/Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="/Users/user/Code/RandomRelax/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
+    <Analyzer Include="/Users/user/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.1.0/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/Users/user/Code/Eggvenger/Library/PackageCache/com.unity.transport/Analyzers/Unity.Transport.Analyzers.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -75,14 +75,18 @@
     <Compile Include="Assets/Scripts/Extensions/GameObjectExtensions.cs" />
     <Compile Include="Assets/Scripts/Profile/EditProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
+    <Compile Include="Assets/Prefabs/Skills/Attack/MagmaFire/MagmaFire.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/Common/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Matchmaking/MatchMakingLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/EggvengerManager.cs" />
     <Compile Include="Assets/Scripts/Profile/ProfileLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/BaseSkill.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EntityManager.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerManager.cs" />
     <Compile Include="Assets/Scripts/Classes/ITick.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
     <Compile Include="Assets/Scripts/Home/FindMatchButton.cs" />
@@ -90,10 +94,14 @@
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
     <Compile Include="Assets/Scripts/Classes/ClientNetworkTransform.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/BulletTrajectory.cs" />
+    <Compile Include="Assets/Scripts/Profile/Components/ItemHistory.cs" />
     <Compile Include="Assets/Scripts/Utils/Storage.cs" />
+    <Compile Include="Assets/Scripts/Common/Components/Header.cs" />
     <Compile Include="Assets/Scripts/Game/GameLoadingLogic.cs" />
     <Compile Include="Assets/Scripts/Utils/ApiManager.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
+    <Compile Include="Assets/Prefabs/Skills/Attack/BindingRoot/BindingRoot.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
@@ -118,6 +126,7 @@
     <Compile Include="Assets/Scripts/Game/RoomCardManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/Math.cs" />
     <Compile Include="Assets/Scripts/Utils/GameHelper.cs" />
+    <Compile Include="Assets/Scripts/Common/Components/PingManager.cs" />
     <Compile Include="Assets/Scripts/Home/HomeLogic.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Game/FinalLeaderboard.cs" />
