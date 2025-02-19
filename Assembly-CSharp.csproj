@@ -89,6 +89,7 @@
     <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerManager.cs" />
     <Compile Include="Assets/Scripts/Classes/ITick.cs" />
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerVFX.cs" />
     <Compile Include="Assets/Scripts/Home/FindMatchButton.cs" />
     <Compile Include="Assets/Scripts/Game/GamePoints.cs" />
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/ThrowEgg.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/NewMonoBehaviourScript.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/Profile.cs" />
     <Compile Include="Assets/Scripts/Utils/ErrorBanner.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/Common.cs" />
