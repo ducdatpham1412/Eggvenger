@@ -18,13 +18,13 @@ EditorBuildSettings:
     path: Assets/Scenes/MatchMaking.unity
     guid: 569941dba91d94e9ba69d015a4ea9cc3
   - enabled: 1
-    path: Assets/Scenes/GameLoading.unity
+    path: Assets/Scenes/Games/GameLoading.unity
     guid: eb8e06da028e842e89c260876ad18730
   - enabled: 1
     path: Assets/Scenes/MatchScene.unity
     guid: 529ca697858fa44389c4474e8cf2fe4f
   - enabled: 1
-    path: Assets/Scenes/GameThrowEgg.unity
+    path: Assets/Scenes/Games/GameThrowEgg.unity
     guid: 571a9aa4984d14782b433c64b03879f4
   - enabled: 1
     path: Assets/Scenes/ProfileEdit.unity
@@ -39,10 +39,10 @@ EditorBuildSettings:
     path: Assets/Scenes/TestNetwork.unity
     guid: eb0609fbcf9414304b21246bd9f3f79b
   - enabled: 1
-    path: Assets/Scenes/GameMath.unity
+    path: Assets/Scenes/Games/GameMath.unity
     guid: 0e4b8c460acdc4ec1b022359489c6e44
   - enabled: 1
-    path: Assets/Scenes/GameEggvenger.unity
+    path: Assets/Scenes/Games/GameEggvenger.unity
     guid: 681e78fd0c4bf4de986647dbd68876e2
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 818fd7c61ee344de49b1ed1066b19cfd, type: 2}
