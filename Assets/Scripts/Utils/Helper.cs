@@ -126,8 +126,7 @@ public static class Helper {
     }
 
     public enum Layer {
-        Background,
-        Foreground,
+        Default,
         Player,
     }
 }

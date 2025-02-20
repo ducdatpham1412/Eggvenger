@@ -1,7 +1,6 @@
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
-
     [Header("GameObjects")]
     public BulletTrajectory BulletTrajectory;
 
@@ -16,24 +15,26 @@ public class PlayerManager : MonoBehaviour {
     BaseSkill CurrentSkill;
 
     void Update() {
-        if (!BulletTrajectory) {
-            return;
+        HandleSkills();
+    }
+
+    void HandleSkills() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            if (!CurrentSkill) {
+                CurrentSkill = FirstSkill;
+            }
+            else {
+                BulletTrajectory.RemoveLine();
+                Vector3 direction = GetDirection();
+                CurrentSkill.Play(transform.position, direction);
+                CurrentSkill = null;
+            }
         }
 
-        if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(0)) {
+        if (CurrentSkill) {
             Vector3 direction = GetDirection();
             BulletTrajectory.DrawStraight(transform.position, direction, radius: 5f);
             CurrentSkill = FirstSkill;
-            return;
-        }
-
-        if (Input.GetMouseButtonUp(0)) {
-            BulletTrajectory.RemoveLine();
-            if (CurrentSkill) {
-                Vector3 direction = GetDirection();
-                CurrentSkill.Play(transform.position, direction);
-            }
-            return;
         }
     }
 
@@ -44,9 +45,5 @@ public class PlayerManager : MonoBehaviour {
         mouseWorldPos.z = 0f;
         Vector3 direction = (mouseWorldPos - startPos).normalized;
         return direction;
-    }
-
-    void Shot() {
-
     }
 }
