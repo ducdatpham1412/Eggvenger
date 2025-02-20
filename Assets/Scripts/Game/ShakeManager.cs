@@ -5,13 +5,26 @@ public class ShakeManager : MonoBehaviour {
     Vector3 originalLocalPosition;
     Coroutine shakeCoroutine;
 
+    [SerializeField] bool initShake = false;
+    [SerializeField] float shakeAmplitude = 0.02f;
+    [SerializeField] float intervalSeconds = 0;
+
+    void OnEnable() {
+        if (initShake) {
+            StartCoroutine(Shake());
+        }
+    }
+
     IEnumerator Shake() {
         originalLocalPosition = transform.localPosition;
         while (true) {
-            float shakeAmountX = Mathf.Sin(Time.time * 70f) * 0.02f;
-            float shakeAmountY = Mathf.Cos(Time.time * 70f) * 0.02f;
+            float shakeAmountX = Mathf.Sin(Time.time * 70f) * shakeAmplitude;
+            float shakeAmountY = Mathf.Cos(Time.time * 70f) * shakeAmplitude;
             transform.localPosition = originalLocalPosition + new Vector3(shakeAmountX, shakeAmountY, 0);
-            yield return null;
+            if (intervalSeconds == 0) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(intervalSeconds);
         }
     }
 

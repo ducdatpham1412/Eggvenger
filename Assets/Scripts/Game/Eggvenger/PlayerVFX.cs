@@ -7,12 +7,12 @@ public class PlayerVFX : MonoBehaviour {
     Coroutine Skin01Coroutine;
     Coroutine Effect01Coroutine;
 
-    void Awake() {
+    void Start() {
         material = GetComponent<SpriteRenderer>().material;
     }
 
     /*
-    Handle Skills
+    Handle Skins
     */
     public void SetSkin(Sprite sprite, float duration) {
         Skin01Coroutine = StartCoroutine(_SetSkin(sprite, duration));

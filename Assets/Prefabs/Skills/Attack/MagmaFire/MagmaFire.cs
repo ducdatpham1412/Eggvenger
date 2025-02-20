@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class MagmaFire : BaseSkill {
+    // TODO: Do this
     [SerializeField] GameObject MagmaBall;
     [SerializeField] GameObject FireWall;
 

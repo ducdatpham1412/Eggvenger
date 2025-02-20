@@ -1,49 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
-    [Header("GameObjects")]
-    public BulletTrajectory BulletTrajectory;
+    public float originalSpeed = 10f;
+    public float buffSpeed = 0f;
+    public List<float> speedRatios = new List<float>();
+    public float currentSpeed = 10f;
 
-    [Header("Skills")]
-    public BaseSkill FirstSkill;
-    public BaseSkill SecondSkill;
-    public BaseSkill Ulti;
-
-    [Header("Properties")]
     public int team;
 
-    BaseSkill CurrentSkill;
+    public int heal = 1000;
+    public int shield = 0; // percentage: 0 - 100%
 
-    void Update() {
-        HandleSkills();
-    }
-
-    void HandleSkills() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            if (!CurrentSkill) {
-                CurrentSkill = FirstSkill;
-            }
-            else {
-                BulletTrajectory.RemoveLine();
-                Vector3 direction = GetDirection();
-                CurrentSkill.Play(transform.position, direction);
-                CurrentSkill = null;
-            }
-        }
-
-        if (CurrentSkill) {
-            Vector3 direction = GetDirection();
-            BulletTrajectory.DrawStraight(transform.position, direction, radius: 5f);
-            CurrentSkill = FirstSkill;
-        }
-    }
-
-    Vector3 GetDirection() {
-        Vector3 startPos = transform.position;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
-        startPos.z = 0f;
-        mouseWorldPos.z = 0f;
-        Vector3 direction = (mouseWorldPos - startPos).normalized;
-        return direction;
-    }
+    public bool IsOwner; // TODO: Only for test, remove it
 }

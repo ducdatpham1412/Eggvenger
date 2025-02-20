@@ -8,12 +8,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
+  - Obstacle
   - Player
   - VFX
-  - 
   - 
   - 
   - 
@@ -50,10 +50,13 @@ TagManager:
   - name: Foreground
     uniqueID: 92008043
     locked: 0
+  - name: VFXDown
+    uniqueID: 2635764883
+    locked: 0
   - name: Player
     uniqueID: 3294027443
     locked: 0
-  - name: VFX
+  - name: VFXUp
     uniqueID: 2400628075
     locked: 0
   m_RenderingLayers:

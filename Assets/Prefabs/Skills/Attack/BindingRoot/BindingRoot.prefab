@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 593185984756179244}
   - component: {fileID: 3470802733996013406}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: WoodBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1894339221
-  m_SortingLayer: 5
+  m_SortingLayerID: -1659202413
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a8a3dd41baa548ecae328469902eb23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5469482819207257061}
   - component: {fileID: 4149514473876299913}
   - component: {fileID: 2870594788643937652}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BindingRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.61
+  m_Radius: 0.49
 --- !u!114 &2870594788643937652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,10 +198,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ff142e335794e5cba1c3e8738e0895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Creator: {fileID: 0}
+  canReady: 1
+  effect:
+    speed: 30
+    lifeDuration: 0
+    fadeDuration: 0
+    effectDuration: 0
+    ReadySound: {fileID: 0}
+    PlaySound: {fileID: 0}
   BindingCycle: {fileID: 6334324230529082343}
   Ball: {fileID: 149235973128092546}
   BindingEffect: {fileID: 21300000, guid: 59209baf7fb49484bbcadd480fceed83, type: 3}
-  Creator: {fileID: 0}
 --- !u!1 &6334324230529082343
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6883488272074971086}
   - component: {fileID: 8013487158203821254}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BindingCycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,8 +283,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1894339221
-  m_SortingLayer: 5
+  m_SortingLayerID: -1659202413
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -8151769078070622119, guid: 70d3ea58d214f43448debbad5ecea9a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.99215686}
