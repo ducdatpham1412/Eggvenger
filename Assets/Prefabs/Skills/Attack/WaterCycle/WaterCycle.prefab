@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7323777335400547691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterCycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7323777335400547691
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3064442378855959350}
   - component: {fileID: 8782684229301393712}
   - component: {fileID: 1137901456023346412}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4876,7 +4876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4836164115763115190}
   - component: {fileID: 6805556265644530646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

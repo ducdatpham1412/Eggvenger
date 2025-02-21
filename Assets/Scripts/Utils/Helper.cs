@@ -126,7 +126,9 @@ public static class Helper {
     }
 
     public enum Layer {
-        Default,
+        Ground,
         Player,
+        Obstacle,
+        VFX,
     }
 }

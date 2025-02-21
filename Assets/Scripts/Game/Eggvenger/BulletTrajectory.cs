@@ -11,7 +11,7 @@ public class BulletTrajectory : MonoBehaviour {
 
     void Awake() {
         lineRenderer = GetComponent<LineRenderer>();
-        layerMask = LayerMask.GetMask(Helper.Layer.Player.ToString(), Helper.Layer.Default.ToString());
+        layerMask = LayerMask.GetMask(Helper.Layer.Player.ToString(), Helper.Layer.Obstacle.ToString());
     }
 
     public void DrawParabol(Vector3 startPos, Vector3 direction, float speed) {
@@ -51,7 +51,7 @@ public class BulletTrajectory : MonoBehaviour {
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, i * direction.magnitude, layerMask);
             foreach (RaycastHit2D hit in hits) {
-                if (LayerMask.LayerToName(hit.collider.gameObject.layer) == Helper.Layer.Player.ToString()) {
+                if ((layerMask & (1 << hit.collider.gameObject.layer)) != 0) {
                     PlayerManager player = hit.collider.gameObject.GetComponent<PlayerManager>();
                     if (player.team != Owner.team) {
                         lineRenderer.positionCount = i + 1;
