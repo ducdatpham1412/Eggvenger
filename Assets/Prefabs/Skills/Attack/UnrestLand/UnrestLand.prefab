@@ -194,15 +194,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32218e7813a14e3b9836848540c91c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Creator: {fileID: 0}
+  speed: 0.6
   canReady: 1
-  effect:
-    speed: 0
-    lifeDuration: 0
-    fadeDuration: 0
-    effectDuration: 0
-    ReadySound: {fileID: 0}
-    PlaySound: {fileID: 0}
+  lifeDuration: 7
+  fadeDuration: 1
+  effectDuration: 0
+  effectSpeed: 0.6
+  ReadySound: {fileID: 0}
+  PlaySound: {fileID: 0}
+  Creator: {fileID: 0}
 --- !u!1 &3413510784861613839
 GameObject:
   m_ObjectHideFlags: 0

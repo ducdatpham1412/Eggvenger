@@ -15,6 +15,9 @@ public class PlayerVFX : MonoBehaviour {
     Handle Skins
     */
     public void SetSkin(Sprite sprite, float duration) {
+        if (Skin01Coroutine != null) {
+            StopCoroutine(Skin01Coroutine);
+        }
         Skin01Coroutine = StartCoroutine(_SetSkin(sprite, duration));
     }
     IEnumerator _SetSkin(Sprite sprite, float duration) {
@@ -27,14 +30,14 @@ public class PlayerVFX : MonoBehaviour {
             yield return null;
         }
         material.SetFloat("_Skin01Intensity", 0.7f);
+        Skin01Coroutine = null;
     }
 
     public void ResetSkin(Sprite sprite, float duration) {
         if (Skin01Coroutine != null) {
             StopCoroutine(Skin01Coroutine);
         }
-        Skin01Coroutine = null;
-        StartCoroutine(_ResetSkin(sprite, duration));
+        Skin01Coroutine = StartCoroutine(_ResetSkin(sprite, duration));
     }
     IEnumerator _ResetSkin(Sprite sprite, float duration) {
         float elapsedTime = 0f;
@@ -47,6 +50,7 @@ public class PlayerVFX : MonoBehaviour {
         }
         material.SetFloat("_Skin01Intensity", 0);
         material.SetTexture("_Skin01", sprite.texture);
+        Skin01Coroutine = null;
     }
 
 
@@ -54,6 +58,9 @@ public class PlayerVFX : MonoBehaviour {
     Handle Effects
     */
     public void SetEffect(Sprite sprite, float duration) {
+        if (Effect01Coroutine != null) {
+            StopCoroutine(Effect01Coroutine);
+        }
         Effect01Coroutine = StartCoroutine(_SetEffect(sprite, duration));
     }
     IEnumerator _SetEffect(Sprite sprite, float duration) {
@@ -66,6 +73,7 @@ public class PlayerVFX : MonoBehaviour {
             yield return null;
         }
         material.SetFloat("_Effect01Intensity", 1f);
+        Effect01Coroutine = null;
     }
 
 
@@ -73,8 +81,7 @@ public class PlayerVFX : MonoBehaviour {
         if (Effect01Coroutine != null) {
             StopCoroutine(Effect01Coroutine);
         }
-        Effect01Coroutine = null;
-        StartCoroutine(_ResetEffect(sprite, duration));
+        Effect01Coroutine = StartCoroutine(_ResetEffect(sprite, duration));
     }
     IEnumerator _ResetEffect(Sprite sprite, float duration) {
         float elapsedTime = 0f;
@@ -87,5 +94,6 @@ public class PlayerVFX : MonoBehaviour {
         }
         material.SetFloat("_Effect01Intensity", 0);
         material.SetTexture("_Effect01", sprite.texture);
+        Effect01Coroutine = null;
     }
 }

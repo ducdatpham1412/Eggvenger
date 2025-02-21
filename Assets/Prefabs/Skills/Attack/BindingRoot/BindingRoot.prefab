@@ -105,7 +105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3305259379953029963
 Transform:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 4436037977331080936}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -198,15 +198,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ff142e335794e5cba1c3e8738e0895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Creator: {fileID: 0}
+  speed: 0.6
   canReady: 1
-  effect:
-    speed: 30
-    lifeDuration: 0
-    fadeDuration: 0
-    effectDuration: 0
-    ReadySound: {fileID: 0}
-    PlaySound: {fileID: 0}
+  lifeDuration: 2.5
+  fadeDuration: 1.5
+  effectDuration: 1.5
+  effectSpeed: 0
+  ReadySound: {fileID: 0}
+  PlaySound: {fileID: 0}
+  Creator: {fileID: 0}
   BindingCycle: {fileID: 6334324230529082343}
   Ball: {fileID: 149235973128092546}
   BindingEffect: {fileID: 21300000, guid: 59209baf7fb49484bbcadd480fceed83, type: 3}

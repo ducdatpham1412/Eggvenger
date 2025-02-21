@@ -10,8 +10,6 @@ public class BindingRoot : BaseSkill {
 
     float expandDuration = 2f;
 
-    Rigidbody2D rb;
-
     [Header("GameObjects")]
     [SerializeField] GameObject BindingCycle;
     [SerializeField] GameObject Ball;
@@ -20,22 +18,14 @@ public class BindingRoot : BaseSkill {
     [SerializeField] Sprite BindingEffect;
 
     Color originColor;
-    Coroutine BindingCycleCoroutine;
     Coroutine ExpandCoroutine;
 
     List<PlayerManager> tiedPlayers = new List<PlayerManager>();
 
-    void Awake() {
-        rb = GetComponent<Rigidbody2D>();
+    protected override void Awake() {
         originColor = BindingCycle.GetComponent<SpriteRenderer>().color;
         playerLayer = LayerMask.GetMask(Helper.Layer.Player.ToString());
-    }
-
-    void Start() {
-        effect.speed = 0f;
-        effect.lifeDuration = 2f;
-        effect.fadeDuration = 2.5f;
-        effect.effectDuration = 1.5f;
+        base.Awake();
     }
 
     void OnEnable() {
@@ -43,14 +33,14 @@ public class BindingRoot : BaseSkill {
     }
 
     public override void Ready(Vector3 pos, Vector3 direction) {
-        gameObject.SetActive(true);
-        Ball.SetActive(true);
         transform.position = pos;
+        rb.linearVelocity = Vector2.zero;
+        RotateFollowDirection(direction);
     }
 
     public override void Play(Vector3 pos, Vector3 direction) {
         transform.position = pos;
-        rb.AddForce(direction.normalized * speed, ForceMode2D.Force);
+        rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
         ExpandCoroutine = StartCoroutine(WaitForStopAndExpand());
     }
 
@@ -64,7 +54,7 @@ public class BindingRoot : BaseSkill {
             StartCoroutine(WaitForStopAndExpand());
         }
 
-        string layerName = LayerMask.LayerToName(collider.gameObject.layer);
+        string layerName = GetLayerName(collider.gameObject);
 
         if (layerName == Helper.Layer.Obstacle.ToString()) {
             ExpandSoon();
@@ -79,7 +69,7 @@ public class BindingRoot : BaseSkill {
     }
 
     IEnumerator WaitForStopAndExpand() {
-        yield return new WaitUntil(() => rb.linearVelocity.magnitude <= 0.1f);
+        yield return WaitToStop();
 
         /*
         Step 01: Expand BindingCycle when velocity reach nearly 0
@@ -95,7 +85,7 @@ public class BindingRoot : BaseSkill {
         Vector3 rotationSpeed = new Vector3(0, 0, 120);
         float scaleFactor;
 
-        BindingCycleCoroutine = StartCoroutine(RotateBindingCycle());
+        StartCoroutine(RotateBindingCycle());
 
         while (elapsedTime < expandDuration) {
             currentRadius = Mathf.Lerp(0f, radius, elapsedTime / expandDuration);
@@ -113,13 +103,12 @@ public class BindingRoot : BaseSkill {
         /*
         Step 02: Rotate BindingCycle in lifeDuration, and always detect enemies in this duration
         */
-        Ball.SetActive(false);
         currentRadius = radius;
         scaleFactor = currentRadius * 2 / originalSpriteSize;
         BindingCycle.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
 
         elapsedTime = 0f;
-        while (elapsedTime < effect.lifeDuration) {
+        while (elapsedTime < lifeDuration) {
             elapsedTime += Time.deltaTime;
             DetectEnemies(currentRadius);
             yield return null;
@@ -143,11 +132,10 @@ public class BindingRoot : BaseSkill {
             tiedPlayers.Add(player);
             PlayerVFX playerVFX = player.GetComponent<PlayerVFX>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-
             playerVFX.SetEffect(BindingEffect, 0.5f);
-            playerMovement.AddSpeedRatio(effect.speed, effect.effectDuration);
-            await Task.Delay((int)(effect.effectDuration * 1000));
-            playerMovement.RemoveSpeedRatio(effect.speed);
+            playerMovement.AddSpeedRatio(effectSpeed, effectDuration);
+            await Task.Delay((int)(effectDuration * 1000));
+            playerMovement.RemoveSpeedRatio(effectSpeed);
             playerVFX.ResetEffect(BindingEffect, 0f);
         }
     }
@@ -166,9 +154,9 @@ public class BindingRoot : BaseSkill {
         SpriteRenderer renderer = BindingCycle.GetComponent<SpriteRenderer>();
         Material material = renderer.material;
 
-        while (elapsedTime < effect.fadeDuration) {
+        while (elapsedTime < fadeDuration) {
             elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / effect.fadeDuration);
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
             float currentFade = Mathf.Lerp(1f, 0f, elapsedTime / expandDuration);
             renderer.color = new Color(
                 originColor.r,
@@ -180,12 +168,6 @@ public class BindingRoot : BaseSkill {
             yield return null;
         }
 
-        StopCoroutine(BindingCycleCoroutine);
-        BindingCycle.transform.localScale = Vector3.one;
-        transform.localPosition = Vector3.zero;
-        tiedPlayers.Clear();
-        exploded = false;
-        gameObject.SetActive(false);
-        BindingCycle.SetActive(false);
+        Destroy(gameObject);
     }
 }

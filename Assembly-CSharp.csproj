@@ -92,6 +92,7 @@
     <Compile Include="Assets/Scripts/Common/SoundManager.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerVFX.cs" />
     <Compile Include="Assets/Scripts/Home/FindMatchButton.cs" />
+    <Compile Include="Assets/Prefabs/Skills/Attack/MagmaFire/MagmaParticles.cs" />
     <Compile Include="Assets/Scripts/Game/GamePoints.cs" />
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
