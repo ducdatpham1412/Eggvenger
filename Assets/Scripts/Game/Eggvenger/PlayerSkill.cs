@@ -5,9 +5,9 @@ public class PlayerSkill : MonoBehaviour {
     public BulletTrajectory BulletTrajectory;
 
     [Header("Skills")]
-    public BaseSkill FirstSkill;
-    public BaseSkill SecondSkill;
-    public BaseSkill Ulti;
+    public GameObject FirstSkill;
+    public GameObject SecondSkill;
+    public GameObject Ulti;
 
     BaseSkill CurrentSkill;
     PlayerManager manager;
@@ -53,15 +53,16 @@ public class PlayerSkill : MonoBehaviour {
         }
     }
 
-    bool CheckSkill(BaseSkill Skill) {
+    bool CheckSkill(GameObject Skill) {
         if (Skill == null) {
             return true;
         }
 
         if (CurrentSkill != Skill && CurrentSkill != null) {
-            CurrentSkill.Remove();
+            Destroy(CurrentSkill.gameObject);
         }
-        CurrentSkill = Skill;
+        CurrentSkill = Instantiate(Skill).GetComponent<BaseSkill>();
+        CurrentSkill.Creator = manager;
         Vector3 direction = GetDirection();
         if (!CurrentSkill.canReady) {
             PlaySkill(direction);

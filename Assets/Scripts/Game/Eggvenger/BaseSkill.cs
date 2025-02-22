@@ -3,33 +3,51 @@ using UnityEngine;
 
 public abstract class BaseSkill : MonoBehaviour {
     [Header("Properties")]
+    [SerializeField] protected float speed = 0.6f;
+    public bool canReady = true;
+
+    [Header("Durations")]
+    [SerializeField] protected float lifeDuration = 1f;
+    [SerializeField] protected float fadeDuration = 0f;
+    [SerializeField] protected float effectDuration = 1f;
+
+    [Header("Effects")]
+    [SerializeField] protected float effectSpeed; // Ratio speed to current speed. Ex: If you want decrease 20% speed -> Set "speed" = 0.8
+
+    [Header("Sounds")]
+    [SerializeField] AudioClip ReadySound;
+    [SerializeField] AudioClip PlaySound;
+
+    [Header("Others")]
     public PlayerManager Creator;
 
-    protected float speed = 30f;
-    public bool canReady = true;
-    protected Effect effect = new Effect {
-        fadeDuration = 0f,
-        speed = 30f,
-    };
+    // Others
+    protected Rigidbody2D rb;
 
-    public virtual void Ready(Vector3 pos, Vector3 direction) { }
+    protected virtual void Awake() {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-    public abstract void Play(Vector3 pos, Vector3 direction);
+    public virtual void Ready(Vector3 pos, Vector3 direction) {
+        // TODO: Playing sound ready
+    }
 
-    public virtual void Remove() {
-        gameObject.SetActive(false);
+    public virtual void Play(Vector3 pos, Vector3 direction) {
+        // TODO: Playing sound play
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collider) { }
 
+    protected void RotateFollowDirection(Vector3 direction) {
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, -angle);
+    }
 
-    [Serializable]
-    public class Effect {
-        public float speed; // Ratio speed to current speed. Ex: If you want decrease 20% speed -> Set "speed" = 0.8
-        public float lifeDuration;
-        public float fadeDuration;
-        public float effectDuration;
-        public AudioClip ReadySound;
-        public AudioClip PlaySound;
+    protected string GetLayerName(GameObject gameObject) {
+        return LayerMask.LayerToName(gameObject.layer);
+    }
+
+    protected WaitUntil WaitToStop(float magnitudeThreshold = 0.4f) {
+        return new WaitUntil(() => rb.linearVelocity.magnitude <= magnitudeThreshold);
     }
 }

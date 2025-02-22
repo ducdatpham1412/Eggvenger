@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7135070632158808362}
   - component: {fileID: 2179587333290543020}
   - component: {fileID: 8115229588865478128}
+  - component: {fileID: 680361474338163717}
   m_Layer: 8
   m_Name: FireWall
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962576551142722240}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.813164, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43,7 +44,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -106,7 +107,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
   randomSeed: 0
@@ -116,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 1.7
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +170,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.75
+      scalar: 1.8
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -980,7 +981,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 35
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -3677,10 +3678,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -3742,7 +3743,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3850,22 +3851,22 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 128
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
-    inside: 1
+    inside: 2
     outside: 0
-    enter: 0
+    enter: 2
     exit: 0
     colliderQueryMode: 0
-    radiusScale: 1
+    radiusScale: 1.49
     primitives:
     - {fileID: 0}
   SubModule:
@@ -4892,6 +4893,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &680361474338163717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962576551142722240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c0541e3680d49ee8d7f9408228e44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BurnEffect: {fileID: 21300000, guid: 83094c0faafe346ac831e54c83387984, type: 3}
+  Fire: {fileID: -913414819805900778}
 --- !u!1 &1862581295424902880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4903,7 +4918,7 @@ GameObject:
   - component: {fileID: 2980064811842792365}
   - component: {fileID: 1526785643063680675}
   m_Layer: 8
-  m_Name: MagmaBall
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4990,13 +5005,14 @@ GameObject:
   - component: {fileID: 6504763350198064945}
   - component: {fileID: -913414819805900778}
   - component: {fileID: 2522611951124404075}
+  - component: {fileID: 303135094112716219}
   m_Layer: 8
   m_Name: MagmaFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6504763350198064945
 Transform:
   m_ObjectHideFlags: 0
@@ -5026,17 +5042,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729b6115e6b8c47f0b0e6b1e9c885749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Creator: {fileID: 0}
+  speed: 0.6
   canReady: 1
-  effect:
-    speed: 0
-    lifeDuration: 0
-    fadeDuration: 0
-    effectDuration: 0
-    ReadySound: {fileID: 0}
-    PlaySound: {fileID: 0}
-  MagmaBall: {fileID: 1862581295424902880}
-  FireWall: {fileID: 962576551142722240}
+  lifeDuration: 1
+  fadeDuration: 0
+  effectDuration: 1
+  effectSpeed: 0
+  ReadySound: {fileID: 0}
+  PlaySound: {fileID: 0}
+  Creator: {fileID: 0}
+  Ball: {fileID: 1862581295424902880}
+  FireWall: {fileID: 2179587333290543020}
 --- !u!50 &2522611951124404075
 Rigidbody2D:
   serializedVersion: 5
@@ -5049,9 +5065,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.02
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 0.01
+  m_LinearDamping: 3.5
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -5064,3 +5080,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &303135094112716219
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116459007912485793}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.03, y: -0.27}
+  m_Radius: 0.44
