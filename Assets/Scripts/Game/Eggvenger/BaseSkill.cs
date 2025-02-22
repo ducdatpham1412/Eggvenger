@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseSkill : MonoBehaviour {
@@ -9,10 +9,10 @@ public abstract class BaseSkill : MonoBehaviour {
     [Header("Durations")]
     [SerializeField] protected float lifeDuration = 1f;
     [SerializeField] protected float fadeDuration = 0f;
-    [SerializeField] protected float effectDuration = 1f;
+    [SerializeField] public float effectDuration = 1f;
 
     [Header("Effects")]
-    [SerializeField] protected float effectSpeed; // Ratio speed to current speed. Ex: If you want decrease 20% speed -> Set "speed" = 0.8
+    [SerializeField] public float effectSpeed; // Ratio speed to current speed. Ex: If you want decrease 20% speed -> Set "speed" = 0.8
 
     [Header("Sounds")]
     [SerializeField] AudioClip ReadySound;
@@ -23,6 +23,8 @@ public abstract class BaseSkill : MonoBehaviour {
 
     // Others
     protected Rigidbody2D rb;
+    protected bool collided = false;
+    [HideInInspector] public List<PlayerManager> effectedPlayers = new List<PlayerManager>();
 
     protected virtual void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -35,8 +37,6 @@ public abstract class BaseSkill : MonoBehaviour {
     public virtual void Play(Vector3 pos, Vector3 direction) {
         // TODO: Playing sound play
     }
-
-    protected virtual void OnTriggerEnter2D(Collider2D collider) { }
 
     protected void RotateFollowDirection(Vector3 direction) {
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
