@@ -1,12 +1,13 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class MagmaFire : BaseSkill {
+public class WaterCycle : BaseSkill {
     [Header("GameObjects")]
     [SerializeField] GameObject Ball;
-    [SerializeField] ParticleSystem FireWall;
+    [SerializeField] ParticleSystem WaterPs;
 
-    Coroutine BurnCoroutine;
+    Coroutine ExpandCoroutine;
 
     public override void Ready(Vector3 pos, Vector3 direction) {
         transform.position = pos;
@@ -17,46 +18,49 @@ public class MagmaFire : BaseSkill {
     public override void Play(Vector3 pos, Vector3 direction) {
         transform.position = pos;
         rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
-        BurnCoroutine = StartCoroutine(WaitForStopAndBurn());
+        ExpandCoroutine = StartCoroutine(WaitForStopAndExpand());
     }
 
-    IEnumerator WaitForStopAndBurn() {
+
+    IEnumerator WaitForStopAndExpand() {
         yield return WaitToStop();
-        FireWall.gameObject.SetActive(true);
+        WaterPs.gameObject.SetActive(true);
         Ball.SetActive(false);
-        yield return new WaitUntil(() => !FireWall.IsAlive(true));
+        yield return new WaitUntil(() => !WaterPs.IsAlive(true));
         Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
         if (collided) return;
 
-        void BurnSoon() {
+        void ExpandSoon() {
             collided = true;
             rb.linearVelocity = Vector3.zero;
-            StopCoroutine(BurnCoroutine);
-            StartCoroutine(WaitForStopAndBurn());
+            StopCoroutine(ExpandCoroutine);
+            StartCoroutine(WaitForStopAndExpand());
         }
 
         string layerName = GetLayerName(collider.gameObject);
 
         if (layerName == Helper.Layer.Obstacle.ToString()) {
-            BurnSoon();
+            ExpandSoon();
         }
         else if (layerName == Helper.Layer.Player.ToString()) {
             PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
             if (Creator.team != player.team) {
-                BurnSoon();
-                FireWall.GetComponent<MagmaParticles>().BurnPlayer(player);
+                ExpandSoon();
+                BindPlayer(player);
             }
         }
     }
 
-    public float GetEffectDuration() {
-        return effectDuration;
-    }
-
-    public PlayerManager GetCreator() {
-        return Creator;
+    async void BindPlayer(PlayerManager player) {
+        if (!effectedPlayers.Contains(player)) {
+            effectedPlayers.Add(player);
+            PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+            playerMovement.AddSpeedRatio(effectSpeed, effectDuration);
+            await Task.Delay((int)(effectDuration * 1000));
+            playerMovement.RemoveSpeedRatio(effectSpeed);
+        }
     }
 }

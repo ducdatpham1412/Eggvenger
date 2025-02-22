@@ -6,7 +6,6 @@ using UnityEngine;
 public class BindingRoot : BaseSkill {
     float radius = 5f;
     int playerLayer;
-    bool exploded = false;
 
     float expandDuration = 2f;
 
@@ -19,8 +18,6 @@ public class BindingRoot : BaseSkill {
 
     Color originColor;
     Coroutine ExpandCoroutine;
-
-    List<PlayerManager> tiedPlayers = new List<PlayerManager>();
 
     protected override void Awake() {
         originColor = BindingCycle.GetComponent<SpriteRenderer>().color;
@@ -44,11 +41,11 @@ public class BindingRoot : BaseSkill {
         ExpandCoroutine = StartCoroutine(WaitForStopAndExpand());
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collider) {
-        if (exploded) return;
+    void OnTriggerEnter2D(Collider2D collider) {
+        if (collided) return;
 
         void ExpandSoon() {
-            exploded = true;
+            collided = true;
             rb.linearVelocity = Vector3.zero;
             StopCoroutine(ExpandCoroutine);
             StartCoroutine(WaitForStopAndExpand());
@@ -82,7 +79,6 @@ public class BindingRoot : BaseSkill {
         float elapsedTime = 0f;
         BindingCycle.transform.localScale = Vector3.one;// have to change localScale to 1 to get original size
         float originalSpriteSize = renderer.bounds.size.x;
-        Vector3 rotationSpeed = new Vector3(0, 0, 120);
         float scaleFactor;
 
         StartCoroutine(RotateBindingCycle());
@@ -128,8 +124,8 @@ public class BindingRoot : BaseSkill {
     }
 
     async void BindPlayer(PlayerManager player) {
-        if (!tiedPlayers.Contains(player)) {
-            tiedPlayers.Add(player);
+        if (!effectedPlayers.Contains(player)) {
+            effectedPlayers.Add(player);
             PlayerVFX playerVFX = player.GetComponent<PlayerVFX>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             playerVFX.SetEffect(BindingEffect, 0.5f);

@@ -43,7 +43,7 @@ public class UnrestLand : BaseSkill {
         Destroy(gameObject);
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collider) {
+    void OnTriggerEnter2D(Collider2D collider) {
         if (IsPlayer(collider.gameObject)) {
             PlayerMovement movement = collider.gameObject.GetComponent<PlayerMovement>();
             if (movement) {

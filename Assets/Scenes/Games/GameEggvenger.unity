@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: IsOwner
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2563118271991978546, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -371,6 +375,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4411851669149483683, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f3cf04a96ccbc433da739b75633785c5, type: 3}
+    - target: {fileID: 4411851669149483683, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -389,6 +397,10 @@ PrefabInstance:
     - target: {fileID: 4757247275365403313, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757247275365403313, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4757247275365403313, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -410,7 +422,7 @@ PrefabInstance:
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: Ulti
       value: 
-      objectReference: {fileID: 1941086418654342521, guid: 9b2a9ac4656884ffe9158c3f3230792d, type: 3}
+      objectReference: {fileID: 6853312269995446160, guid: a0c306980f7414f49ae47500762161a9, type: 3}
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: FirstSkill
       value: 
