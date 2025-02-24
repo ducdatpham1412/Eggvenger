@@ -112,8 +112,8 @@
     <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
     <Compile Include="Assets/Prefabs/Skills/Attack/WaterCycle/WaterCycle.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/Event.cs" />
-    <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerSkill.cs" />
+    <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
     <Compile Include="Assets/Scripts/Game/ShakeManager.cs" />
     <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
