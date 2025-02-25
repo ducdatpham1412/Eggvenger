@@ -96,6 +96,7 @@
     <Compile Include="Assets/Scripts/Game/GamePoints.cs" />
     <Compile Include="Assets/Scripts/Utils/AmountEggs.cs" />
     <Compile Include="Assets/Scripts/Navigation/Navigator.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/FollowCamera.cs" />
     <Compile Include="Assets/Scripts/Classes/ClientNetworkTransform.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/BulletTrajectory.cs" />
     <Compile Include="Assets/Scripts/Profile/Components/ItemHistory.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Assets/Scripts/Game/ThrowEgg/Event.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerSkill.cs" />
     <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/PlayerSortingTrigger.cs" />
     <Compile Include="Assets/Scripts/Game/ShakeManager.cs" />
     <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />

@@ -2,18 +2,25 @@ using System.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    Material material;
-    Rigidbody2D rb;
+    Rigidbody2D Rb;
     PlayerManager manager;
 
+    Vector2 moveDirection;
+
     void Start() {
-        material = GetComponent<SpriteRenderer>().material;
-        rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
         manager = GetComponent<PlayerManager>();
     }
 
+    void Update() {
+        if (!manager.IsOwner) return;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
+        moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+
     void FixedUpdate() {
-        // TODO: Moving by manager.currentSpeed
+        Rb.linearVelocity = moveDirection * manager.currentSpeed;
     }
 
     void VFXMovement(float ratio) {

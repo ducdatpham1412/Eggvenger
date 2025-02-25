@@ -17,10 +17,6 @@ public class PlayerSkill : MonoBehaviour {
     }
 
     void Update() {
-        HandleSkills();
-    }
-
-    void HandleSkills() {
         if (!manager.IsOwner) return;
 
         if (Input.GetKeyDown(KeyCode.C)) {
