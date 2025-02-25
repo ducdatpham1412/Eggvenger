@@ -5,16 +5,17 @@ TagManager:
   serializedVersion: 3
   tags:
   - VFX
+  - PlayerVicinity
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Environment
   - Water
   - UI
-  - Obstacle
   - Player
   - VFX
+  - 
   - 
   - 
   - 
