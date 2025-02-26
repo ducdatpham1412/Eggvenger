@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     Rigidbody2D Rb;
     PlayerManager manager;
+    [SerializeField] Animator animator;
 
     Vector2 moveDirection;
 
@@ -20,7 +21,48 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Rb.linearVelocity = moveDirection * manager.currentSpeed;
+        if (moveDirection != null) {
+            Rb.linearVelocity = moveDirection * manager.currentSpeed;
+
+            if (moveDirection == Vector2.zero) {
+                return;
+            }
+
+            float degree = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+
+            if (degree > 0 && degree < 60) {
+                animator.Play("TopRight", 1);
+            }
+            else if (degree <= 0 && degree > -60) {
+                animator.Play("BottomRight", 1);
+            }
+            else if (degree >= 60 && degree < 120) {
+                animator.Play("Top", 1);
+            }
+            else if (degree <= -60 && degree > -120) {
+                animator.Play("Bottom", 1);
+            }
+            else if (degree >= 120 && degree < 180) {
+                animator.Play("TopLeft", 1);
+            }
+            else {
+                animator.Play("BottomLeft", 1);
+            }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        AdjustVelocityOnCollision(collision);
+    }
+
+    void OnCollisionStay2D(Collision2D collision) {
+        AdjustVelocityOnCollision(collision);
+    }
+
+    void AdjustVelocityOnCollision(Collision2D collision) {
+        Vector2 normal = collision.GetContact(0).normal;
+        Vector2 reflect = Vector2.Reflect(Rb.linearVelocity, normal);
+        Rb.linearVelocity = reflect;
     }
 
     void VFXMovement(float ratio) {

@@ -2,13 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerVFX : MonoBehaviour {
-    Material material;
+    [SerializeField] SpriteRenderer PlayerRenderer;
     [SerializeField] Sprite NullSkin;
+    Material material;
     Coroutine Skin01Coroutine;
     Coroutine Effect01Coroutine;
 
     void Start() {
-        material = GetComponent<SpriteRenderer>().material;
+        material = PlayerRenderer.material;
     }
 
     /*
