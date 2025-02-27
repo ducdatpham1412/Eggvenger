@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - VFX
-  - PlayerVicinity
+  - Obstacle
+  - Grass
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -54,9 +56,6 @@ TagManager:
     locked: 0
   - name: VFXDown
     uniqueID: 2635764883
-    locked: 0
-  - name: Player
-    uniqueID: 3294027443
     locked: 0
   - name: VFXUp
     uniqueID: 2400628075
