@@ -77,6 +77,7 @@
     <Compile Include="Assets/Scripts/Profile/EditProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
     <Compile Include="Assets/Prefabs/Skills/Attack/MagmaFire/MagmaFire.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/TakeDamage.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
     <Compile Include="Assets/Scripts/Common/LocalizationManager.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerMovement.cs" />

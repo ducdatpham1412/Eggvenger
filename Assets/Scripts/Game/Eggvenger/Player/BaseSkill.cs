@@ -24,18 +24,30 @@ public abstract class BaseSkill : MonoBehaviour {
     // Others
     protected Rigidbody2D rb;
     protected bool collided = false;
+    protected bool played = false;
+    PlayerSkill playerSkill;
     [HideInInspector] public List<PlayerManager> effectedPlayers = new List<PlayerManager>();
 
     protected virtual void Awake() {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void Ready(Vector3 pos, Vector3 direction) {
+    public virtual void Ready(Vector3 direction) {
         // TODO: Playing sound ready
     }
 
-    public virtual void Play(Vector3 pos, Vector3 direction) {
+    public virtual void Play(Vector3 direction) {
         // TODO: Playing sound play
+        played = true;
+    }
+
+    void LateUpdate() {
+        if (!played) {
+            if (playerSkill == null) {
+                playerSkill = Creator.GetComponent<PlayerSkill>();
+            }
+            transform.position = playerSkill.GetSkillSpawnPos(isLocal: false);
+        }
     }
 
     protected void RotateFollowDirection(Vector3 direction) {

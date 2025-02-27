@@ -477,6 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6793237748891641657}
   - component: {fileID: 1146345281578634891}
+  - component: {fileID: 7799284629638152893}
   m_Layer: 6
   m_Name: TakeDamage
   m_TagString: Player
@@ -536,3 +537,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1.15}
   m_Size: {x: 1.65, y: 2.3}
   m_Direction: 0
+--- !u!114 &7799284629638152893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527979699365158996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8404b812caea241c38b7fbe07bd573e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 785140533849423333}

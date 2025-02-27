@@ -7,9 +7,9 @@ public class MagmaParticles : MonoBehaviour {
     [SerializeField] MagmaFire Fire;
 
     void OnParticleCollision(GameObject other) {
-        PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
-        if (player != null && player.team != Fire.Creator.team && !Fire.effectedPlayers.Contains(player)) {
-            BurnPlayer(player);
+        TakeDamage take = other.gameObject.GetComponent<TakeDamage>();
+        if (take.player != null && take.player.team != Fire.Creator.team && !Fire.effectedPlayers.Contains(take.player)) {
+            BurnPlayer(take.player);
         }
     }
 
