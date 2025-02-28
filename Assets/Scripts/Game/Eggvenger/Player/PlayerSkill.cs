@@ -42,11 +42,18 @@ public class PlayerSkill : MonoBehaviour {
 
         if (CurrentSkill) {
             Vector3 direction = GetDirection();
-            BulletTrajectory.DrawStraight(transform.position, direction, radius: 5f);
+            BulletTrajectory.DrawStraight(direction, radius: 5f);
             if (Input.GetMouseButtonDown(0)) {
                 PlaySkill(direction);
             }
         }
+    }
+
+    public Vector3 GetSkillSpawnPos(bool isLocal = true) {
+        Vector3 size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
+        Debug.Log("Size: " + size);
+        if (isLocal) return new Vector3(0f, size.y * 1 / 4.5f, 0f);
+        return new Vector3(transform.position.x, transform.position.y + size.y * 1 / 4.5f, 0f);
     }
 
     bool CheckSkill(GameObject Skill) {
@@ -57,19 +64,19 @@ public class PlayerSkill : MonoBehaviour {
         if (CurrentSkill != Skill && CurrentSkill != null) {
             Destroy(CurrentSkill.gameObject);
         }
-        CurrentSkill = Instantiate(Skill).GetComponent<BaseSkill>();
+        CurrentSkill = Instantiate(Skill, GetSkillSpawnPos(isLocal: false), Quaternion.identity).GetComponent<BaseSkill>();
         CurrentSkill.Creator = manager;
         Vector3 direction = GetDirection();
         if (!CurrentSkill.canReady) {
             PlaySkill(direction);
             return true;
         }
-        CurrentSkill.Ready(transform.position, direction);
+        CurrentSkill.Ready(direction);
         return false;
     }
 
     void PlaySkill(Vector3 direction) {
-        CurrentSkill.Play(transform.position, direction);
+        CurrentSkill.Play(direction);
         BulletTrajectory.RemoveLine();
         CurrentSkill = null;
     }

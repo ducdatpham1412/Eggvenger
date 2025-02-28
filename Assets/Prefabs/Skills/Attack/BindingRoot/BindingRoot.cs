@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -29,16 +28,16 @@ public class BindingRoot : BaseSkill {
         BindingCycle.GetComponent<SpriteRenderer>().color = originColor;
     }
 
-    public override void Ready(Vector3 pos, Vector3 direction) {
-        transform.position = pos;
+    public override void Ready(Vector3 direction) {
         rb.linearVelocity = Vector2.zero;
         RotateFollowDirection(direction);
+        base.Ready(direction);
     }
 
-    public override void Play(Vector3 pos, Vector3 direction) {
-        transform.position = pos;
+    public override void Play(Vector3 direction) {
         rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
         ExpandCoroutine = StartCoroutine(WaitForStopAndExpand());
+        base.Play(direction);
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
@@ -53,14 +52,16 @@ public class BindingRoot : BaseSkill {
 
         string layerName = GetLayerName(collider.gameObject);
 
-        if (layerName == Helper.Layer.Obstacle.ToString()) {
+        if (layerName == Helper.Layer.Environment.ToString()) {
             ExpandSoon();
         }
         else if (layerName == Helper.Layer.Player.ToString()) {
-            PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
-            if (Creator.team != player.team) {
-                ExpandSoon();
-                BindPlayer(player);
+            TakeDamage take = collider.gameObject.GetComponent<TakeDamage>();
+            if (take != null) {
+                if (Creator.team != take.player.team) {
+                    ExpandSoon();
+                    BindPlayer(take.player);
+                }
             }
         }
     }
@@ -116,9 +117,9 @@ public class BindingRoot : BaseSkill {
     void DetectEnemies(float checkRadius) {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, checkRadius, playerLayer);
         foreach (Collider2D e in enemies) {
-            PlayerManager player = e.gameObject.GetComponent<PlayerManager>();
-            if (player.team != Creator.team) {
-                BindPlayer(player);
+            TakeDamage take = e.gameObject.GetComponent<TakeDamage>();
+            if (take != null && take.player.team != Creator.team) {
+                BindPlayer(take.player);
             }
         }
     }

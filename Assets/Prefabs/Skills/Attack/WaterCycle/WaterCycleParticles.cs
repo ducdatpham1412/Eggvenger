@@ -26,9 +26,9 @@ public class WaterCycleParticles : MonoBehaviour {
             Vector3 worldPos = Ps.transform.TransformPoint(p.position);
             Collider2D[] hits = Physics2D.OverlapCircleAll(worldPos, radius, playerLayer);
             foreach (Collider2D h in hits) {
-                PlayerManager player = h.gameObject.GetComponent<PlayerManager>();
-                if (player != null && player.team != Cycle.Creator.team) {
-                    SlowAndHitPlayer(player);
+                TakeDamage take = h.gameObject.GetComponent<TakeDamage>();
+                if (take != null && take.player != null && take.player.team != Cycle.Creator.team) {
+                    SlowAndHitPlayer(take.player);
                 }
             }
         }

@@ -9,16 +9,16 @@ public class WaterCycle : BaseSkill {
 
     Coroutine ExpandCoroutine;
 
-    public override void Ready(Vector3 pos, Vector3 direction) {
-        transform.position = pos;
+    public override void Ready(Vector3 direction) {
         rb.linearVelocity = Vector2.zero;
         RotateFollowDirection(direction);
+        base.Ready(direction);
     }
 
-    public override void Play(Vector3 pos, Vector3 direction) {
-        transform.position = pos;
+    public override void Play(Vector3 direction) {
         rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
         ExpandCoroutine = StartCoroutine(WaitForStopAndExpand());
+        base.Play(direction);
     }
 
 
@@ -42,14 +42,14 @@ public class WaterCycle : BaseSkill {
 
         string layerName = GetLayerName(collider.gameObject);
 
-        if (layerName == Helper.Layer.Obstacle.ToString()) {
+        if (layerName == Helper.Layer.Environment.ToString()) {
             ExpandSoon();
         }
         else if (layerName == Helper.Layer.Player.ToString()) {
-            PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
-            if (Creator.team != player.team) {
+            TakeDamage take = collider.gameObject.GetComponent<TakeDamage>();
+            if (take != null && Creator.team != take.player.team) {
                 ExpandSoon();
-                BindPlayer(player);
+                BindPlayer(take.player);
             }
         }
     }

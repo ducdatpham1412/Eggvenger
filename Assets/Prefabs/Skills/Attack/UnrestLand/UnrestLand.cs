@@ -7,12 +7,11 @@ public class UnrestLand : BaseSkill {
         base.Awake();
     }
 
-    public override void Play(Vector3 pos, Vector3 direction) {
-        transform.position = pos;
+    public override void Play(Vector3 direction) {
         RotateFollowDirection(direction);
         transform.localScale = Vector3.one;
         rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
-        base.Play(pos, direction);
+        base.Play(direction);
         Invoke(nameof(Destroy), lifeDuration);
     }
 
