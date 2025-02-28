@@ -66,6 +66,7 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.0.29f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/Bullet.cs" />
     <Compile Include="Assets/Scripts/Common/GameManager.cs" />
     <Compile Include="Assets/Scripts/Utils/Configs.cs" />
     <Compile Include="Assets/Scripts/Utils/ImageLoader.cs" />
@@ -112,12 +113,13 @@
     <Compile Include="Assets/Prefabs/Skills/Attack/BindingRoot/BindingRoot.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/BulletPool.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
+    <Compile Include="Assets/Scripts/Classes/ScriptableObjects/GunStats.cs" />
     <Compile Include="Assets/Prefabs/Skills/Attack/WaterCycle/WaterCycle.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/Event.cs" />
     <Compile Include="Assets/Scripts/Utils/BackgroundHover.cs" />
     <Compile Include="Assets/Scripts/Game/ShakeManager.cs" />
-    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerSortingTrigger.cs" />
     <Compile Include="Assets/Scripts/Game/MatchManager.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/AppState.cs" />
     <Compile Include="Assets/Scripts/Classes/Serializable/ThrowEgg.cs" />

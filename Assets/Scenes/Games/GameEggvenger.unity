@@ -134,9 +134,9 @@ GameObject:
   m_Component:
   - component: {fileID: 88789240}
   - component: {fileID: 88789241}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1010,17 +1010,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: CurrentGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c781f0de011e4182a8e6a27d646c3d8, type: 2}
     - target: {fileID: 785140533849423333, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: IsOwner
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2558906355437666114, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1060,11 +1068,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757247275365403313, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8574040630957649831, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1086,9 +1094,9 @@ GameObject:
   m_Component:
   - component: {fileID: 490565279}
   - component: {fileID: 490565280}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bottom
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1429,28 +1437,52 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
-      propertyPath: Ulti
+      propertyPath: GunHead
       value: 
-      objectReference: {fileID: 1941086418654342521, guid: 9b2a9ac4656884ffe9158c3f3230792d, type: 3}
+      objectReference: {fileID: 1093995273}
+    - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: CurrentGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 25397f39d832045b3a330b0df2cd886f, type: 2}
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: FirstSkill
       value: 
       objectReference: {fileID: 4436037977331080936, guid: 6e3817037ea6740f59688e239de8328c, type: 3}
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
-      propertyPath: SecondSkill
-      value: 
-      objectReference: {fileID: 4116459007912485793, guid: afbf5b1a77a0549408f5fc2187a609ac, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: Guns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: BulletTrajectory
       value: 
       objectReference: {fileID: 1666791011}
+    - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: 'Guns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ca821963ec70044a89c7e3cd19860fce, type: 2}
+    - target: {fileID: -1051693138201206150, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: 'Guns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 785140533849423333, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: id
+      value: 001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867926139753078202, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.68
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: 2.44
       objectReference: {fileID: 0}
     - target: {fileID: 3402581448929945332, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1488,9 +1520,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7503581119575477496, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 6640391810757051179, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_FlipY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503581119575477496, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503581119575477496, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503581119575477496, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 92008043
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37438,6 +37482,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5080297244227250763, guid: 4107eb7f9886745deb7a7927de69831b, type: 3}
   m_PrefabInstance: {fileID: 1042732214}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1093995273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7812932356614003397, guid: 1483ef42c990b4aea87ca051324c7c20, type: 3}
+  m_PrefabInstance: {fileID: 654424594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1174780166
 GameObject:
   m_ObjectHideFlags: 0
@@ -37448,9 +37497,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1174780167}
   - component: {fileID: 1174780168}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37604,7 +37653,7 @@ Transform:
   m_GameObject: {fileID: 1226091929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 6.42, z: -10}
+  m_LocalPosition: {x: 0, y: 4.42, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -38529,9 +38578,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1393375234}
   - component: {fileID: 1393375235}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44026,7 +44075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6044420081015734074, guid: 9b81d8e2e68474c439ddb68f345dcd4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.0199997
       objectReference: {fileID: 0}
     - target: {fileID: 6044420081015734074, guid: 9b81d8e2e68474c439ddb68f345dcd4b, type: 3}
       propertyPath: m_LocalPosition.z

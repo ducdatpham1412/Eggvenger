@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour {
     public List<float> speedRatios = new List<float>();
     public float currentSpeed = 6.5f;
 
+    public string id;
     public int team;
 
     public int heal = 1000;

@@ -46,7 +46,10 @@ public class BindingRoot : BaseSkill {
         void ExpandSoon() {
             collided = true;
             rb.linearVelocity = Vector3.zero;
-            StopCoroutine(ExpandCoroutine);
+            if (ExpandCoroutine != null) {
+                StopCoroutine(ExpandCoroutine);
+                ExpandCoroutine = null;
+            }
             StartCoroutine(WaitForStopAndExpand());
         }
 

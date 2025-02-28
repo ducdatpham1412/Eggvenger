@@ -135,5 +135,9 @@ public static class Helper {
     public enum Tag {
         Player,
         VFX,
+        Grass,
+        Obstacle,
+        Item,
+        Bullet,
     }
 }
