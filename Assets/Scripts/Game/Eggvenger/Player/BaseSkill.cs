@@ -20,6 +20,7 @@ public abstract class BaseSkill : MonoBehaviour {
 
     [Header("Others")]
     public PlayerManager Creator;
+    public GameObject OriginalPrefab;
 
     // Others
     protected Rigidbody2D rb;
