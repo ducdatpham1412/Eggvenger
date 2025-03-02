@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: dc1b464e9a0284a3182abc2488c86024
+guid: 084c7efcc64fe4cd7803c2c53ef8da12
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2704736663927705549
-    second: avatar_default_0
+      213: 3518597884253854824
+    second: unrest_land_0
+  - first:
+      213: 7350648743035835537
+    second: unrest_land_1
+  - first:
+      213: 2883159060675168415
+    second: unrest_land_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +30,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: avatar_default_0
+      name: unrest_land_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 135
-        height: 134
+        y: 104
+        width: 112
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 67, y: 66, z: 67, w: 66}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 11a55efcb540d47d9969f1734878432e
-      internalID: 2704736663927705549
+      spriteID: 86c5466222294d030800000000000000
+      internalID: 3518597884253854824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: unrest_land_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 62
+        width: 112
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194925d1610c20660800000000000000
+      internalID: 7350648743035835537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: unrest_land_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21
+        width: 112
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f980e7ad3e9030820800000000000000
+      internalID: 2883159060675168415
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2074e916671e54c83ba9a3d0c98ff210
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      avatar_default_0: 2704736663927705549
+      unrest_land_0: 3518597884253854824
+      unrest_land_1: 7350648743035835537
+      unrest_land_2: 2883159060675168415
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

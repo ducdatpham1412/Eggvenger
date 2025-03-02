@@ -89,6 +89,7 @@
     <Compile Include="Assets/Scripts/Profile/ProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EntityManager.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonResponsiveWidth.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerGamepad.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerManager.cs" />
     <Compile Include="Assets/Scripts/Welcome/LoginLogic.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerSkill.cs" />

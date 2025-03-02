@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 7f8f89f6b728f4f20b63d03c8a7b522a
+guid: 1d6421d4d005f4f79b9172647d526327
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7362661061344524757
-    second: guns_0
+      213: 4217632947318928821
+    second: ic_magazine_0
   - first:
-      213: -7349882584872989000
-    second: guns_1
+      213: 5912806763403620695
+    second: ic_magazine_1
   - first:
-      213: -3476979527478288156
-    second: guns_2
+      213: 5757275333119725254
+    second: ic_magazine_2
   - first:
-      213: -9170448629031416532
-    second: guns_3
+      213: -4572304340025403748
+    second: ic_magazine_3
+  - first:
+      213: 3731652039803553837
+    second: ic_magazine_4
+  - first:
+      213: 7112330339427933484
+    second: ic_magazine_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +61,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,111 +128,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: guns_0
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 49
-        width: 96
-        height: 109
-      alignment: 9
-      pivot: {x: 0.1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5d97a0be93d6d2660800000000000000
-      internalID: 7362661061344524757
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: guns_1
-      rect:
-        serializedVersion: 2
-        x: 157
-        y: 49
-        width: 206
-        height: 113
-      alignment: 9
-      pivot: {x: 0.25, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8bec0dbfab8fff990800000000000000
-      internalID: -7349882584872989000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: guns_2
-      rect:
-        serializedVersion: 2
-        x: 392
-        y: 49
-        width: 242
-        height: 118
-      alignment: 9
-      pivot: {x: 0.22, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4e0e955aa894fbfc0800000000000000
-      internalID: -3476979527478288156
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: guns_3
-      rect:
-        serializedVersion: 2
-        x: 664
-        y: 49
-        width: 403
-        height: 103
-      alignment: 9
-      pivot: {x: 0.2, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2d4d9b1f850cb080800000000000000
-      internalID: -9170448629031416532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: guns_4
+      name: ic_magazine_0
       rect:
         serializedVersion: 2
         x: 4
-        y: 49
-        width: 153
-        height: 78
+        y: 4
+        width: 9
+        height: 25
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d156e6a05ef214e84aac5d3cffb319ee
-      internalID: -1810079017
+      spriteID: 5b5bde1d1da088a30800000000000000
+      internalID: 4217632947318928821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ic_magazine_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 28
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75133368c628e0250800000000000000
+      internalID: 5912806763403620695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ic_magazine_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 4
+        width: 10
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce48b08963f5ef40800000000000000
+      internalID: 5757275333119725254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ic_magazine_3
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 28
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c961fc78d69eb80c0800000000000000
+      internalID: -4572304340025403748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ic_magazine_4
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 4
+        width: 10
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d284ad152cd79c330800000000000000
+      internalID: 3731652039803553837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ic_magazine_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 28
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2dd5dec2c214b260800000000000000
+      internalID: 7112330339427933484
       vertices: []
       indices: 
       edges: []
@@ -235,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e171c6cf610854d51b40cde99f67c515
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -245,11 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      guns_0: 7362661061344524757
-      guns_1: -7349882584872989000
-      guns_2: -3476979527478288156
-      guns_3: -9170448629031416532
-      guns_4: -1810079017
+      ic_magazine_0: 4217632947318928821
+      ic_magazine_1: 5912806763403620695
+      ic_magazine_2: 5757275333119725254
+      ic_magazine_3: -4572304340025403748
+      ic_magazine_4: 3731652039803553837
+      ic_magazine_5: 7112330339427933484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

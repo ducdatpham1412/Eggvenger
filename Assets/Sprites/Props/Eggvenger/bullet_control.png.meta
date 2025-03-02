@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: dc1b464e9a0284a3182abc2488c86024
+guid: 7b60a657baceb4c5192eeca71eed1e87
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2704736663927705549
-    second: avatar_default_0
+      213: 8099309207003656359
+    second: bullet_control_0
+  - first:
+      213: -2727401464121697935
+    second: bullet_control_1
+  - first:
+      213: 1023436357110318452
+    second: bullet_control_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +30,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: avatar_default_0
+      name: bullet_control_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 135
-        height: 134
+        width: 6
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 67, y: 66, z: 67, w: 66}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 11a55efcb540d47d9969f1734878432e
-      internalID: 2704736663927705549
+      spriteID: 7a0f081dfc6866070800000000000000
+      internalID: 8099309207003656359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_control_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 58
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179552b91d2562ad0800000000000000
+      internalID: -2727401464121697935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet_control_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 3
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475c7c3c1f9f33e00800000000000000
+      internalID: 1023436357110318452
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2074e916671e54c83ba9a3d0c98ff210
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      avatar_default_0: 2704736663927705549
+      bullet_control_0: 8099309207003656359
+      bullet_control_1: -2727401464121697935
+      bullet_control_2: 1023436357110318452
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

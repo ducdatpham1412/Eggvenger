@@ -15,8 +15,11 @@ public class GunStats : ScriptableObject {
         public float speed;
     }
 
+    public string id;
+
     [Header("Resources")]
     public Sprite Gun;
+    public Sprite GunUI; // Display on UI in GamePad
     public Sprite Bullet;
     public AudioClip ShotSound;
     public AudioClip ReloadSound;

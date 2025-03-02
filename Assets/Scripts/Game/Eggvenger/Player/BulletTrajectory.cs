@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletTrajectory : MonoBehaviour {
@@ -42,11 +41,10 @@ public class BulletTrajectory : MonoBehaviour {
         Debug.Log("TO DO");
     }
 
-    public void DrawStraight(Vector3 direction, float radius = 5f) {
+    public void DrawStraight(Vector3 startPos, Vector3 direction, float radius = 5f) {
         if (lineRenderer == null) return;
 
         lineRenderer.positionCount = 2;
-        Vector3 startPos = Vector3.zero;
         Vector3 lastPoint = startPos + radius * direction;
 
         // int i = 0;
