@@ -198,9 +198,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ff142e335794e5cba1c3e8738e0895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: binding_root
   speed: 0.6
   SkillSprite: {fileID: 21300000, guid: 2a8a3dd41baa548ecae328469902eb23, type: 3}
   canReady: 1
+  price: 200
+  maxNumber: 3
   lifeDuration: 2.5
   fadeDuration: 1.5
   effectDuration: 1.5
@@ -208,7 +211,6 @@ MonoBehaviour:
   ReadySound: {fileID: 0}
   PlaySound: {fileID: 0}
   Creator: {fileID: 0}
-  OriginalPrefab: {fileID: 0}
   effectedPlayers: []
   BindingCycle: {fileID: 6334324230529082343}
   Ball: {fileID: 149235973128092546}

@@ -78,6 +78,7 @@ public class PlayerGamepad : MonoBehaviour {
         }
         else {
             // If user're holding gun, wait for 0.5s to display trajectory pointer
+            // TODO: Refactor this, should having a button a draw instead of waiting
             yield return new WaitForSeconds(0.8f);
             while (isHolding) {
                 BulletTrajectory.DrawStraight(Skill.GunHead.transform.position, Skill.direction, radius: 8f);

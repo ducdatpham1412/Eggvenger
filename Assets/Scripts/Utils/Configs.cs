@@ -13,6 +13,7 @@ public class Configs {
         silver = "#D1D1D1",
         bronze = "#FFC393",
         yellow = "#FFCE45",
+        red = "#DD5F5F",
     };
 
     public static _LocaleID LocaleID = new _LocaleID {
@@ -83,6 +84,7 @@ public class Configs {
         public string silver;
         public string bronze;
         public string yellow;
+        public string red;
     }
 
     [Serializable]

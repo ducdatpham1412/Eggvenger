@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: sniper
   Gun: {fileID: -9170448629031416532, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
-  GunUI: {fileID: 0}
+  GunUI: {fileID: -830416827, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
   Bullet: {fileID: -7243563388056777162, guid: c2983b5b8c76c495fb519b4c8e199f49, type: 3}
   ShotSound: {fileID: 8300000, guid: 38cb9c688b9944838b4e93736f835909, type: 3}
   ReloadSound: {fileID: 8300000, guid: fb22ecc8c1a7a4e05a1d8640efd1941d, type: 3}
@@ -26,6 +26,7 @@ MonoBehaviour:
     name: Sniper
   price: 4200
   salePrice: 3000
+  sellPrice: 3000
   burstAmount: 1
   holdToBurst: 0
   fireDelay: 0.05

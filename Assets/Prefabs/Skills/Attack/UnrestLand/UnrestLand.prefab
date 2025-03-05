@@ -194,9 +194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32218e7813a14e3b9836848540c91c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: unrest_land
   speed: 0.6
   SkillSprite: {fileID: 21300000, guid: 084c7efcc64fe4cd7803c2c53ef8da12, type: 3}
   canReady: 1
+  price: 200
+  maxNumber: 2
   lifeDuration: 7
   fadeDuration: 1
   effectDuration: 0
@@ -204,7 +207,6 @@ MonoBehaviour:
   ReadySound: {fileID: 0}
   PlaySound: {fileID: 0}
   Creator: {fileID: 0}
-  OriginalPrefab: {fileID: 0}
   effectedPlayers: []
 --- !u!1 &3413510784861613839
 GameObject:

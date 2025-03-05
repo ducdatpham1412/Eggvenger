@@ -111,9 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8294187ac63864824bf29d15daf02b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: water_cycle
   speed: 0.6
   SkillSprite: {fileID: 1278125404491797939, guid: 8eeb665f40bc64174a49f7378ff75d75, type: 3}
   canReady: 1
+  price: 200
+  maxNumber: 3
   lifeDuration: 1
   fadeDuration: 0
   effectDuration: 1
@@ -121,7 +124,6 @@ MonoBehaviour:
   ReadySound: {fileID: 0}
   PlaySound: {fileID: 0}
   Creator: {fileID: 0}
-  OriginalPrefab: {fileID: 0}
   effectedPlayers: []
   Ball: {fileID: 8888086141748926645}
   WaterPs: {fileID: 8782684229301393712}

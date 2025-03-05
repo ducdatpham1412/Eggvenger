@@ -25,7 +25,7 @@ MonoBehaviour:
   - key: en
     name: SMG
   price: 2000
-  salePrice: 1600
+  sellPrice: 1600
   burstAmount: 3
   holdToBurst: 1
   fireDelay: 0.05

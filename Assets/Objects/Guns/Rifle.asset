@@ -26,6 +26,7 @@ MonoBehaviour:
     name: Rifle
   price: 2500
   salePrice: 2000
+  sellPrice: 2000
   burstAmount: 1
   holdToBurst: 1
   fireDelay: 0.05
