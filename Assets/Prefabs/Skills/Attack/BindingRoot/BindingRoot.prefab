@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.6
+  SkillSprite: {fileID: 21300000, guid: 2a8a3dd41baa548ecae328469902eb23, type: 3}
   canReady: 1
   lifeDuration: 2.5
   fadeDuration: 1.5
@@ -207,6 +208,8 @@ MonoBehaviour:
   ReadySound: {fileID: 0}
   PlaySound: {fileID: 0}
   Creator: {fileID: 0}
+  OriginalPrefab: {fileID: 0}
+  effectedPlayers: []
   BindingCycle: {fileID: 6334324230529082343}
   Ball: {fileID: 149235973128092546}
   BindingEffect: {fileID: 21300000, guid: 59209baf7fb49484bbcadd480fceed83, type: 3}

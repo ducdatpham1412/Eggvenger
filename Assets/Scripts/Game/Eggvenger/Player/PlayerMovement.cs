@@ -3,51 +3,67 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     Rigidbody2D Rb;
-    PlayerManager manager;
+    PlayerManager PlayerManager;
+    PlayerSkill Skill;
     [SerializeField] Animator animator;
 
-    Vector2 moveDirection;
+    public Vector2 moveDirection;
+    public Vector2 lastDirection;
+    public EggvengerManager Manager;
+    PlayerGamepad Gamepad;
 
     void Start() {
         Rb = GetComponent<Rigidbody2D>();
-        manager = GetComponent<PlayerManager>();
+        PlayerManager = GetComponent<PlayerManager>();
+        Skill = GetComponent<PlayerSkill>();
+        if (PlayerManager.IsOwner) {
+            Gamepad = Manager.GetComponent<PlayerGamepad>();
+            Gamepad.SetPlayerMovement(this);
+        }
     }
 
+    // TODO: Assign PlayerGamepad in OnNetworkSpawn
+
     void Update() {
-        if (!manager.IsOwner) return;
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        HandleAnimator();
     }
 
     void FixedUpdate() {
         if (moveDirection != null) {
-            Rb.linearVelocity = moveDirection * manager.currentSpeed;
+            Rb.linearVelocity = moveDirection * PlayerManager.currentSpeed;
+        }
+    }
 
-            if (moveDirection == Vector2.zero) {
-                return;
-            }
+    void HandleAnimator() {
+        if (!PlayerManager.IsOwner) return;
 
-            float degree = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        if (moveDirection == Vector2.zero && Skill.direction == Vector2.zero) {
+            return;
+        }
 
-            if (degree > 0 && degree < 60) {
-                animator.Play("TopRight", 1);
-            }
-            else if (degree <= 0 && degree > -60) {
-                animator.Play("BottomRight", 1);
-            }
-            else if (degree >= 60 && degree < 120) {
-                animator.Play("Top", 1);
-            }
-            else if (degree <= -60 && degree > -120) {
-                animator.Play("Bottom", 1);
-            }
-            else if (degree >= 120 && degree < 180) {
-                animator.Play("TopLeft", 1);
-            }
-            else {
-                animator.Play("BottomLeft", 1);
-            }
+        Vector2 temp = Skill.direction == Vector2.zero ? moveDirection : Skill.direction;
+        if (Equals(temp, lastDirection)) return;
+        lastDirection = temp;
+
+        float degree = Mathf.Atan2(temp.y, temp.x) * Mathf.Rad2Deg;
+
+        if (degree > 0 && degree < 60) {
+            animator.Play("TopRight", 1);
+        }
+        else if (degree <= 0 && degree > -60) {
+            animator.Play("BottomRight", 1);
+        }
+        else if (degree >= 60 && degree < 120) {
+            animator.Play("Top", 1);
+        }
+        else if (degree <= -60 && degree > -120) {
+            animator.Play("Bottom", 1);
+        }
+        else if (degree >= 120 && degree < 180) {
+            animator.Play("TopLeft", 1);
+        }
+        else {
+            animator.Play("BottomLeft", 1);
         }
     }
 
@@ -81,22 +97,23 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void SetCurrentSpeed() {
-        float ratio = manager.speedRatios.Count == 0 ? 1 : manager.speedRatios.Aggregate(1f, (acc, num) => acc * num);
-        manager.currentSpeed = (manager.originalSpeed + manager.buffSpeed) * ratio;
+        float ratio = PlayerManager.speedRatios.Count == 0 ? 1 : PlayerManager.speedRatios.Aggregate(1f, (acc, num) => acc * num);
+        PlayerManager.currentSpeed = (PlayerManager.originalSpeed + PlayerManager.buffSpeed) * ratio;
         VFXMovement(ratio);
     }
 
+
     public void BuffSpeed(float value) {
-        manager.buffSpeed += value;
+        PlayerManager.buffSpeed += value;
         SetCurrentSpeed();
     }
 
     public void AddSpeedRatio(float ratio, float? seconds) {
-        manager.speedRatios.Add(ratio);
+        PlayerManager.speedRatios.Add(ratio);
         SetCurrentSpeed();
         if (seconds != null) {
             void Revert() {
-                manager.speedRatios.Remove(ratio);
+                PlayerManager.speedRatios.Remove(ratio);
                 SetCurrentSpeed();
             }
             Invoke(nameof(Revert), (float)seconds);
@@ -104,8 +121,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void RemoveSpeedRatio(float ratio) {
-        if (manager.speedRatios.Contains(ratio)) {
-            manager.speedRatios.Remove(ratio);
+        if (PlayerManager.speedRatios.Contains(ratio)) {
+            PlayerManager.speedRatios.Remove(ratio);
             SetCurrentSpeed();
         }
     }

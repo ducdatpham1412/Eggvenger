@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class BaseSkill : MonoBehaviour {
     [Header("Properties")]
     [SerializeField] protected float speed = 0.6f;
+    public Sprite SkillSprite;
     public bool canReady = true;
 
     [Header("Durations")]

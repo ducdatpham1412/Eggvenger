@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64bdd35368144606a4782fcbe92cf55, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  id: pistol
   Gun: {fileID: 7362661061344524757, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
+  GunUI: {fileID: -1810079017, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
   Bullet: {fileID: 8848993070067138329, guid: c2983b5b8c76c495fb519b4c8e199f49, type: 3}
   ShotSound: {fileID: 8300000, guid: 9569f9b260fde4bdeab62016735973fe, type: 3}
   ReloadSound: {fileID: 8300000, guid: c15c2ab3c69d640cc8f4adc1826b9dbf, type: 3}

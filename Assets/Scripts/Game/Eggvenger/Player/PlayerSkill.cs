@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour {
     [Header("GameObjects")]
-    public BulletTrajectory BulletTrajectory;
     [SerializeField] Transform GunTransform;
-    [SerializeField] Transform GunHead;
+    public Transform GunHead;
     [SerializeField] BulletPool Pool;
     public GunStats[] Guns = new GunStats[2];
+    [SerializeField] GunStats[] RoundGuns = new GunStats[2];
 
     [Header("Skills")]
     public GameObject FirstSkill;
@@ -16,81 +17,195 @@ public class PlayerSkill : MonoBehaviour {
     public GameObject Ulti;
 
     [Header("Stats")]
-    [SerializeField] Vector2 direction;
+    public Vector2 direction = Vector2.right;
     [SerializeField] GunStats CurrentGun;
 
-    BaseSkill CurrentSkill;
-    PlayerManager manager;
-    SpriteRenderer GunRenderer;
-    AudioSource ShotAudio;
-    Vector2 baseVector = new Vector2(1, 0);
-    Vector2 lastDirection;
-    bool isHolding = false;
-    bool isBursting = false;
+    public BaseSkill CurrentSkill;
+    public PlayerMovement PlayerMovement;
+    public EggvengerManager Manager;
 
+    bool isBursting = false;
+    SpriteRenderer GunRenderer;
+    AudioSource GunAudio;
+    AudioSource PlayerAudio;
+    PlayerGamepad Gamepad;
+    PlayerManager PlayerManager;
+    Vector2 baseVector = Vector2.right;
+    Vector2 lastDirection;
+    Coroutine reloadCoroutine;
 
     void Start() {
-        manager = GetComponent<PlayerManager>();
+        PlayerManager = GetComponent<PlayerManager>();
+        PlayerMovement = GetComponent<PlayerMovement>();
         GunRenderer = GunTransform.GetComponent<SpriteRenderer>();
-        ShotAudio = GetComponent<AudioSource>();
-        EquipGun(Guns[0]);
+        GunAudio = GunHead.GetComponent<AudioSource>();
+        PlayerAudio = GetComponent<AudioSource>();
+        if (PlayerManager.IsOwner) {
+            Gamepad = Manager.GetComponent<PlayerGamepad>();
+            Gamepad.SetPlayerSkill(this);
+        }
+        ResetGuns();
     }
+
+    // TODO: Assign PlayerGamepad in OnNetworkSpawn
 
     void Update() {
-        if (manager.IsOwner) {
-            direction = GetDirection();
-        }
         HandleGunDirection();
-        HandleShot();
-        HandleSkills();
     }
 
-    void HandleShot() {
-        if (!manager.IsOwner || CurrentSkill != null) return;
-
-        if (Input.GetMouseButtonDown(0)) {
-            isHolding = true;
-            StartCoroutine(Burst());
-        }
-
-        if (Input.GetMouseButtonUp(0)) {
-            isHolding = false;
+    public void ChangeGun() {
+        int index = Array.IndexOf(RoundGuns, CurrentGun);
+        index = (index + 1) % RoundGuns.Length;
+        if (RoundGuns[index] != null) {
+            CheckToStopReload();
+            EquipGun(RoundGuns[index]);
         }
     }
 
-    IEnumerator Burst() {
-        if (isBursting) yield break;
+    public void PlayHit(bool forceOneShot) {
+        if (CurrentSkill == null) {
+            StartCoroutine(Burst(forceOneShot));
+        }
+        else {
+            PlaySkill();
+        }
+    }
 
-        isBursting = true;
+    public void PressSkill(int index) {
+        bool played = false;
 
-        if (CurrentGun.holdToBurst) {
-            while (isHolding) {
-                yield return StartCoroutine(Fire());
+        if (index == 0) {
+            played = CheckSkill(FirstSkill);
+        }
+
+        if (index == 1) {
+            played = CheckSkill(SecondSkill);
+        }
+
+        if (index == 2) {
+            played = CheckSkill(Ulti);
+        }
+
+        if (!played) {
+            CheckToStopReload();
+        }
+    }
+
+    public Vector3 GetSkillSpawnPos(bool isLocal = true) {
+        Vector3 size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
+        if (isLocal) return new Vector3(0f, size.y * 1 / 4.5f, 0f);
+        return new Vector3(transform.position.x, transform.position.y + size.y * 1 / 4.5f, 0f);
+    }
+
+    public void ResetGuns() {
+        for (int i = 0; i < Guns.Length; i++) {
+            if (Guns[i] != null) {
+                RoundGuns[i] = Instantiate(Guns[i]);
+            }
+            else {
+                RoundGuns[i] = null;
+            }
+        }
+        if (CurrentGun != null) {
+            GunStats FindGun = Array.Find(RoundGuns, g => g.id == CurrentGun.id);
+            if (FindGun != null) {
+                EquipGun(FindGun);
+            }
+            else {
+                EquipGun(RoundGuns[0]);
             }
         }
         else {
+            EquipGun(RoundGuns[0]);
+        }
+    }
+
+    public void BuyGun() {
+
+    }
+
+    public void ReloadGun() {
+        if (reloadCoroutine != null) return;
+
+        void Reload() {
+            if (CurrentGun.isLimitBullets) {
+                int minusBullets = CurrentGun.magazineSize - CurrentGun.currentBullets;
+                CurrentGun.currentBullets = Math.Min(CurrentGun.magazineSize, CurrentGun.numberBullets);
+                CurrentGun.numberBullets -= minusBullets;
+                Gamepad.TextRemainingBullets.text = CurrentGun.numberBullets.ToString();
+            }
+            else {
+                CurrentGun.currentBullets = CurrentGun.magazineSize;
+            }
+            Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
+            reloadCoroutine = null;
+        }
+
+        if (CurrentGun.ReloadSound != null) {
+            GunAudio.PlayOneShot(CurrentGun.ReloadSound);
+        }
+        reloadCoroutine = StartCoroutine(Gamepad.Countdown(Gamepad.ReloadCountdown, CurrentGun.reloadDelay, Reload));
+    }
+
+    IEnumerator DrawSkillTrajectoryUntilHolding() {
+        while (!Gamepad.isHolding && CurrentSkill != null) {
+            Gamepad.BulletTrajectory.DrawStraight(CurrentSkill.transform.position, GetDirection(), radius: 8f);
+            yield return null;
+        }
+    }
+
+    IEnumerator Burst(bool forceOneShot = false) {
+        if (isBursting) yield break;
+
+        if (CurrentGun.currentBullets <= 0) {
+            if (!GunAudio.isPlaying) {
+                GunAudio.PlayOneShot(CurrentGun.ReloadSound);
+            }
+            yield break;
+        }
+
+        isBursting = true;
+
+        CheckToStopReload();
+
+        if (forceOneShot || !CurrentGun.holdToBurst) {
             yield return StartCoroutine(Fire());
+        }
+        else {
+            while (Gamepad.isHolding) {
+                yield return StartCoroutine(Fire());
+            }
         }
         isBursting = false;
         yield return null;
     }
 
     IEnumerator Fire() {
+        int burstAmount = 1;
         if (CurrentGun.burstAmount == 1) {
-            ShotAudio.Play();
+            GunAudio.Play();
             Bullet bullet = Pool.GetBullet();
             bullet.transform.position = GunHead.position;
             bullet.transform.rotation = GunTransform.rotation;
         }
         else if (CurrentGun.burstAmount > 1) {
-            ShotAudio.Play();
-            Bullet[] bullets = Pool.GetBullets(CurrentGun.burstAmount);
+            burstAmount = Math.Min(CurrentGun.burstAmount, CurrentGun.currentBullets);
+            GunAudio.Play();
+            Bullet[] bullets = Pool.GetBullets(burstAmount);
             foreach (var b in bullets) {
                 b.gameObject.SetActive(true);
                 b.transform.position = GunHead.position;
                 b.transform.rotation = GunTransform.rotation;
                 yield return new WaitForSeconds(CurrentGun.fireDelay);
             }
+        }
+        CurrentGun.currentBullets -= burstAmount;
+        Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
+        if (CurrentGun.currentBullets <= 0) {
+            ReloadGun();
+        }
+        if (CurrentGun.burstDelay >= 0.5f) {
+            StartCoroutine(Gamepad.Countdown(Gamepad.ShotCountdown, CurrentGun.burstDelay));
         }
         yield return new WaitForSeconds(CurrentGun.burstDelay);
     }
@@ -99,10 +214,10 @@ public class PlayerSkill : MonoBehaviour {
         CurrentGun = gun;
 
         if (CurrentGun.EquipSound != null) {
-            ShotAudio.PlayOneShot(CurrentGun.EquipSound);
+            GunAudio.PlayOneShot(CurrentGun.EquipSound);
         }
 
-        ShotAudio.clip = CurrentGun.ShotSound;
+        GunAudio.clip = CurrentGun.ShotSound;
         GunRenderer.sprite = CurrentGun.Gun;
         Pool.FillPool(CurrentGun);
 
@@ -110,24 +225,44 @@ public class PlayerSkill : MonoBehaviour {
         float pivotX = GunRenderer.sprite.pivot.x / GunRenderer.sprite.rect.width;
         float maxX = size.x * (1 - pivotX);
         GunHead.localPosition = new Vector2(maxX, 0f);
+
+        if (Gamepad != null) {
+            Gamepad.CurrentGunUI.sprite = CurrentGun.GunUI != null ? CurrentGun.GunUI : CurrentGun.Gun;
+            Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
+            Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
+            Gamepad.TextRemainingBullets.text = CurrentGun.isLimitBullets ? CurrentGun.numberBullets.ToString() : "";
+        }
     }
 
     void BackToGunFromSkill(bool playSound) {
-        BulletTrajectory.RemoveLine();
+        if (Gamepad != null) {
+            Gamepad.BulletTrajectory.RemoveLine();
+            Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
+        }
         CurrentSkill = null;
         GunTransform.gameObject.SetActive(true);
         if (playSound) {
-            ShotAudio.PlayOneShot(CurrentGun.EquipSound);
+            GunAudio.PlayOneShot(CurrentGun.EquipSound);
         }
     }
 
     void HandleGunDirection() {
-        if (Equals(direction, lastDirection)) return;
-        lastDirection = direction;
+        if (!PlayerManager.IsOwner) return;
+
+        Vector2 temp = GetDirection();
+        if (Equals(temp, lastDirection)) return;
+        lastDirection = temp;
 
         // Check rotation
-        float degree = Vector2.SignedAngle(baseVector, direction);
-        GunTransform.rotation = Quaternion.Euler(0, 0, degree);
+        float degree = Vector2.SignedAngle(baseVector, temp);
+        Quaternion newRotation = Quaternion.Euler(0, 0, degree);
+        GunTransform.rotation = newRotation;
+        if (Gamepad != null) {
+            Gamepad.BulletUI.rotation = newRotation;
+        }
+        if (CurrentSkill != null) {
+            CurrentSkill.transform.rotation = newRotation;
+        }
 
         // Check flipY
         degree = Math.Abs(degree);
@@ -142,50 +277,12 @@ public class PlayerSkill : MonoBehaviour {
         GunTransform.localScale = new Vector3(scaleX, scaleY, 1f);
     }
 
-    void HandleSkills() {
-        if (!manager.IsOwner) return;
-
-        if (Input.GetKeyDown(KeyCode.C)) {
-            bool played = CheckSkill(FirstSkill);
-            if (played) {
-                return;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            bool played = CheckSkill(SecondSkill);
-            if (played) {
-                return;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.E)) {
-            bool played = CheckSkill(Ulti);
-            if (played) {
-                return;
-            }
-        }
-
-        if (CurrentSkill) {
-            BulletTrajectory.DrawStraight(direction);
-            if (Input.GetMouseButtonDown(0)) {
-                PlaySkill(direction);
-            }
-        }
-    }
-
-    public Vector3 GetSkillSpawnPos(bool isLocal = true) {
-        Vector3 size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
-        if (isLocal) return new Vector3(0f, size.y * 1 / 4.5f, 0f);
-        return new Vector3(transform.position.x, transform.position.y + size.y * 1 / 4.5f, 0f);
-    }
-
     bool CheckSkill(GameObject Skill) {
         if (Skill == null) {
             return true;
         }
 
-        if (isHolding) isHolding = false;
+        if (Gamepad.isHolding) Gamepad.isHolding = false;
 
         if (CurrentSkill == null || CurrentSkill.OriginalPrefab != Skill) {
             GunTransform.gameObject.SetActive(false);
@@ -193,13 +290,17 @@ public class PlayerSkill : MonoBehaviour {
                 Destroy(CurrentSkill.gameObject);
             }
             CurrentSkill = Instantiate(Skill, GetSkillSpawnPos(isLocal: false), Quaternion.identity).GetComponent<BaseSkill>();
-            CurrentSkill.Creator = manager;
+            CurrentSkill.Creator = PlayerManager;
             CurrentSkill.OriginalPrefab = Skill;
             if (!CurrentSkill.canReady) {
-                PlaySkill(direction);
+                PlaySkill();
                 return true;
             }
+            if (CurrentSkill.SkillSprite != null && Gamepad != null) {
+                Gamepad.BulletUI.GetComponent<Image>().sprite = CurrentSkill.SkillSprite;
+            }
             CurrentSkill.Ready(direction);
+            StartCoroutine(DrawSkillTrajectoryUntilHolding());
             return false;
         }
 
@@ -209,18 +310,21 @@ public class PlayerSkill : MonoBehaviour {
         return true;
     }
 
-    void PlaySkill(Vector3 direction) {
-        CurrentSkill.Play(direction);
+    void PlaySkill() {
+        CurrentSkill.Play(GetDirection());
         BackToGunFromSkill(false);
     }
 
-    Vector3 GetDirection() {
-        Vector3 startPos = transform.position;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
-        startPos.z = 0f;
-        mouseWorldPos.z = 0f;
-        Vector3 direction = (mouseWorldPos - startPos).normalized;
-        return direction;
+    Vector2 GetDirection() {
+        return direction == Vector2.zero ? (PlayerMovement.moveDirection == Vector2.zero ? PlayerMovement.lastDirection : PlayerMovement.moveDirection) : direction;
+    }
+
+    void CheckToStopReload() {
+        if (reloadCoroutine != null) {
+            StopCoroutine(reloadCoroutine);
+            Gamepad.ReloadCountdown.fillAmount = 0;
+            reloadCoroutine = null;
+        }
     }
 }
 
