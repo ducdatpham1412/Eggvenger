@@ -26,6 +26,7 @@ MonoBehaviour:
     name: Pistol
   price: 500
   salePrice: 300
+  sellPrice: 300
   burstAmount: 1
   holdToBurst: 0
   fireDelay: 0.05

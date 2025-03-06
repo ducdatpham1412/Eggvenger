@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 
 public static class Helper {
@@ -77,6 +78,10 @@ public static class Helper {
             localized.Arguments = args;
         }
         return localized.GetLocalizedString();
+    }
+
+    public static string GetLocaleKey() {
+        return LocalizationSettings.SelectedLocale.Identifier.Code;
     }
 
     public static async Task<Sprite> ImgUrlToSprite(string url) {

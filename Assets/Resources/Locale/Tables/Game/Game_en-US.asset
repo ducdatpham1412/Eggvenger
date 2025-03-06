@@ -122,6 +122,26 @@ MonoBehaviour:
     m_Localized: Egg collected
     m_Metadata:
       m_Items: []
+  - m_Id: 23455988513234944
+    m_Localized: Egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456037762752512
+    m_Localized: Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456101042216960
+    m_Localized: Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461098039533568
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461103206916096
+    m_Localized: Sell
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

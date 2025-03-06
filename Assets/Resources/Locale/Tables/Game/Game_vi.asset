@@ -121,6 +121,26 @@ MonoBehaviour:
     m_Localized: "Tr\u1EE9ng thu th\u1EADp"
     m_Metadata:
       m_Items: []
+  - m_Id: 23455988513234944
+    m_Localized: "Tr\u1EE9ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456037762752512
+    m_Localized: "S\xFAng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456101042216960
+    m_Localized: "K\u1EF9 n\u0103ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461098039533568
+    m_Localized: Mua
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461103206916096
+    m_Localized: "B\xE1n"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

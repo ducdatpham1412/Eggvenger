@@ -12,16 +12,20 @@ public class PlayerSkill : MonoBehaviour {
     [SerializeField] GunStats[] RoundGuns = new GunStats[2];
 
     [Header("Skills")]
-    public GameObject FirstSkill;
-    public GameObject SecondSkill;
-    public GameObject Ulti;
+    public BaseSkill FirstSkill;
+    public BaseSkill SecondSkill;
+    public BaseSkill Ulti; // TODO: Develop later
 
     [Header("Stats")]
     public Vector2 direction = Vector2.right;
+    public int firstSkillNumber = 0;
+    public int secondSkillNumber = 0;
     [SerializeField] GunStats CurrentGun;
 
+    [Header("Runtime Value")]
     public BaseSkill CurrentSkill;
     public PlayerMovement PlayerMovement;
+    public PlayerManager PlayerManager;
     public EggvengerManager Manager;
 
     bool isBursting = false;
@@ -29,7 +33,6 @@ public class PlayerSkill : MonoBehaviour {
     AudioSource GunAudio;
     AudioSource PlayerAudio;
     PlayerGamepad Gamepad;
-    PlayerManager PlayerManager;
     Vector2 baseVector = Vector2.right;
     Vector2 lastDirection;
     Coroutine reloadCoroutine;
@@ -43,6 +46,7 @@ public class PlayerSkill : MonoBehaviour {
         if (PlayerManager.IsOwner) {
             Gamepad = Manager.GetComponent<PlayerGamepad>();
             Gamepad.SetPlayerSkill(this);
+            Manager.GetComponent<PlayerShopping>().SetPlayerSkill(this);
         }
         ResetGuns();
     }
@@ -97,7 +101,10 @@ public class PlayerSkill : MonoBehaviour {
         return new Vector3(transform.position.x, transform.position.y + size.y * 1 / 4.5f, 0f);
     }
 
-    public void ResetGuns() {
+    /*
+    Guns
+    */
+    void ResetGuns(bool playSound = true) {
         for (int i = 0; i < Guns.Length; i++) {
             if (Guns[i] != null) {
                 RoundGuns[i] = Instantiate(Guns[i]);
@@ -107,31 +114,51 @@ public class PlayerSkill : MonoBehaviour {
             }
         }
         if (CurrentGun != null) {
-            GunStats FindGun = Array.Find(RoundGuns, g => g.id == CurrentGun.id);
-            if (FindGun != null) {
-                EquipGun(FindGun);
-            }
-            else {
-                EquipGun(RoundGuns[0]);
-            }
+            GunStats FindGun = Array.Find(RoundGuns, g => g != null && g.id == CurrentGun.id);
+            EquipGun(FindGun ?? RoundGuns[0], playSound);
         }
         else {
-            EquipGun(RoundGuns[0]);
+            EquipGun(RoundGuns[0], playSound);
         }
     }
 
-    public void BuyGun() {
+    public void BuySellGun(GunStats gun) {
+        GunStats FindGun = Array.Find(Guns, g => g != null && g.id == gun.id);
 
+        // Sell gun
+        if (FindGun != null) {
+            SoundManager.Instance.PlaySF(SoundManager.SF.Sell);
+            int index = Array.IndexOf(Guns, FindGun);
+            Guns[index] = null;
+            PlayerManager.eggs += FindGun.sellPrice;
+            CurrentGun = null;
+            ResetGuns(playSound: false);
+            return;
+        }
+
+        // Buy gun
+        int eggsRemaining = PlayerManager.eggs - gun.price;
+        if (eggsRemaining >= 0) {
+            if (Guns[1] != null) {
+                // TODO: Throw this gun for other player collect
+            }
+
+            Guns[1] = gun;
+            CurrentGun = gun;
+            PlayerManager.eggs -= gun.price;
+            ResetGuns();
+        }
     }
 
     public void ReloadGun() {
-        if (reloadCoroutine != null) return;
+        if (reloadCoroutine != null || (CurrentGun.numberBullets <= 0 && CurrentGun.isLimitBullets)) return;
 
         void Reload() {
             if (CurrentGun.isLimitBullets) {
-                int minusBullets = CurrentGun.magazineSize - CurrentGun.currentBullets;
-                CurrentGun.currentBullets = Math.Min(CurrentGun.magazineSize, CurrentGun.numberBullets);
-                CurrentGun.numberBullets -= minusBullets;
+                int bulletsNeedMore = CurrentGun.magazineSize - CurrentGun.currentBullets;
+                int bulletsActuallyAvailable = Math.Min(bulletsNeedMore, CurrentGun.numberBullets);
+                CurrentGun.currentBullets += bulletsActuallyAvailable;
+                CurrentGun.numberBullets -= bulletsActuallyAvailable;
                 Gamepad.TextRemainingBullets.text = CurrentGun.numberBullets.ToString();
             }
             else {
@@ -147,6 +174,34 @@ public class PlayerSkill : MonoBehaviour {
         reloadCoroutine = StartCoroutine(Gamepad.Countdown(Gamepad.ReloadCountdown, CurrentGun.reloadDelay, Reload));
     }
 
+    /*
+    Skills
+    */
+    public void BuySkill(BaseSkill skill) {
+        if (PlayerManager.eggs < skill.price || CheckSkillFull(skill)) return;
+        SoundManager.Instance.PlaySF(SoundManager.SF.Buy);
+        PlayerManager.eggs -= skill.price;
+        if (skill == FirstSkill) {
+            firstSkillNumber += 1;
+        }
+        else if (skill == SecondSkill) {
+            secondSkillNumber += 1;
+        }
+    }
+
+    public bool CheckSkillFull(BaseSkill skill) {
+        if (skill == FirstSkill) {
+            return firstSkillNumber >= skill.maxNumber;
+        }
+        if (skill == SecondSkill) {
+            return secondSkillNumber >= skill.maxNumber;
+        }
+        throw new Exception("Can not check skill is full or not");
+    }
+
+    /*
+    Coroutines
+    */
     IEnumerator DrawSkillTrajectoryUntilHolding() {
         while (!Gamepad.isHolding && CurrentSkill != null) {
             Gamepad.BulletTrajectory.DrawStraight(CurrentSkill.transform.position, GetDirection(), radius: 8f);
@@ -159,7 +214,7 @@ public class PlayerSkill : MonoBehaviour {
 
         if (CurrentGun.currentBullets <= 0) {
             if (!GunAudio.isPlaying) {
-                GunAudio.PlayOneShot(CurrentGun.ReloadSound);
+                GunAudio.PlayOneShot(Manager.OutOfAmmo);
             }
             yield break;
         }
@@ -172,12 +227,11 @@ public class PlayerSkill : MonoBehaviour {
             yield return StartCoroutine(Fire());
         }
         else {
-            while (Gamepad.isHolding) {
+            while (Gamepad.isHolding && CurrentGun.currentBullets > 0) {
                 yield return StartCoroutine(Fire());
             }
         }
         isBursting = false;
-        yield return null;
     }
 
     IEnumerator Fire() {
@@ -203,6 +257,7 @@ public class PlayerSkill : MonoBehaviour {
         Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
         if (CurrentGun.currentBullets <= 0) {
             ReloadGun();
+            yield break;
         }
         if (CurrentGun.burstDelay >= 0.5f) {
             StartCoroutine(Gamepad.Countdown(Gamepad.ShotCountdown, CurrentGun.burstDelay));
@@ -210,10 +265,10 @@ public class PlayerSkill : MonoBehaviour {
         yield return new WaitForSeconds(CurrentGun.burstDelay);
     }
 
-    void EquipGun(GunStats gun) {
+    void EquipGun(GunStats gun, bool playSound = true) {
         CurrentGun = gun;
 
-        if (CurrentGun.EquipSound != null) {
+        if (CurrentGun.EquipSound && playSound) {
             GunAudio.PlayOneShot(CurrentGun.EquipSound);
         }
 
@@ -277,21 +332,23 @@ public class PlayerSkill : MonoBehaviour {
         GunTransform.localScale = new Vector3(scaleX, scaleY, 1f);
     }
 
-    bool CheckSkill(GameObject Skill) {
+    bool CheckSkill(BaseSkill Skill) {
         if (Skill == null) {
             return true;
         }
 
+        if (Skill == FirstSkill && firstSkillNumber <= 0) return true;
+        if (Skill == SecondSkill && secondSkillNumber <= 0) return true;
+
         if (Gamepad.isHolding) Gamepad.isHolding = false;
 
-        if (CurrentSkill == null || CurrentSkill.OriginalPrefab != Skill) {
+        if (CurrentSkill == null || CurrentSkill.id != Skill.id) {
             GunTransform.gameObject.SetActive(false);
             if (CurrentSkill != null) {
                 Destroy(CurrentSkill.gameObject);
             }
-            CurrentSkill = Instantiate(Skill, GetSkillSpawnPos(isLocal: false), Quaternion.identity).GetComponent<BaseSkill>();
+            CurrentSkill = Instantiate(Skill.gameObject, GetSkillSpawnPos(isLocal: false), Quaternion.identity).GetComponent<BaseSkill>();
             CurrentSkill.Creator = PlayerManager;
-            CurrentSkill.OriginalPrefab = Skill;
             if (!CurrentSkill.canReady) {
                 PlaySkill();
                 return true;
@@ -311,8 +368,21 @@ public class PlayerSkill : MonoBehaviour {
     }
 
     void PlaySkill() {
+        if (CurrentSkill.id == FirstSkill.id) {
+            firstSkillNumber -= 1;
+        }
+        else if (CurrentSkill.id == SecondSkill.id) {
+            secondSkillNumber -= 1;
+        }
         CurrentSkill.Play(GetDirection());
         BackToGunFromSkill(false);
+        PlayerShopping shopping = Manager.GetComponent<PlayerShopping>();
+        foreach (var dot in shopping.FirstSkillDots) {
+            dot.UpdateActiveDots(firstSkillNumber);
+        }
+        foreach (var dot in shopping.SecondSkillDots) {
+            dot.UpdateActiveDots(secondSkillNumber);
+        }
     }
 
     Vector2 GetDirection() {

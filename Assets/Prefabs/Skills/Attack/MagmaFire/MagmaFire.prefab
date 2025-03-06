@@ -5042,9 +5042,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729b6115e6b8c47f0b0e6b1e9c885749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: magma_fire
   speed: 0.6
   SkillSprite: {fileID: 3883404504879730988, guid: a970af6004af248c8b4c65a7ff93e3ac, type: 3}
   canReady: 1
+  price: 200
+  maxNumber: 3
   lifeDuration: 1
   fadeDuration: 0
   effectDuration: 1
@@ -5052,7 +5055,6 @@ MonoBehaviour:
   ReadySound: {fileID: 0}
   PlaySound: {fileID: 0}
   Creator: {fileID: 0}
-  OriginalPrefab: {fileID: 0}
   effectedPlayers: []
   Ball: {fileID: 1862581295424902880}
   FireWall: {fileID: 2179587333290543020}

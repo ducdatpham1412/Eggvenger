@@ -74,9 +74,12 @@
     <Compile Include="Assets/Scripts/Utils/ButtonSound.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/PlayerVFX.cs" />
     <Compile Include="Assets/Scripts/Utils/InputSecurity.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Shop/PlayerShopping.cs" />
     <Compile Include="Assets/Scripts/Extensions/GameObjectExtensions.cs" />
     <Compile Include="Assets/Scripts/Profile/EditProfileLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Shop/GunShop.cs" />
     <Compile Include="Assets/Scripts/Welcome/CreateAccountLogic.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Shop/SkillShop.cs" />
     <Compile Include="Assets/Prefabs/Skills/Attack/MagmaFire/MagmaFire.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/TakeDamage.cs" />
     <Compile Include="Assets/Scripts/Utils/ButtonManager.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Assets/Prefabs/Skills/Attack/BindingRoot/BindingRoot.cs" />
     <Compile Include="Assets/Scripts/Game/TestNetwork/TestManager.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EggManager.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/DotsIndicator.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/Player/BulletPool.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/MoveManager.cs" />
     <Compile Include="Assets/Scripts/Classes/ScriptableObjects/GunStats.cs" />

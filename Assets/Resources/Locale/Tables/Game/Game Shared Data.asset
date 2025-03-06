@@ -115,6 +115,26 @@ MonoBehaviour:
     m_Key: eggCollected
     m_Metadata:
       m_Items: []
+  - m_Id: 23455988513234944
+    m_Key: egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456037762752512
+    m_Key: gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23456101042216960
+    m_Key: skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461098039533568
+    m_Key: buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23461103206916096
+    m_Key: sell
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

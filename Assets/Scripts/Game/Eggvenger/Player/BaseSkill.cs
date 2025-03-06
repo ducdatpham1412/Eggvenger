@@ -3,9 +3,12 @@ using UnityEngine;
 
 public abstract class BaseSkill : MonoBehaviour {
     [Header("Properties")]
+    public string id;
     [SerializeField] protected float speed = 0.6f;
     public Sprite SkillSprite;
     public bool canReady = true;
+    public int price;
+    public int maxNumber; // max number of this skill player can own
 
     [Header("Durations")]
     [SerializeField] protected float lifeDuration = 1f;
@@ -21,7 +24,6 @@ public abstract class BaseSkill : MonoBehaviour {
 
     [Header("Others")]
     public PlayerManager Creator;
-    public GameObject OriginalPrefab;
 
     // Others
     protected Rigidbody2D rb;

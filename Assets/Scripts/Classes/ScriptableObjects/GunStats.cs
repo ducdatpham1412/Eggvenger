@@ -33,7 +33,7 @@ public class GunStats : ScriptableObject {
 
     [Header("Prices")]
     public int price;
-    public int salePrice;
+    public int sellPrice;
 
     [Header("Stats")]
     public int burstAmount = 1;

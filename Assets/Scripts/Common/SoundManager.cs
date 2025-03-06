@@ -3,57 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager> {
-    public enum MusicSource {
-        background,
-        lifeWandering,
-        mathBeat,
-    }
-    protected SoundManager() { }
-    Dictionary<MusicSource, AudioClip> Sources = new Dictionary<MusicSource, AudioClip>();
+    [SerializeField] Dictionary<MusicSource, AudioClip> MusicSources = new Dictionary<MusicSource, AudioClip>();
+    [SerializeField] Dictionary<SF, AudioClip> SFSources = new Dictionary<SF, AudioClip>();
     public AudioSource Music;
-    AudioSource KnockWood;
-    AudioSource Whoosh;
-    AudioSource Stretch;
-    AudioSource Bonk;
-    AudioSource Splat;
-    AudioSource Nope;
-    AudioSource HaHa;
-    AudioSource NiceShot;
-    AudioSource Correct;
-    AudioSource Fight;
-    AudioSource NewTing;
+    AudioSource SFAudio;
 
     public event Action<bool> OnMusicPlaying;
 
     void Awake() {
         Music = gameObject.AddComponent<AudioSource>();
-        KnockWood = gameObject.AddComponent<AudioSource>();
-        Whoosh = gameObject.AddComponent<AudioSource>();
-        Stretch = gameObject.AddComponent<AudioSource>();
-        Bonk = gameObject.AddComponent<AudioSource>();
-        Splat = gameObject.AddComponent<AudioSource>();
-        Nope = gameObject.AddComponent<AudioSource>();
-        HaHa = gameObject.AddComponent<AudioSource>();
-        NiceShot = gameObject.AddComponent<AudioSource>();
-        Correct = gameObject.AddComponent<AudioSource>();
-        Fight = gameObject.AddComponent<AudioSource>();
-        NewTing = gameObject.AddComponent<AudioSource>();
+        SFAudio = gameObject.AddComponent<AudioSource>();
 
-        Sources[MusicSource.background] = LoadMusic("mc_newdayagain");
-        Sources[MusicSource.lifeWandering] = LoadMusic("mc_life_wandering");
-        Sources[MusicSource.mathBeat] = LoadMusic("mc_math_beat");
+        MusicSources[MusicSource.background] = LoadMusic("mc_newdayagain");
+        MusicSources[MusicSource.lifeWandering] = LoadMusic("mc_life_wandering");
+        MusicSources[MusicSource.mathBeat] = LoadMusic("mc_math_beat");
 
-        KnockWood.clip = LoadSF("sf_knockwood");
-        Whoosh.clip = LoadSF("sf_whoosh");
-        Stretch.clip = LoadSF("sf_stretch");
-        Bonk.clip = LoadSF("sf_bonk");
-        Splat.clip = LoadSF("sf_splat");
-        Nope.clip = LoadSF("sf_nope");
-        HaHa.clip = LoadSF("sf_haha");
-        NiceShot.clip = LoadSF("sf_nice_shot");
-        Correct.clip = LoadSF("sf_correct");
-        Fight.clip = LoadSF("sf_fight");
-        NewTing.clip = LoadSF("sf_new_ting");
+        SFSources[SF.KnockWood] = LoadSF("sf_knockwood");
+        SFSources[SF.Whoosh] = LoadSF("sf_whoosh");
+        SFSources[SF.Stretch] = LoadSF("sf_stretch");
+        SFSources[SF.Bonk] = LoadSF("sf_bonk");
+        SFSources[SF.Splat] = LoadSF("sf_splat");
+        SFSources[SF.Nope] = LoadSF("sf_nope");
+        SFSources[SF.Haha] = LoadSF("sf_haha");
+        SFSources[SF.NiceShot] = LoadSF("sf_nice_shot");
+        SFSources[SF.Correct] = LoadSF("sf_correct");
+        SFSources[SF.Fight] = LoadSF("sf_fight");
+        SFSources[SF.NewTing] = LoadSF("sf_new_ting");
+        SFSources[SF.SwitchItem] = LoadSF("sf_switch_item");
+        SFSources[SF.Buy] = LoadSF("sf_buy");
+        SFSources[SF.Sell] = LoadSF("sf_sell");
 
         AudioSource[] sources = GetComponents<AudioSource>();
         for (int i = 0; i < sources.Length; i++) {
@@ -90,59 +68,18 @@ public class SoundManager : Singleton<SoundManager> {
     }
 
     public void PlaySF(SF sf) {
-        if (sf == SF.KnockWood) {
-            KnockWood.Play();
-            return;
-        }
-        if (sf == SF.Whoosh) {
-            Whoosh.Play();
-            return;
-        }
-        if (sf == SF.Stretch) {
-            Stretch.Play();
-            return;
-        }
-        if (sf == SF.Bonk) {
-            Bonk.Play();
-            return;
-        }
-        if (sf == SF.Splat) {
-            Splat.Play();
-            return;
-        }
-        if (sf == SF.Nope) {
-            Nope.Play();
-            return;
-        }
-        if (sf == SF.Haha) {
-            HaHa.Play();
-            return;
-        }
-        if (sf == SF.NiceShot) {
-            NiceShot.Play();
-            return;
-        }
-        if (sf == SF.Correct) {
-            Correct.Play();
-            return;
-        }
-        if (sf == SF.Fight) {
-            Fight.Play();
-            return;
-        }
-        if (sf == SF.NewTing) {
-            NewTing.Play();
-            return;
+        if (SFSources.ContainsKey(sf)) {
+            SFAudio.PlayOneShot(SFSources[sf]);
         }
     }
 
 
     public void PlayMusic(MusicSource source) {
-        if (Sources.ContainsKey(source)) {
+        if (MusicSources.ContainsKey(source)) {
             if (Music.isPlaying) {
                 Music.Pause();
             }
-            Music.clip = Sources[source];
+            Music.clip = MusicSources[source];
             Music.Play();
             OnMusicPlaying?.Invoke(true);
         }
@@ -162,5 +99,13 @@ public class SoundManager : Singleton<SoundManager> {
         Fight,
         None,
         NewTing,
+        SwitchItem,
+        Buy,
+        Sell,
+    }
+    public enum MusicSource {
+        background,
+        lifeWandering,
+        mathBeat,
     }
 }
