@@ -40,17 +40,18 @@ public class WaterCycle : BaseSkill {
             StartCoroutine(WaitForStopAndExpand());
         }
 
-        string layerName = GetLayerName(collider.gameObject);
-
-        if (layerName == Helper.Layer.Environment.ToString()) {
-            ExpandSoon();
-        }
-        else if (layerName == Helper.Layer.Player.ToString()) {
+        if (HitTargetLayer(collider.gameObject.layer)) {
             TakeDamage take = collider.gameObject.GetComponent<TakeDamage>();
-            if (take != null && Creator.team != take.player.team) {
+            if (take != null) {
                 ExpandSoon();
                 BindPlayer(take.player);
             }
+            return;
+        }
+
+        string layerName = GetLayerName(collider.gameObject);
+        if (layerName == Helper.Layer.Environment.ToString()) {
+            ExpandSoon();
         }
     }
 

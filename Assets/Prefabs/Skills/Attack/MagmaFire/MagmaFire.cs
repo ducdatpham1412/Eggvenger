@@ -40,25 +40,22 @@ public class MagmaFire : BaseSkill {
             StartCoroutine(WaitForStopAndBurn());
         }
 
-        string layerName = GetLayerName(collider.gameObject);
-
-        if (layerName == Helper.Layer.Environment.ToString()) {
-            BurnSoon();
-        }
-        else if (layerName == Helper.Layer.Player.ToString()) {
+        if (HitTargetLayer(collider.gameObject.layer)) {
             TakeDamage take = collider.gameObject.GetComponent<TakeDamage>();
-            if (take != null && Creator.team != take.player.team) {
+            if (take != null) {
                 BurnSoon();
                 FireWall.GetComponent<MagmaParticles>().BurnPlayer(take.player);
             }
+            return;
+        }
+
+        string layerName = GetLayerName(collider.gameObject);
+        if (layerName == Helper.Layer.Environment.ToString()) {
+            BurnSoon();
         }
     }
 
     public float GetEffectDuration() {
         return effectDuration;
-    }
-
-    public PlayerManager GetCreator() {
-        return Creator;
     }
 }

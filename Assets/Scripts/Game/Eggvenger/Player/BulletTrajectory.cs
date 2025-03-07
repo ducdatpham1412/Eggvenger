@@ -10,7 +10,7 @@ public class BulletTrajectory : MonoBehaviour {
 
     void Start() {
         lineRenderer = GetComponent<LineRenderer>();
-        layerMask = LayerMask.GetMask(Helper.Layer.Player.ToString(), Helper.Layer.Environment.ToString());
+        layerMask = LayerMask.GetMask(Helper.Layer.PlayerBlue.ToString(), Helper.Layer.PlayerRed.ToString(), Helper.Layer.Environment.ToString());
         transform.localPosition = Owner.GetComponent<PlayerSkill>().GetSkillSpawnPos();
     }
 

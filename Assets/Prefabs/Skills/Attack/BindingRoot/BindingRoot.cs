@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BindingRoot : BaseSkill {
     float radius = 5f;
-    int playerLayer;
 
     float expandDuration = 2f;
 
@@ -20,7 +19,6 @@ public class BindingRoot : BaseSkill {
 
     protected override void Awake() {
         originColor = BindingCycle.GetComponent<SpriteRenderer>().color;
-        playerLayer = LayerMask.GetMask(Helper.Layer.Player.ToString());
         base.Awake();
     }
 
@@ -53,19 +51,18 @@ public class BindingRoot : BaseSkill {
             StartCoroutine(WaitForStopAndExpand());
         }
 
-        string layerName = GetLayerName(collider.gameObject);
-
-        if (layerName == Helper.Layer.Environment.ToString()) {
-            ExpandSoon();
-        }
-        else if (layerName == Helper.Layer.Player.ToString()) {
+        if (HitTargetLayer(collider.gameObject.layer)) {
             TakeDamage take = collider.gameObject.GetComponent<TakeDamage>();
             if (take != null) {
-                if (Creator.team != take.player.team) {
-                    ExpandSoon();
-                    BindPlayer(take.player);
-                }
+                ExpandSoon();
+                BindPlayer(take.player);
             }
+            return;
+        }
+
+        string layerName = GetLayerName(collider.gameObject);
+        if (layerName == Helper.Layer.Environment.ToString()) {
+            ExpandSoon();
         }
     }
 
@@ -118,10 +115,10 @@ public class BindingRoot : BaseSkill {
     }
 
     void DetectEnemies(float checkRadius) {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, checkRadius, playerLayer);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, checkRadius, targetLayers);
         foreach (Collider2D e in enemies) {
             TakeDamage take = e.gameObject.GetComponent<TakeDamage>();
-            if (take != null && take.player.team != Creator.team) {
+            if (take != null) {
                 BindPlayer(take.player);
             }
         }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class BulletPool : MonoBehaviour {
@@ -25,7 +24,7 @@ public class BulletPool : MonoBehaviour {
         Bullet bullet = newBullet.GetComponent<Bullet>();
         bullet.Pool = this;
         bullet.stats = CurrentStats.bulletStats;
-        bullet.Owner = Owner;
+        bullet.SetOwner(Owner);
         return bullet;
     }
 

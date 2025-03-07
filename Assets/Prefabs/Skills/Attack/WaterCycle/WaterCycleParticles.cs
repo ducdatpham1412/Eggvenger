@@ -8,7 +8,6 @@ public class WaterCycleParticles : MonoBehaviour {
     ParticleSystem Ps;
     List<ParticleSystem.Particle> enterParticles = new List<ParticleSystem.Particle>();
     float radius = 0f;
-    int playerLayer;
 
     void Awake() {
         Ps = GetComponent<ParticleSystem>();
@@ -17,17 +16,16 @@ public class WaterCycleParticles : MonoBehaviour {
             Ps.trigger.AddCollider(p.GetComponent<Collider2D>());
         }
         radius = Ps.main.startSize.constant / 2;
-        playerLayer = LayerMask.GetMask(Helper.Layer.Player.ToString());
     }
 
     void OnParticleTrigger() {
         Ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enterParticles);
         foreach (ParticleSystem.Particle p in enterParticles) {
             Vector3 worldPos = Ps.transform.TransformPoint(p.position);
-            Collider2D[] hits = Physics2D.OverlapCircleAll(worldPos, radius, playerLayer);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(worldPos, radius, Cycle.targetLayers);
             foreach (Collider2D h in hits) {
                 TakeDamage take = h.gameObject.GetComponent<TakeDamage>();
-                if (take != null && take.player != null && take.player.team != Cycle.Creator.team) {
+                if (take != null && Cycle.HitTargetLayer(take.player.gameObject.layer)) {
                     SlowAndHitPlayer(take.player);
                 }
             }

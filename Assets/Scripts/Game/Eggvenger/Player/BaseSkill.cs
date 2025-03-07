@@ -4,6 +4,8 @@ using UnityEngine;
 public abstract class BaseSkill : MonoBehaviour {
     [Header("Properties")]
     public string id;
+    public int targetLayers;
+
     [SerializeField] protected float speed = 0.6f;
     public Sprite SkillSprite;
     public bool canReady = true;
@@ -23,7 +25,7 @@ public abstract class BaseSkill : MonoBehaviour {
     [SerializeField] AudioClip PlaySound;
 
     [Header("Others")]
-    public PlayerManager Creator;
+    protected PlayerManager Creator;
 
     // Others
     protected Rigidbody2D rb;
@@ -63,7 +65,27 @@ public abstract class BaseSkill : MonoBehaviour {
         return LayerMask.LayerToName(gameObject.layer);
     }
 
+    public bool HitTargetLayer(int hitLayer) {
+        return (targetLayers & (1 << hitLayer)) != 0;
+    }
+
     protected WaitUntil WaitToStop(float magnitudeThreshold = 0.4f) {
         return new WaitUntil(() => rb.linearVelocity.magnitude <= magnitudeThreshold);
+    }
+
+    public virtual void SetCreator(PlayerManager manager, bool targetAll = false) {
+        Creator = manager;
+
+        if (targetAll) {
+            targetLayers = LayerMask.GetMask(Helper.Layer.PlayerBlue.ToString(), Helper.Layer.PlayerRed.ToString());
+        }
+        else {
+            if (GetLayerName(Creator.gameObject) == Helper.Layer.PlayerBlue.ToString()) {
+                targetLayers = LayerMask.GetMask(Helper.Layer.PlayerRed.ToString());
+            }
+            else {
+                targetLayers = LayerMask.GetMask(Helper.Layer.PlayerBlue.ToString());
+            }
+        }
     }
 }
