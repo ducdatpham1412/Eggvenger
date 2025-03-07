@@ -15,10 +15,6 @@ public class UnrestLand : BaseSkill {
         Invoke(nameof(Destroy), lifeDuration);
     }
 
-    bool IsPlayer(GameObject col) {
-        return LayerMask.LayerToName(col.layer) == Helper.Layer.Player.ToString();
-    }
-
     void Destroy() {
         StartCoroutine(FadeOut());
     }
@@ -43,7 +39,7 @@ public class UnrestLand : BaseSkill {
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        if (IsPlayer(collider.gameObject)) {
+        if (HitTargetLayer(collider.gameObject.layer)) {
             PlayerMovement movement = collider.gameObject.GetComponent<PlayerMovement>();
             if (movement) {
                 movement.AddSpeedRatio(effectSpeed, null);
@@ -52,7 +48,7 @@ public class UnrestLand : BaseSkill {
     }
 
     void OnTriggerExit2D(Collider2D collider) {
-        if (IsPlayer(collider.gameObject)) {
+        if (HitTargetLayer(collider.gameObject.layer)) {
             PlayerMovement movement = collider.gameObject.GetComponent<PlayerMovement>();
             if (movement) {
                 movement.RemoveSpeedRatio(effectSpeed);

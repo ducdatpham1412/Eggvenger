@@ -131,10 +131,9 @@ public static class Helper {
     }
 
     public enum Layer {
-        Ground,
-        Player,
         Environment,
-        VFX,
+        PlayerBlue,
+        PlayerRed,
     }
 
     public enum Tag {

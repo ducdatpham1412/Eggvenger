@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2241075948485125561}
   - component: {fileID: 3231327441279552451}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,6 +349,7 @@ MonoBehaviour:
   team: 1
   heal: 1000
   shield: 0
+  eggs: 0
   IsOwner: 1
 --- !u!114 &5571289909756873046
 MonoBehaviour:
@@ -389,9 +390,12 @@ MonoBehaviour:
   SecondSkill: {fileID: 0}
   Ulti: {fileID: 0}
   direction: {x: 0, y: 0}
+  firstSkillNumber: 0
+  secondSkillNumber: 0
   CurrentGun: {fileID: 0}
   CurrentSkill: {fileID: 0}
   PlayerMovement: {fileID: 0}
+  PlayerManager: {fileID: 0}
   Manager: {fileID: 0}
 --- !u!114 &-256571143238041975
 MonoBehaviour:

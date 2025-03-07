@@ -348,7 +348,7 @@ public class PlayerSkill : MonoBehaviour {
                 Destroy(CurrentSkill.gameObject);
             }
             CurrentSkill = Instantiate(Skill.gameObject, GetSkillSpawnPos(isLocal: false), Quaternion.identity).GetComponent<BaseSkill>();
-            CurrentSkill.Creator = PlayerManager;
+            CurrentSkill.SetCreator(PlayerManager);
             if (!CurrentSkill.canReady) {
                 PlaySkill();
                 return true;

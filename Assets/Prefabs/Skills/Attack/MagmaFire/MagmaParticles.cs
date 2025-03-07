@@ -8,7 +8,7 @@ public class MagmaParticles : MonoBehaviour {
 
     void OnParticleCollision(GameObject other) {
         TakeDamage take = other.gameObject.GetComponent<TakeDamage>();
-        if (take.player != null && take.player.team != Fire.Creator.team && !Fire.effectedPlayers.Contains(take.player)) {
+        if (take != null && Fire.HitTargetLayer(take.player.gameObject.layer) && !Fire.effectedPlayers.Contains(take.player)) {
             BurnPlayer(take.player);
         }
     }

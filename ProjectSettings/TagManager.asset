@@ -16,12 +16,12 @@ TagManager:
   - Environment
   - Water
   - UI
-  - Player
+  - PlayerBlue
+  - PlayerRed
   - VFX
   - Bullet
-  - 
-  - 
-  - 
+  - Mask
+  - Black
   - 
   - 
   - 

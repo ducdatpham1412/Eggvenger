@@ -103,7 +103,7 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -116,10 +116,10 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
@@ -169,6 +169,4 @@ MonoBehaviour:
   stats:
     damage: 0
     speed: 0
-    fireSpeed: 0
   Pool: {fileID: 0}
-  Owner: {fileID: 0}
