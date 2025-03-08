@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class BaseSkill : MonoBehaviour {
     [Header("Properties")]
     public string id;
-    public int targetLayers;
+    public LayerMask targetLayers;
 
     [SerializeField] protected float speed = 0.6f;
     public Sprite SkillSprite;
@@ -32,10 +32,12 @@ public abstract class BaseSkill : MonoBehaviour {
     protected bool collided = false;
     protected bool played = false;
     PlayerSkill playerSkill;
+    LayerMask EnvMask;
     [HideInInspector] public List<PlayerManager> effectedPlayers = new List<PlayerManager>();
 
     protected virtual void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        EnvMask = LayerMask.GetMask(Helper.Layer.Environment.ToString());
     }
 
     public virtual void Ready(Vector3 direction) {
@@ -65,8 +67,12 @@ public abstract class BaseSkill : MonoBehaviour {
         return LayerMask.LayerToName(gameObject.layer);
     }
 
-    public bool HitTargetLayer(int hitLayer) {
+    public bool HitTargetLayer(LayerMask hitLayer) {
         return (targetLayers & (1 << hitLayer)) != 0;
+    }
+
+    protected bool HitObstacle(GameObject gameObject) {
+        return (EnvMask & (1 << gameObject.layer)) != 0 && gameObject.tag != Helper.Tag.Grass.ToString();
     }
 
     protected WaitUntil WaitToStop(float magnitudeThreshold = 0.4f) {

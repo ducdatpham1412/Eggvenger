@@ -9,7 +9,7 @@ public class BulletPool : MonoBehaviour {
     GunStats CurrentStats;
     int poolSize = 20;
 
-    void Start() {
+    void Awake() {
         GameObject newObject = new GameObject($"BulletsPool_{Owner.id}");
         newObject.transform.position = Vector3.zero;
         Parent = newObject.transform;
@@ -29,6 +29,9 @@ public class BulletPool : MonoBehaviour {
     }
 
     public void FillPool(GunStats stats) {
+        foreach (var b in bulletsPool) {
+            Destroy(b.gameObject);
+        }
         bulletsPool.Clear();
         CurrentStats = stats;
         for (int i = 0; i < poolSize; i++) {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3474018189945570934}
   - component: {fileID: 7917923185126456007}
   - component: {fileID: 2515244371104324099}
+  - component: {fileID: 8898452874003031171}
   m_Layer: 3
   m_Name: Grass
   m_TagString: Grass
@@ -132,5 +133,58 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.6, y: 1}
+  m_Size: {x: 2.05, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8898452874003031171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6255555811249024931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 0000000069b3bb02436c13726bee7b057925bc6c93941a9d6bad168fd572cfb75bb15c38
+  m_ShapePath:
+  - {x: -2.90625, y: 0, z: 0}
+  - {x: -2.90625, y: 3.4375, z: 0}
+  - {x: 2.90625, y: 3.4375, z: 0}
+  - {x: 2.90625, y: 0, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 2515244371104324099}
+  m_ShadowShape2DProvider:
+    rid: 5064840075549605889
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.1499939, y: 0.519989, z: 0}
+      m_Extent: {x: 0.9249878, y: 0.3999939, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.1
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.1
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 2515244371104324099}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5064840075549605889
+      type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 

@@ -2,6 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
+    [Header("GameObjects")]
+    public EggvengerManager Manager;
+    public PlayerMovement Movement;
+    public PlayerSkill Skill;
+    public PlayerVFX VFX;
+    public SpriteRenderer PlayerRenderer;
+    public SpriteRenderer GunRenderer;
+    public AudioSource PlayerAudio;
+
+
+    [Header("Stats")]
     public float originalSpeed = 6.5f;
     public float buffSpeed = 0f;
     public List<float> speedRatios = new List<float>();

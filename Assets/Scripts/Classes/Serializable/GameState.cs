@@ -185,14 +185,15 @@ public class MatchState : INetworkSerializable, IEquatable<MatchState> {
 
 [Serializable]
 public class GameState {
+    public Status status;
+    public FindingMatchState data;
+    public MatchState matchState;
+    public int my_team;
     public enum Status {
         active,
         findingMatch,
         inGame,
     }
-    public Status status;
-    public FindingMatchState data;
-    public MatchState matchState;
 }
 
 

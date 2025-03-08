@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5907058562664189472}
   - component: {fileID: 6751894508809714001}
   - component: {fileID: 4298876582501149803}
+  - component: {fileID: -646255211104611285}
   m_Layer: 3
   m_Name: Root
   m_TagString: Obstacle
@@ -319,3 +320,56 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 3002337947882480237}
+--- !u!114 &-646255211104611285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3002337947882480237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 0000000069b3bb02436c13726bee7b057925bc6c93941a9d6bad168fd572cfb75bb15c38
+  m_ShapePath:
+  - {x: -2.53125, y: 0, z: 0}
+  - {x: -2.53125, y: 2.96875, z: 0}
+  - {x: 2.53125, y: 2.96875, z: 0}
+  - {x: 2.53125, y: 0, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 4298876582501149803}
+  m_ShadowShape2DProvider:
+    rid: 5064840075549605895
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.050056458, y: 0.5811844, z: 0}
+      m_Extent: {x: 2.3811874, y: 0.4750595, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.1
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.1
+  m_CastingOption: 2
+  m_PreviousTrimEdge: 0.1
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 5907058562664189472}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5064840075549605895
+      type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 

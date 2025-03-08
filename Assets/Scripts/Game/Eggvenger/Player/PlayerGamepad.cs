@@ -59,7 +59,7 @@ public class PlayerGamepad : MonoBehaviour {
         float elapsedTime = 0f;
         Vector2 curDir = Skill.direction;
         while (elapsedTime < duration) {
-            Vector2 targetDir = Skill.PlayerMovement.moveDirection == Vector2.zero ? Skill.PlayerMovement.lastDirection : Skill.PlayerMovement.moveDirection;
+            Vector2 targetDir = Skill.PlayerManager.Movement.moveDirection == Vector2.zero ? Skill.PlayerManager.Movement.lastDirection : Skill.PlayerManager.Movement.moveDirection;
 
             Skill.direction = Vector2.Lerp(curDir, targetDir, elapsedTime / duration).normalized;
 
@@ -121,17 +121,17 @@ public class PlayerGamepad : MonoBehaviour {
         AddBulletUIEvent(ShotOutside, EventTriggerType.PointerDown, ShotOutsideDown);
         AddBulletUIEvent(ShotOutside, EventTriggerType.PointerUp, ShotOutsideUp);
 
-        Sprite First = Skill.FirstSkill.GetComponent<BaseSkill>().SkillSprite;
+        BaseSkill First = Skill.FirstSkill.GetComponent<BaseSkill>();
         if (First != null) {
-            FirstSkill.GetComponent<Image>().sprite = First;
+            FirstSkill.GetComponent<Image>().sprite = First.SkillSprite;
         }
         else {
             FirstSkill.gameObject.SetActive(false);
         }
 
-        Sprite Second = Skill.SecondSkill.GetComponent<BaseSkill>().SkillSprite;
+        BaseSkill Second = Skill.SecondSkill.GetComponent<BaseSkill>();
         if (Second != null) {
-            SecondSkill.GetComponent<Image>().sprite = Second;
+            SecondSkill.GetComponent<Image>().sprite = Second.SkillSprite;
         }
         else {
             SecondSkill.gameObject.SetActive(false);

@@ -60,8 +60,7 @@ public class BindingRoot : BaseSkill {
             return;
         }
 
-        string layerName = GetLayerName(collider.gameObject);
-        if (layerName == Helper.Layer.Environment.ToString()) {
+        if (HitObstacle(collider.gameObject)) {
             ExpandSoon();
         }
     }
