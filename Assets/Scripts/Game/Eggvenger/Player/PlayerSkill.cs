@@ -24,29 +24,26 @@ public class PlayerSkill : MonoBehaviour {
 
     [Header("Runtime Value")]
     public BaseSkill CurrentSkill;
-    public PlayerMovement PlayerMovement;
     public PlayerManager PlayerManager;
-    public EggvengerManager Manager;
 
     bool isBursting = false;
     SpriteRenderer GunRenderer;
     AudioSource GunAudio;
-    AudioSource PlayerAudio;
     PlayerGamepad Gamepad;
+    PlayerShopping Shopping;
     Vector2 baseVector = Vector2.right;
     Vector2 lastDirection;
     Coroutine reloadCoroutine;
 
     void Start() {
         PlayerManager = GetComponent<PlayerManager>();
-        PlayerMovement = GetComponent<PlayerMovement>();
         GunRenderer = GunTransform.GetComponent<SpriteRenderer>();
         GunAudio = GunHead.GetComponent<AudioSource>();
-        PlayerAudio = GetComponent<AudioSource>();
         if (PlayerManager.IsOwner) {
-            Gamepad = Manager.GetComponent<PlayerGamepad>();
+            Gamepad = PlayerManager.Manager.GetComponent<PlayerGamepad>();
             Gamepad.SetPlayerSkill(this);
-            Manager.GetComponent<PlayerShopping>().SetPlayerSkill(this);
+            Shopping = PlayerManager.Manager.GetComponent<PlayerShopping>();
+            Shopping.SetPlayerSkill(this);
         }
         ResetGuns();
     }
@@ -214,7 +211,7 @@ public class PlayerSkill : MonoBehaviour {
 
         if (CurrentGun.currentBullets <= 0) {
             if (!GunAudio.isPlaying) {
-                GunAudio.PlayOneShot(Manager.OutOfAmmo);
+                GunAudio.PlayOneShot(PlayerManager.Manager.OutOfAmmo);
             }
             yield break;
         }
@@ -376,17 +373,16 @@ public class PlayerSkill : MonoBehaviour {
         }
         CurrentSkill.Play(GetDirection());
         BackToGunFromSkill(false);
-        PlayerShopping shopping = Manager.GetComponent<PlayerShopping>();
-        foreach (var dot in shopping.FirstSkillDots) {
+        foreach (var dot in Shopping.FirstSkillDots) {
             dot.UpdateActiveDots(firstSkillNumber);
         }
-        foreach (var dot in shopping.SecondSkillDots) {
+        foreach (var dot in Shopping.SecondSkillDots) {
             dot.UpdateActiveDots(secondSkillNumber);
         }
     }
 
     Vector2 GetDirection() {
-        return direction == Vector2.zero ? (PlayerMovement.moveDirection == Vector2.zero ? PlayerMovement.lastDirection : PlayerMovement.moveDirection) : direction;
+        return direction == Vector2.zero ? (PlayerManager.Movement.moveDirection == Vector2.zero ? PlayerManager.Movement.lastDirection : PlayerManager.Movement.moveDirection) : direction;
     }
 
     void CheckToStopReload() {

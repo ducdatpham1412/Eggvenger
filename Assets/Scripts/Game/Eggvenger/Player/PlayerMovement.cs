@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour {
 
     public Vector2 moveDirection;
     public Vector2 lastDirection;
-    public EggvengerManager Manager;
     PlayerGamepad Gamepad;
 
     void Start() {
@@ -17,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
         PlayerManager = GetComponent<PlayerManager>();
         Skill = GetComponent<PlayerSkill>();
         if (PlayerManager.IsOwner) {
-            Gamepad = Manager.GetComponent<PlayerGamepad>();
+            Gamepad = PlayerManager.Manager.GetComponent<PlayerGamepad>();
             Gamepad.SetPlayerMovement(this);
         }
     }

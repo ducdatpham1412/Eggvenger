@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ public class Configs {
     static void ReadEnvFile() {
         string basePath = Directory.GetCurrentDirectory();
         if (Application.isEditor) {
-            basePath = basePath.Split("/RandomRelax")[0] + "/RandomRelax";
+            basePath = basePath.Split("/Eggvenger")[0] + "/Eggvenger";
         }
 
         string filePath = Path.Combine(basePath, ".env");

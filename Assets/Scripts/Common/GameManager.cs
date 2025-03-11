@@ -14,7 +14,6 @@ public class GameManager : Singleton<GameManager> {
     Coroutine matchFoundSound;
 
 
-
     // AppState
     public AppState appState = new AppState {
         profile = new Profile(),
@@ -28,6 +27,7 @@ public class GameManager : Singleton<GameManager> {
     // GameState
     public GameState gameState = new GameState();
     public event Action<GameState> OnGameStateChanged;
+
 
     // Function
     void FitTheScreen() {

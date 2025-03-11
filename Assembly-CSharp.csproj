@@ -88,6 +88,7 @@
     <Compile Include="Assets/Scripts/Matchmaking/MatchMakingLogic.cs" />
     <Compile Include="Assets/Scripts/Welcome/WelcomeLogic.cs" />
     <Compile Include="Assets/Scripts/Game/Eggvenger/EggvengerManager.cs" />
+    <Compile Include="Assets/Scripts/Game/Eggvenger/Player/FOVControl.cs" />
     <Compile Include="Assets/Prefabs/Skills/Attack/UnrestLand/UnrestLand.cs" />
     <Compile Include="Assets/Scripts/Profile/ProfileLogic.cs" />
     <Compile Include="Assets/Scripts/Game/ThrowEgg/EntityManager.cs" />
