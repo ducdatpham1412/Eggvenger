@@ -55,7 +55,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: 0000000069b3bb02436c13726bee7b0593941a9d6bad168fd572cfb75bb15c38
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
+  m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
