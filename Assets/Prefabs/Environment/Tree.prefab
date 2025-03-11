@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2504555464873488083}
   - component: {fileID: 3719375560279750726}
   - component: {fileID: 7302436117460703600}
+  - component: {fileID: 2807958785772446514}
   m_Layer: 3
   m_Name: Tree
   m_TagString: Item
@@ -134,3 +135,56 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1875, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2807958785772446514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477549152217505478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 0000000069b3bb02436c13726bee7b0593941a9d6bad168fd572cfb75bb15c38
+  m_ShapePath:
+  - {x: -1.09375, y: 0, z: 0}
+  - {x: -1.09375, y: 3, z: 0}
+  - {x: 1.09375, y: 3, z: 0}
+  - {x: 1.09375, y: 0, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 7302436117460703600}
+  m_ShadowShape2DProvider:
+    rid: 5064840097247264856
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0, y: 0.5, z: 0}
+      m_Extent: {x: 0.9937439, y: 0.3999939, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.1
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.1
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.1
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 7302436117460703600}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5064840097247264856
+      type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 

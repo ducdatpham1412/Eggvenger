@@ -1,15 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerManager : MonoBehaviour {
     [Header("GameObjects")]
     public EggvengerManager Manager;
+    public Camera MainCamera;
     public PlayerMovement Movement;
     public PlayerSkill Skill;
     public PlayerVFX VFX;
+
+    [Header("Sprites")]
     public SpriteRenderer PlayerRenderer;
     public SpriteRenderer GunRenderer;
+
+    [Header("Audio")]
     public AudioSource PlayerAudio;
+
+    [Header("Lights")]
+    public Light2D FOVLight;
+    public Light2D AimingLight;
+    public Light2D BodyLight;
 
 
     [Header("Stats")]

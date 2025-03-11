@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour {
@@ -34,6 +35,7 @@ public class PlayerSkill : MonoBehaviour {
     Vector2 baseVector = Vector2.right;
     Vector2 lastDirection;
     Coroutine reloadCoroutine;
+    float originalCameraSize = 6f;
 
     void Start() {
         PlayerManager = GetComponent<PlayerManager>();
@@ -46,6 +48,7 @@ public class PlayerSkill : MonoBehaviour {
             Shopping.SetPlayerSkill(this);
         }
         ResetGuns();
+        originalCameraSize = GameHelper.world.maxY;
     }
 
     // TODO: Assign PlayerGamepad in OnNetworkSpawn
@@ -90,12 +93,39 @@ public class PlayerSkill : MonoBehaviour {
         if (!played) {
             CheckToStopReload();
         }
+
+        if (Gamepad) {
+            Gamepad.ResetAiming();
+        }
     }
 
     public Vector3 GetSkillSpawnPos(bool isLocal = true) {
         Vector3 size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
         if (isLocal) return new Vector3(0f, size.y * 1 / 4.5f, 0f);
         return new Vector3(transform.position.x, transform.position.y + size.y * 1 / 4.5f, 0f);
+    }
+
+    public void OpenCloseAiming(bool isAiming) {
+        Light2D Aiming = PlayerManager.AimingLight;
+        GunAudio.PlayOneShot(PlayerManager.Manager.OutOfAmmo);
+
+        if (isAiming) {
+            PlayerManager.FOVLight.enabled = false;
+            PlayerManager.BodyLight.gameObject.SetActive(true);
+
+            Aiming.gameObject.SetActive(true);
+            Aiming.pointLightInnerRadius = 0f;
+            Aiming.pointLightOuterRadius = CurrentGun.aimingRadius;
+            Aiming.pointLightInnerAngle = CurrentGun.aimingAngle;
+            Aiming.pointLightOuterAngle = CurrentGun.aimingAngle;
+            StartCoroutine(ChangeCameraSize(CurrentGun.aimingRadius / 2 + 0.5f));
+            return;
+        }
+
+        PlayerManager.FOVLight.enabled = true;
+        PlayerManager.BodyLight.gameObject.SetActive(false);
+        Aiming.gameObject.SetActive(false);
+        StartCoroutine(ChangeCameraSize(originalCameraSize));
     }
 
     /*
@@ -170,6 +200,8 @@ public class PlayerSkill : MonoBehaviour {
         }
         reloadCoroutine = StartCoroutine(Gamepad.Countdown(Gamepad.ReloadCountdown, CurrentGun.reloadDelay, Reload));
     }
+
+
 
     /*
     Skills
@@ -262,6 +294,18 @@ public class PlayerSkill : MonoBehaviour {
         yield return new WaitForSeconds(CurrentGun.burstDelay);
     }
 
+    IEnumerator ChangeCameraSize(float targetSize) {
+        float duration = 0.35f;
+        float currentSize = PlayerManager.MainCamera.orthographicSize;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration) {
+            PlayerManager.MainCamera.orthographicSize = Mathf.Lerp(currentSize, targetSize, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        PlayerManager.MainCamera.orthographicSize = targetSize;
+    }
+
     void EquipGun(GunStats gun, bool playSound = true) {
         CurrentGun = gun;
 
@@ -278,16 +322,17 @@ public class PlayerSkill : MonoBehaviour {
         float maxX = size.x * (1 - pivotX);
         GunHead.localPosition = new Vector2(maxX, 0f);
 
-        if (Gamepad != null) {
+        if (Gamepad) {
             Gamepad.CurrentGunUI.sprite = CurrentGun.GunUI != null ? CurrentGun.GunUI : CurrentGun.Gun;
             Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
             Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
             Gamepad.TextRemainingBullets.text = CurrentGun.isLimitBullets ? CurrentGun.numberBullets.ToString() : "";
+            Gamepad.ResetAiming();
         }
     }
 
     void BackToGunFromSkill(bool playSound) {
-        if (Gamepad != null) {
+        if (Gamepad) {
             Gamepad.BulletTrajectory.RemoveLine();
             Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
         }
@@ -309,7 +354,7 @@ public class PlayerSkill : MonoBehaviour {
         float degree = Vector2.SignedAngle(baseVector, temp);
         Quaternion newRotation = Quaternion.Euler(0, 0, degree);
         GunTransform.rotation = newRotation;
-        if (Gamepad != null) {
+        if (Gamepad) {
             Gamepad.BulletUI.rotation = newRotation;
         }
         if (CurrentSkill != null) {
@@ -337,7 +382,7 @@ public class PlayerSkill : MonoBehaviour {
         if (Skill == FirstSkill && firstSkillNumber <= 0) return true;
         if (Skill == SecondSkill && secondSkillNumber <= 0) return true;
 
-        if (Gamepad.isHolding) Gamepad.isHolding = false;
+        if (Gamepad && Gamepad.isHolding) Gamepad.isHolding = false;
 
         if (CurrentSkill == null || CurrentSkill.id != Skill.id) {
             GunTransform.gameObject.SetActive(false);

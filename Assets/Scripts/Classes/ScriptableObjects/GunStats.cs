@@ -46,4 +46,8 @@ public class GunStats : ScriptableObject {
     public int magazineSize;
     public int currentBullets;
     public BulletStats bulletStats;
+
+    [Header("Aiming stats")]
+    public float aimingRadius;
+    public float aimingAngle;
 }
