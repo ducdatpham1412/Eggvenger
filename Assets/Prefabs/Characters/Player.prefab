@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 344299657, guid: 9e152f00cc1594eaa8c4487c2fd401e8, type: 3}
-  m_Color: {r: 0.8509804, g: 0.8509804, b: 0.8509804, a: 1}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -201,7 +201,7 @@ SpriteRenderer:
   m_SortingLayerID: 92008043
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3476979527478288156, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
+  m_Sprite: {fileID: -9170448629031416532, guid: 7f8f89f6b728f4f20b63d03c8a7b522a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -439,15 +439,15 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_LightVolumeIntensity: 1
-  m_LightVolumeEnabled: 0
+  m_Intensity: 1.3
+  m_LightVolumeIntensity: 0
+  m_LightVolumeEnabled: 1
   m_ApplyToSortingLayers: 0000000069b3bb02436c13726bee7b057925bc6c93941a9d6bad168fd572cfb75bb15c38
   m_LightCookieSprite: {fileID: 8848993070067138329, guid: c2983b5b8c76c495fb519b4c8e199f49, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
+  m_OverlapOperation: 1
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
@@ -456,10 +456,10 @@ MonoBehaviour:
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
+  m_ShadowVolumeIntensity: 0.85
   m_LocalBounds:
-    m_Center: {x: 0.03970003, y: 1.08935, z: 0}
-    m_Extent: {x: 13.6756, y: 6.85295, z: 0}
+    m_Center: {x: -0.17285013, y: 1.0893502, z: 0}
+    m_Extent: {x: 13.61305, y: 7.00295, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -467,12 +467,12 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 2.94
+  m_ShapeLightFalloffSize: 3.09
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -10.663988, y: -2.7571535, z: 0}
-  - {x: 10.708157, y: -2.8244047, z: 0}
-  - {x: 10.776465, y: 5.001541, z: 0}
+  - {x: 10.35007, y: -2.8244047, z: 0}
+  - {x: 10.346763, y: 5.001541, z: 0}
   - {x: -10.695254, y: 4.9672174, z: 0}
 --- !u!61 &2982697569305185675
 BoxCollider2D:
@@ -801,7 +801,7 @@ MonoBehaviour:
   Pool: {fileID: 3231327441279552451}
   Guns:
   - {fileID: 11400000, guid: 1c781f0de011e4182a8e6a27d646c3d8, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: fc97ab428921745c7a2571396558cc0c, type: 2}
   RoundGuns:
   - {fileID: 0}
   - {fileID: 0}
