@@ -93,15 +93,19 @@ public class PlayerShopping : MonoBehaviour {
         foreach (var gun in GunShops) {
             gun.Manager = this;
         }
-        SkillShops[0].SetSkill(skill.FirstSkill);
-        SkillShops[1].SetSkill(skill.SecondSkill);
+        if (skill.FirstSkill) {
+            SkillShops[0].SetSkill(skill.FirstSkill);
+            foreach (var dot in FirstSkillDots) {
+                dot.GenerateDots(skill.FirstSkill.maxNumber, PlayerSkill.firstSkillNumber);
+            }
+        }
+        if (skill.SecondSkill) {
+            SkillShops[1].SetSkill(skill.SecondSkill);
+            foreach (var dot in SecondSkillDots) {
+                dot.GenerateDots(skill.SecondSkill.maxNumber, PlayerSkill.secondSkillNumber);
+            }
+        }
         EggsText.text = PlayerSkill.PlayerManager.eggs.ToString();
-        foreach (var dot in FirstSkillDots) {
-            dot.GenerateDots(skill.FirstSkill.maxNumber, PlayerSkill.firstSkillNumber);
-        }
-        foreach (var dot in SecondSkillDots) {
-            dot.GenerateDots(skill.SecondSkill.maxNumber, PlayerSkill.secondSkillNumber);
-        }
         UpdateGunSelected();
     }
 

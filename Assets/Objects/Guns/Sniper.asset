@@ -25,7 +25,6 @@ MonoBehaviour:
   - key: en
     name: Sniper
   price: 4200
-  salePrice: 3000
   sellPrice: 3000
   burstAmount: 1
   holdToBurst: 0
@@ -39,3 +38,5 @@ MonoBehaviour:
   bulletStats:
     damage: 800
     speed: 18
+  aimingRadius: 22
+  aimingAngle: 30

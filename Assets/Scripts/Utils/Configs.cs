@@ -54,7 +54,7 @@ public class Configs {
         string filePath = Path.Combine(basePath, ".env");
 
         if (!File.Exists(filePath)) {
-            UnityEngine.Debug.Log($"File path does not existed: {filePath}");
+            Debug.Log($"File path does not existed: {filePath}");
             return;
         }
 
@@ -72,6 +72,7 @@ public class Configs {
             Environment.SetEnvironmentVariable(key, value);
         }
     }
+
 
 
     [Serializable]

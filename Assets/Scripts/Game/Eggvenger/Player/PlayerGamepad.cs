@@ -32,6 +32,7 @@ public class PlayerGamepad : MonoBehaviour {
     [SerializeField] PlayerMovement Movement;
 
     public bool isHolding = false;
+    bool isAiming = false;
     Coroutine turnBackGunDirection;
     Coroutine moveIndicatorComeback;
     Vector2 moveIndicatorCenter;
@@ -121,16 +122,16 @@ public class PlayerGamepad : MonoBehaviour {
         AddBulletUIEvent(ShotOutside, EventTriggerType.PointerDown, ShotOutsideDown);
         AddBulletUIEvent(ShotOutside, EventTriggerType.PointerUp, ShotOutsideUp);
 
-        BaseSkill First = Skill.FirstSkill.GetComponent<BaseSkill>();
-        if (First != null) {
+        if (Skill.FirstSkill) {
+            BaseSkill First = Skill.FirstSkill.GetComponent<BaseSkill>();
             FirstSkill.GetComponent<Image>().sprite = First.SkillSprite;
         }
         else {
             FirstSkill.gameObject.SetActive(false);
         }
 
-        BaseSkill Second = Skill.SecondSkill.GetComponent<BaseSkill>();
-        if (Second != null) {
+        if (Skill.SecondSkill) {
+            BaseSkill Second = Skill.SecondSkill.GetComponent<BaseSkill>();
             SecondSkill.GetComponent<Image>().sprite = Second.SkillSprite;
         }
         else {
@@ -160,6 +161,18 @@ public class PlayerGamepad : MonoBehaviour {
         Skill.PressSkill(index);
         RectTransform target = index == 0 ? FirstSkill : SecondSkill;
         StartCoroutine(ScaleAndBack(target));
+    }
+
+    public void PressAiming() {
+        isAiming = !isAiming;
+        Skill.OpenCloseAiming(isAiming);
+    }
+
+    public void ResetAiming() {
+        if (isAiming) {
+            isAiming = false;
+            Skill.OpenCloseAiming(isAiming);
+        }
     }
 
     public void ReloadGun() {

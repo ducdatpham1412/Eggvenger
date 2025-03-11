@@ -38,3 +38,5 @@ MonoBehaviour:
   bulletStats:
     damage: 50
     speed: 25
+  aimingRadius: 14
+  aimingAngle: 50
