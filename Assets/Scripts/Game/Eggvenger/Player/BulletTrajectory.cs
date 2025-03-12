@@ -4,14 +4,23 @@ public class BulletTrajectory : MonoBehaviour {
     LineRenderer lineRenderer;
     float timeStep = 0.1f;
     float gravity = -1;
-    int layerMask;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] PlayerSkill Owner;
 
-    public PlayerManager Owner;
 
     void Start() {
         lineRenderer = GetComponent<LineRenderer>();
-        layerMask = LayerMask.GetMask(Helper.Layer.PlayerBlue.ToString(), Helper.Layer.PlayerRed.ToString(), Helper.Layer.Environment.ToString());
-        transform.localPosition = Owner.GetComponent<PlayerSkill>().GetSkillSpawnPos();
+    }
+
+    public void SetOwner(PlayerSkill manager) {
+        Owner = manager;
+        string layer = LayerMask.LayerToName(manager.gameObject.layer);
+        if (layer == Helper.Layer.PlayerBlue.ToString()) {
+            layerMask = LayerMask.GetMask(Helper.Layer.PlayerRed.ToString(), Helper.Layer.Environment.ToString());
+        }
+        else {
+            layerMask = LayerMask.GetMask(Helper.Layer.PlayerBlue.ToString(), Helper.Layer.Environment.ToString());
+        }
     }
 
     public void DrawParabol(Vector3 startPos, Vector3 direction, float speed) {
@@ -46,6 +55,11 @@ public class BulletTrajectory : MonoBehaviour {
 
         lineRenderer.positionCount = 2;
         Vector3 lastPoint = startPos + radius * direction;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float distance = (lastPoint - startPos).magnitude;
+        RaycastHit2D hit = Physics2D.BoxCast(startPos, Owner.Pool.bulletSize, angle, direction, distance, layerMask);
+
+        //  RaycastHit2D hit = Physics2D.Raycast(startPos, direction, (lastPoint - startPos).magnitude, layerMask, Owner.Pool.bulletSize.y);
 
         // int i = 0;
         // while (true) {
@@ -75,7 +89,7 @@ public class BulletTrajectory : MonoBehaviour {
         //     i++;
         // }
 
-        Vector3[] points = new Vector3[2] { startPos, lastPoint };
+        Vector3[] points = new Vector3[2] { startPos, hit.collider ? hit.point : lastPoint };
         lineRenderer.SetPositions(points);
     }
 
