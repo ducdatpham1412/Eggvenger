@@ -8,7 +8,7 @@ public class PlayerSkill : MonoBehaviour {
     [Header("GameObjects")]
     [SerializeField] Transform GunTransform;
     public Transform GunHead;
-    [SerializeField] BulletPool Pool;
+    public BulletPool Pool;
     public GunStats[] Guns = new GunStats[2];
     [SerializeField] GunStats[] RoundGuns = new GunStats[2];
 
@@ -21,10 +21,10 @@ public class PlayerSkill : MonoBehaviour {
     public Vector2 direction = Vector2.right;
     public int firstSkillNumber = 0;
     public int secondSkillNumber = 0;
-    [SerializeField] GunStats CurrentGun;
 
     [Header("Runtime Value")]
     public BaseSkill CurrentSkill;
+    public GunStats CurrentGun;
     public PlayerManager PlayerManager;
 
     bool isBursting = false;
@@ -67,7 +67,7 @@ public class PlayerSkill : MonoBehaviour {
     }
 
     public void PlayHit(bool forceOneShot) {
-        if (CurrentSkill == null) {
+        if (!CurrentSkill) {
             StartCoroutine(Burst(forceOneShot));
         }
         else {
@@ -77,6 +77,8 @@ public class PlayerSkill : MonoBehaviour {
 
     public void PressSkill(int index) {
         bool played = false;
+
+        Gamepad.ResetCurrentActions();
 
         if (index == 0) {
             played = CheckSkill(FirstSkill);
@@ -92,10 +94,6 @@ public class PlayerSkill : MonoBehaviour {
 
         if (!played) {
             CheckToStopReload();
-        }
-
-        if (Gamepad) {
-            Gamepad.ResetAiming();
         }
     }
 
@@ -201,7 +199,9 @@ public class PlayerSkill : MonoBehaviour {
         reloadCoroutine = StartCoroutine(Gamepad.Countdown(Gamepad.ReloadCountdown, CurrentGun.reloadDelay, Reload));
     }
 
-
+    public void PlaySoundLightSwitch() {
+        GunAudio.PlayOneShot(PlayerManager.Manager.LightSwitch);
+    }
 
     /*
     Skills
@@ -228,12 +228,20 @@ public class PlayerSkill : MonoBehaviour {
         throw new Exception("Can not check skill is full or not");
     }
 
+
     /*
     Coroutines
     */
-    IEnumerator DrawSkillTrajectoryUntilHolding() {
+    public IEnumerator DrawSkillTrajectoryUntilHolding() {
         while (!Gamepad.isHolding && CurrentSkill != null) {
-            Gamepad.BulletTrajectory.DrawStraight(CurrentSkill.transform.position, GetDirection(), radius: 8f);
+            Gamepad.Trajectory.DrawStraight(CurrentSkill.transform.position, GetDirection(), radius: CurrentGun.aimingRadius);
+            yield return null;
+        }
+    }
+
+    public IEnumerator DrawBulletTrajectoryUntilHolding() {
+        while (!Gamepad.isHolding && Gamepad.isTraject) {
+            Gamepad.Trajectory.DrawStraight(GunHead.transform.position, GetDirection(), radius: CurrentGun.aimingRadius);
             yield return null;
         }
     }
@@ -327,13 +335,13 @@ public class PlayerSkill : MonoBehaviour {
             Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
             Gamepad.TextCurrentBullets.text = CurrentGun.currentBullets.ToString();
             Gamepad.TextRemainingBullets.text = CurrentGun.isLimitBullets ? CurrentGun.numberBullets.ToString() : "";
-            Gamepad.ResetAiming();
+            Gamepad.ResetCurrentActions();
         }
     }
 
     void BackToGunFromSkill(bool playSound) {
         if (Gamepad) {
-            Gamepad.BulletTrajectory.RemoveLine();
+            Gamepad.Trajectory.RemoveLine();
             Gamepad.BulletUI.GetComponent<Image>().sprite = Gamepad.BulletSprite;
         }
         CurrentSkill = null;

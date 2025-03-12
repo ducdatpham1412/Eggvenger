@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletPool : MonoBehaviour {
+    public Vector2 bulletSize;
     [SerializeField] GameObject BulletPrefab;
     [SerializeField] PlayerManager Owner;
     Queue<Bullet> bulletsPool = new Queue<Bullet>();
     Transform Parent;
     GunStats CurrentStats;
     int poolSize = 20;
+    bool initBulletSize = false;
 
     void Awake() {
         GameObject newObject = new GameObject($"BulletsPool_{Owner.id}");
@@ -25,10 +27,17 @@ public class BulletPool : MonoBehaviour {
         bullet.Pool = this;
         bullet.stats = CurrentStats.bulletStats;
         bullet.SetOwner(Owner);
+
+        if (!initBulletSize) {
+            bulletSize = collider2D.size;
+            initBulletSize = true;
+        }
+
         return bullet;
     }
 
     public void FillPool(GunStats stats) {
+        initBulletSize = false;
         foreach (var b in bulletsPool) {
             Destroy(b.gameObject);
         }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerGamepad : MonoBehaviour {
     [Header("GameObjects")]
-    public BulletTrajectory BulletTrajectory;
+    public BulletTrajectory Trajectory;
 
     [Header("UI GameObjects")]
     public EventTrigger MoveControl;
@@ -17,6 +17,8 @@ public class PlayerGamepad : MonoBehaviour {
     public RectTransform BulletUI;
     public RectTransform FirstSkill;
     public RectTransform SecondSkill;
+    public RectTransform Aiming;
+    public RectTransform RectTrajectory;
     public Sprite BulletSprite;
 
     [Header("Magazine Status")]
@@ -32,15 +34,19 @@ public class PlayerGamepad : MonoBehaviour {
     [SerializeField] PlayerMovement Movement;
 
     public bool isHolding = false;
+    public bool isTraject = false;
     bool isAiming = false;
     Coroutine turnBackGunDirection;
     Coroutine moveIndicatorComeback;
+    Coroutine drawTrajectoryCoroutine;
     Vector2 moveIndicatorCenter;
     float maxRadius = 0f;
+    RectTransform OutsideRect;
 
     void Start() {
         ShotInside.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.39f;
         ShotOutside.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.2f;
+        OutsideRect = ShotOutside.GetComponent<RectTransform>();
         RectTransform MoveControlRect = MoveControl.GetComponent<RectTransform>();
         Vector3 worldSize = Vector3.Scale(MoveControlRect.rect.size, MoveControlRect.lossyScale);
         moveIndicatorCenter = MoveIndicator.position;
@@ -70,30 +76,41 @@ public class PlayerGamepad : MonoBehaviour {
         Skill.direction = Vector2.zero;
     }
 
-    IEnumerator DrawTrajectoryUntilRelease() {
-        if (Skill.CurrentSkill) {
-            while (isHolding) {
-                BulletTrajectory.DrawStraight(Skill.CurrentSkill.transform.position, Skill.direction, radius: 8f);
-                yield return null;
-            }
-        }
-        else {
-            // If user're holding gun, wait for 0.5s to display trajectory pointer
-            // TODO: Refactor this, should having a button a draw instead of waiting
-            yield return new WaitForSeconds(0.8f);
-            while (isHolding) {
-                BulletTrajectory.DrawStraight(Skill.GunHead.transform.position, Skill.direction, radius: 8f);
-                yield return null;
-            }
-        }
-
-
-    }
-
     IEnumerator GetDirectionUntilRelease() {
         while (isHolding) {
             Skill.direction = (Input.mousePosition - BulletUI.position).normalized;
             yield return null;
+        }
+    }
+
+    IEnumerator DrawTrajectoryUntilRelease() {
+        if (Skill.CurrentSkill) {
+            while (isHolding) {
+                Skill.direction = (Input.mousePosition - BulletUI.position).normalized;
+                Trajectory.DrawStraight(Skill.GunHead.transform.position, Skill.direction, radius: Skill.CurrentGun.aimingRadius);
+                yield return null;
+            }
+        }
+
+        else if (isTraject) {
+            while (isHolding) {
+                Skill.direction = (Input.mousePosition - BulletUI.position).normalized;
+                Trajectory.DrawStraight(Skill.GunHead.transform.position, Skill.direction, radius: Skill.CurrentGun.aimingRadius);
+                yield return null;
+            }
+        }
+
+        else {
+            StartCoroutine(GetDirectionUntilRelease());
+            yield return new WaitForSeconds(0.62f);
+            if (isHolding) {
+                isTraject = true;
+                Skill.PlaySoundLightSwitch();
+            }
+            while (isHolding) {
+                Trajectory.DrawStraight(Skill.GunHead.transform.position, Skill.direction, radius: Skill.CurrentGun.aimingRadius);
+                yield return null;
+            }
         }
     }
 
@@ -116,6 +133,7 @@ public class PlayerGamepad : MonoBehaviour {
     }
 
     public void SetPlayerSkill(PlayerSkill skill) {
+        Trajectory.SetOwner(skill);
         Skill = skill;
         AddBulletUIEvent(ShotInside, EventTriggerType.PointerDown, ShotInsideDown);
         AddBulletUIEvent(ShotInside, EventTriggerType.PointerUp, ShotInsideUp);
@@ -166,17 +184,39 @@ public class PlayerGamepad : MonoBehaviour {
     public void PressAiming() {
         isAiming = !isAiming;
         Skill.OpenCloseAiming(isAiming);
+        StartCoroutine(ScaleAndBack(Aiming));
     }
 
-    public void ResetAiming() {
+    public void ResetCurrentActions() {
         if (isAiming) {
             isAiming = false;
             Skill.OpenCloseAiming(isAiming);
+        }
+
+        if (isTraject) {
+            isTraject = false;
+            Trajectory.RemoveLine();
         }
     }
 
     public void ReloadGun() {
         Skill.ReloadGun();
+    }
+
+    public void PressTrajectory() {
+        if (Skill.CurrentSkill) return;
+
+        if (isTraject) {
+            Skill.PlaySoundLightSwitch();
+            Trajectory.RemoveLine();
+            isTraject = false;
+            return;
+        }
+
+        Skill.PlaySoundLightSwitch();
+        isTraject = true;
+        StartCoroutine(Skill.DrawBulletTrajectoryUntilHolding());
+        StartCoroutine(ScaleAndBack(RectTrajectory));
     }
 
     public IEnumerator Countdown(Image img, float seconds, Action callback = null) {
@@ -196,18 +236,34 @@ public class PlayerGamepad : MonoBehaviour {
     */
     void ShotOutsideDown(BaseEventData eventData) {
         ActionDown();
-        PointerEventData pointerData = eventData as PointerEventData;
-        Skill.direction = (pointerData.position - (Vector2)BulletUI.position).normalized;
-        StartCoroutine(GetDirectionUntilRelease());
-        StartCoroutine(DrawTrajectoryUntilRelease());
+        // PointerEventData pointerData = eventData as PointerEventData;
+        // Skill.direction = (pointerData.position - (Vector2)BulletUI.position).normalized;
+        if (drawTrajectoryCoroutine != null) {
+            StopCoroutine(drawTrajectoryCoroutine);
+            drawTrajectoryCoroutine = null;
+        }
+        drawTrajectoryCoroutine = StartCoroutine(DrawTrajectoryUntilRelease());
     }
 
     void ShotOutsideUp(BaseEventData eventData) {
-        BulletTrajectory.RemoveLine();
+        PointerEventData pointerData = eventData as PointerEventData;
+        bool isInside = RectTransformUtility.RectangleContainsScreenPoint(OutsideRect, Input.mousePosition, pointerData.pressEventCamera);
+
+        if (isInside) {
+            Trajectory.RemoveLine();
+            isTraject = false;
+            Skill.PlayHit(forceOneShot: true);
+            StartCoroutine(ScaleAndBack(BulletUI));
+        }
+        else if (Skill.CurrentSkill) {
+            StartCoroutine(Skill.DrawSkillTrajectoryUntilHolding());
+        }
+        else if (isTraject) {
+            StartCoroutine(Skill.DrawBulletTrajectoryUntilHolding());
+        }
+
         isHolding = false;
-        Skill.PlayHit(forceOneShot: true);
         turnBackGunDirection = StartCoroutine(BackToMoveDirection());
-        StartCoroutine(ScaleAndBack(BulletUI));
     }
 
     /*
@@ -220,8 +276,9 @@ public class PlayerGamepad : MonoBehaviour {
     }
 
     void ShotInsideUp(BaseEventData eventData) {
-        BulletTrajectory.RemoveLine();
+        Trajectory.RemoveLine();
         isHolding = false;
+        isTraject = false;
         turnBackGunDirection = StartCoroutine(BackToMoveDirection());
         StartCoroutine(ChangeScaleBulletUI(BulletUI, 1f));
     }
