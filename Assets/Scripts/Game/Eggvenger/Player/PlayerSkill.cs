@@ -148,13 +148,13 @@ public class PlayerSkill : MonoBehaviour {
     }
 
     public void BuySellGun(GunStats gun) {
-        GunStats FindGun = Array.Find(Guns, g => g != null && g.id == gun.id);
+        GunStats FindGun = Array.Find(RoundGuns, g => g != null && g.id == gun.id);
 
         // Sell gun
         if (FindGun != null) {
             SoundManager.Instance.PlaySF(SoundManager.SF.Sell);
-            int index = Array.IndexOf(Guns, FindGun);
-            Guns[index] = null;
+            int index = Array.IndexOf(RoundGuns, FindGun);
+            RoundGuns[index] = null;
             PlayerManager.eggs += FindGun.sellPrice;
             CurrentGun = null;
             ResetGuns(playSound: false);
@@ -164,11 +164,12 @@ public class PlayerSkill : MonoBehaviour {
         // Buy gun
         int eggsRemaining = PlayerManager.eggs - gun.price;
         if (eggsRemaining >= 0) {
-            if (Guns[1] != null) {
+            if (RoundGuns[1] != null) {
                 // TODO: Throw this gun for other player collect
             }
 
             Guns[1] = gun;
+            RoundGuns[1] = gun;
             CurrentGun = gun;
             PlayerManager.eggs -= gun.price;
             ResetGuns();
