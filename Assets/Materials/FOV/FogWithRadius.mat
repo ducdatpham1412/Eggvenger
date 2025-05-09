@@ -45,8 +45,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Radius: 12.33
-    - _Smoothness: 6.4
+    - _Radius: 2
+    - _Smoothness: 0.2
     m_Colors:
     - _PlayerPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
